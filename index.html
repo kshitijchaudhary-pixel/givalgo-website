@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Givalgo.ai -Data & Compliance Infrastructure for Philanthropy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: #1a202c; background: #fff; line-height: 1.6; }
+
+    :root {
+      --teal:        #00b4b3;
+      --teal-dark:   #00848b;
+      --teal-deeper: #006570;
+      --navy:        #041c2c;
+      --navy-mid:    #072840;
+      --navy-light:  #0d3a54;
+      --teal-light:  #e0f8f7;
+      --teal-mid:    #b3eeee;
+      --off-white:   #f8fafb;
+      --border:      #e2e8f0;
+      --text-muted:  #64748b;
+      --text-dark:   #1a202c;
+      --logo-navy:   #072643;
+    }
+
+    /* ── Utility ── */
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 2rem; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--teal-light); color: var(--teal-deeper);
+      border: 1px solid var(--teal-mid); border-radius: 100px;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 0.3rem 0.85rem;
+    }
+    .badge-dark { background: rgba(0,180,179,0.15); color: var(--teal); border-color: rgba(0,180,179,0.3); }
+    .gradient-text {
+      background: linear-gradient(135deg, #00d4c8 0%, #00b4b3 60%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem; }
+    .section-label-light { color: rgba(0,180,179,0.9); }
+    .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--teal) 0%, var(--teal-dark) 100%); border-radius: 2px; margin: 1rem auto 0; }
+    .divider-left { margin-left: 0; }
+
+    /* ── Draft Banner ── */
+    .draft-banner {
+      background: #fff3cd; border-bottom: 2px solid #ffc107;
+      padding: 0.55rem 2rem; text-align: center;
+      font-size: 0.82rem; font-weight: 600; color: #856404;
+      position: sticky; top: 0; z-index: 9999;
+    }
+
+    /* ══ DEMO MODAL ══ */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 10000;
+      background: rgba(4,28,44,0.75); backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff; border-radius: 20px; padding: 2.5rem;
+      max-width: 520px; width: 90%; box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1.25rem;
+      background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--text-dark); }
+    .modal-box h3 { font-size: 1.4rem; font-weight: 800; color: var(--navy); margin-bottom: 0.4rem; letter-spacing: -0.02em; }
+    .modal-box p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.75rem; }
+    .modal-founders { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .founder-card {
+      border: 2px solid var(--border); border-radius: 14px; padding: 1.5rem 1.25rem;
+      text-align: center; text-decoration: none; color: inherit;
+      transition: all 0.2s; cursor: pointer;
+    }
+    .founder-card:hover { border-color: var(--teal); box-shadow: 0 6px 20px rgba(0,180,179,0.15); transform: translateY(-2px); }
+    .founder-avatar {
+      width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 0.9rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; font-weight: 800; color: #fff;
+    }
+    .avatar-k { background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%); }
+    .avatar-n { background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-mid) 100%); }
+    .founder-card strong { display: block; font-weight: 700; font-size: 0.95rem; color: var(--text-dark); }
+    .founder-card span { font-size: 0.78rem; color: var(--text-muted); }
+    .modal-note { font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 1.25rem; }
+
+    /* ══ NAV ══ */
+    nav {
+      background: rgba(4,28,44,0.97); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 1rem 0; position: sticky; top: 36px; z-index: 100;
+    }
+    .nav-inner {
+      max-width: 1180px; margin: 0 auto; padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo svg { height: 34px; width: auto; }
+    /* Make navy text white in nav */
+    .nav-logo svg .nav-text-fix { fill: #ffffff; }
+    .nav-links { display: flex; align-items: center; gap: 0.1rem; }
+    .nav-links a {
+      color: rgba(255,255,255,0.68); text-decoration: none;
+      font-size: 0.875rem; font-weight: 500; padding: 0.4rem 0.85rem; border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.07); }
+    .nav-ctas { display: flex; align-items: center; gap: 0.65rem; flex-shrink: 0; }
+    .btn-nav-ghost {
+      color: rgba(255,255,255,0.75); border: 1px solid rgba(255,255,255,0.18);
+      background: transparent; padding: 0.48rem 1rem; border-radius: 8px;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .btn-nav-ghost:hover { border-color: var(--teal); color: var(--teal); }
+    .btn-nav-primary {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      color: #fff; border: none;
+      padding: 0.52rem 1.15rem; border-radius: 8px;
+      font-size: 0.85rem; font-weight: 700; cursor: pointer;
+      text-decoration: none; transition: all 0.2s;
+      box-shadow: 0 2px 12px rgba(0,180,179,0.3);
+    }
+    .btn-nav-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* ══ HERO ══ */
+    .hero {
+      background: linear-gradient(155deg, #041c2c 0%, #072840 45%, #0a2d44 100%);
+      padding: 3rem 0 3.5rem; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -250px; right: -100px;
+      width: 750px; height: 750px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,180,179,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: -120px; left: 0;
+      width: 500px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,132,139,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1180px; margin: 0 auto; padding: 0 2rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: flex-start;
+      position: relative; z-index: 1;
+    }
+    .hero-eyebrow { margin-bottom: 1.4rem; }
+    .hero h1 {
+      font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 900;
+      color: #fff; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1.4rem;
+    }
+    .hero-desc { font-size: 1.08rem; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 2.25rem; max-width: 500px; }
+    .hero-ctas { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      color: #fff; padding: 0.875rem 1.9rem; border-radius: 10px;
+      font-size: 0.975rem; font-weight: 700; text-decoration: none;
+      border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 0.45rem;
+      box-shadow: 0 4px 20px rgba(0,180,179,0.35); transition: all 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,180,179,0.45); }
+    .btn-ghost-hero {
+      color: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.05); padding: 0.875rem 1.65rem; border-radius: 10px;
+      font-size: 0.975rem; font-weight: 600; text-decoration: none; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 0.45rem; transition: all 0.2s;
+    }
+    .btn-ghost-hero:hover { border-color: var(--teal); color: var(--teal); background: rgba(0,180,179,0.06); }
+    .hero-stats-row {
+      display: flex; align-items: center; gap: 2rem; margin-top: 2rem;
+      padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .hero-stat-num { font-size: 1.65rem; font-weight: 900; color: var(--teal); letter-spacing: -0.03em; line-height: 1; }
+    .hero-stat-label { font-size: 0.73rem; color: rgba(255,255,255,0.48); font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; margin-top: 0.2rem; }
+    .stat-divider { width: 1px; height: 36px; background: rgba(255,255,255,0.1); flex-shrink: 0; }
+
+    /* Hero right -API card */
+    .api-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; overflow: hidden; backdrop-filter: blur(8px);
+    }
+    .api-card-bar {
+      background: rgba(0,0,0,0.35); padding: 0.7rem 1.2rem;
+      display: flex; align-items: center; gap: 0.4rem; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .wdot { width: 10px; height: 10px; border-radius: 50%; }
+    .wd-r { background: #ff5f57; } .wd-y { background: #febc2e; } .wd-g { background: #28c840; }
+    .api-card-label { margin-left: auto; font-size: 0.7rem; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
+    .api-card-body { padding: 1.4rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+    .c-gray { color: rgba(255,255,255,0.28); }
+    .c-method { color: var(--teal); font-weight: 600; }
+    .c-url { color: #79c0ff; }
+    .c-str { color: #a5d6a7; }
+    .c-key { color: rgba(255,255,255,0.55); }
+    .c-val { color: rgba(255,255,255,0.82); }
+    .cline { line-height: 1.85; display: block; }
+    .resp-box {
+      margin-top: 1.2rem; background: rgba(0,180,179,0.07);
+      border: 1px solid rgba(0,180,179,0.2); border-radius: 10px; padding: 1.2rem;
+    }
+    .resp-head { font-size: 0.67rem; font-weight: 700; color: var(--teal); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.8rem; }
+    .resp-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem; font-size: 0.77rem; }
+    .resp-k { color: rgba(255,255,255,0.42); }
+    .resp-v { color: rgba(255,255,255,0.82); font-weight: 500; }
+    .pill { display: inline-block; padding: 0.12rem 0.55rem; border-radius: 100px; font-size: 0.68rem; font-weight: 700; }
+    .pill-g { background: rgba(40,200,100,0.15); color: #4ade80; border: 1px solid rgba(40,200,100,0.25); }
+    .pill-r { background: rgba(255,60,60,0.15); color: #f87171; border: 1px solid rgba(255,60,60,0.25); }
+    .differentiator-tag {
+      margin-top: 1rem; padding: 0.65rem 1rem;
+      background: rgba(0,180,179,0.1); border: 1px solid rgba(0,180,179,0.2); border-radius: 8px;
+      font-size: 0.75rem; color: var(--teal); font-weight: 600; display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    /* ══ TRUST BAR ══ */
+    .trust-bar {
+      background: var(--navy); border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 2rem 0;
+    }
+    .trust-inner {
+      max-width: 1180px; margin: 0 auto; padding: 0 2rem;
+      display: flex; flex-direction: column; align-items: center; gap: 1.25rem;
+    }
+    .trust-label { font-size: 0.75rem; color: rgba(255,255,255,0.45); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+    .trust-logos { display: flex; align-items: stretch; gap: 0; border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; overflow: hidden; }
+    .trust-item {
+      padding: 0.75rem 1.75rem;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.62);
+      white-space: nowrap; transition: all 0.2s;
+    }
+    .trust-item:last-child { border-right: none; }
+    .trust-item:hover { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.88); }
+
+    /* ══ SECTIONS ══ */
+    .sec { padding: 6rem 0; }
+    .sec-light { background: #fff; }
+    .sec-alt { background: var(--off-white); }
+    .sec-dark { background: var(--navy); }
+    .sec-header { text-align: center; max-width: 660px; margin: 0 auto 4rem; }
+    .sec-title { font-size: clamp(1.75rem, 3vw, 2.6rem); font-weight: 800; color: var(--text-dark); line-height: 1.2; letter-spacing: -0.03em; margin-bottom: 0.9rem; }
+    .sec-title-light { color: #fff; }
+    .sec-sub { font-size: 1.02rem; color: var(--text-muted); line-height: 1.75; margin-top: 0.75rem; }
+    .sec-sub-light { color: rgba(255,255,255,0.6); }
+
+    /* ══ PROBLEM ══ */
+    .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+    .prob-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 2rem;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+    }
+    .prob-icon {
+      width: 46px; height: 46px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1.2rem;
+    }
+    .pi-red { background: #fff0f0; }
+    .pi-amber { background: #fff8ec; }
+    .pi-purple { background: #f5f0ff; }
+    .prob-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-dark); }
+    .prob-card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ══ PRODUCTS ══ */
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+    .prod-card {
+      background: #fff; border: 2px solid var(--border); border-radius: 18px; padding: 2.25rem;
+      position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .prod-card:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,0.1); }
+    .prod-card-hero {
+      border-color: var(--teal);
+      background: linear-gradient(170deg, #fff 0%, #f0fdfd 100%);
+      box-shadow: 0 4px 24px rgba(0,180,179,0.12);
+    }
+    .prod-card-hero::before {
+      content: 'Flagship Product'; position: absolute; top: 1.2rem; right: 1.2rem;
+      background: var(--teal); color: #fff;
+      font-size: 0.66rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.2rem 0.6rem; border-radius: 100px;
+    }
+    .prod-icon {
+      width: 54px; height: 54px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--teal-light) 0%, var(--teal-mid) 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.4rem;
+    }
+    .prod-card h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.3rem; color: var(--text-dark); letter-spacing: -0.02em; }
+    .prod-card .prod-tag { font-size: 0.82rem; color: var(--teal-dark); font-weight: 600; margin-bottom: 1rem; }
+    .prod-card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.4rem; }
+    .prod-feats { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .prod-feats li { display: flex; align-items: flex-start; gap: 0.55rem; font-size: 0.855rem; color: var(--text-dark); }
+    .prod-feats li::before { content: '✓'; color: var(--teal); font-weight: 700; flex-shrink: 0; margin-top: 0.05rem; }
+    .prod-link { display: inline-flex; align-items: center; gap: 0.3rem; color: var(--teal-dark); font-size: 0.855rem; font-weight: 700; text-decoration: none; margin-top: 1.4rem; transition: gap 0.2s; }
+    .prod-link:hover { gap: 0.5rem; }
+    .ai-tag {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: linear-gradient(135deg, rgba(0,180,179,0.1) 0%, rgba(0,132,139,0.08) 100%);
+      border: 1px solid rgba(0,180,179,0.25); border-radius: 8px;
+      padding: 0.5rem 0.85rem; font-size: 0.78rem; font-weight: 600; color: var(--teal-dark);
+      margin-top: 1rem;
+    }
+
+    /* ══ NUMBERS ══ */
+    .numbers-bar {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      padding: 4.5rem 0;
+    }
+    .numbers-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .num-item { text-align: center; padding: 2rem 1.5rem; border-right: 1px solid rgba(255,255,255,0.07); }
+    .num-item:last-child { border-right: none; }
+    .num-val { font-size: 2.8rem; font-weight: 900; color: var(--teal); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem; }
+    .num-lbl { font-size: 0.78rem; color: rgba(255,255,255,0.5); font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.4; }
+
+    /* ══ HOW IT WORKS ══ */
+    .how-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; position: relative; }
+    .how-steps::before {
+      content: ''; position: absolute; top: 26px; left: 10%; right: 10%;
+      height: 2px; background: linear-gradient(90deg, var(--teal) 0%, var(--teal-dark) 100%);
+    }
+    .how-step { text-align: center; position: relative; }
+    .how-num {
+      width: 52px; height: 52px; border-radius: 50%; margin: 0 auto 1.2rem;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      color: #fff; font-size: 1.15rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,180,179,0.38); position: relative; z-index: 1;
+    }
+    .how-step h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-dark); }
+    .how-step p { font-size: 0.845rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ══ API SECTION ══ */
+    .api-section { background: var(--navy); padding: 6rem 0; }
+    .api-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .api-text h2 { font-size: 2.1rem; font-weight: 800; color: #fff; letter-spacing: -0.03em; margin-bottom: 0.9rem; line-height: 1.2; }
+    .api-text p { font-size: 1rem; color: rgba(255,255,255,0.62); line-height: 1.78; margin-bottom: 1.75rem; }
+    .api-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 2rem; }
+    .api-bullets li { display: flex; align-items: center; gap: 0.7rem; color: rgba(255,255,255,0.78); font-size: 0.9rem; }
+    .teal-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+    .code-win {
+      background: #0d1117; border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 14px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .code-win-bar {
+      background: #161b22; padding: 0.7rem 1.2rem;
+      display: flex; align-items: center; gap: 0.45rem; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .code-tab { font-size: 0.73rem; color: rgba(255,255,255,0.45); padding: 0.2rem 0.7rem; border-radius: 5px; cursor: pointer; transition: all 0.15s; user-select: none; }
+    .code-tab:hover { color: rgba(255,255,255,0.72); background: rgba(255,255,255,0.05); }
+    .code-tab.active { background: rgba(255,255,255,0.09); color: rgba(255,255,255,0.88); }
+    .code-body { padding: 1.6rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 2; }
+    .hl-p { color: #c792ea; } .hl-b { color: #82aaff; } .hl-g { color: #c3e88d; }
+    .hl-o { color: #f78c6c; } .hl-t { color: #89ddff; } .hl-w { color: rgba(255,255,255,0.9); }
+    .hl-gr { color: rgba(255,255,255,0.28); }
+    .api-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-teal-sm {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      color: #fff; padding: 0.75rem 1.4rem; border-radius: 9px;
+      font-size: 0.875rem; font-weight: 700; text-decoration: none; border: none;
+      cursor: pointer; transition: all 0.2s; box-shadow: 0 3px 12px rgba(0,180,179,0.3);
+    }
+    .btn-teal-sm:hover { transform: translateY(-1px); }
+    .btn-ghost-sm {
+      color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.05); padding: 0.75rem 1.4rem; border-radius: 9px;
+      font-size: 0.875rem; font-weight: 600; text-decoration: none;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-ghost-sm:hover { border-color: var(--teal); color: var(--teal); }
+
+    /* ══ USE CASES ══ */
+    .usecase-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .uc-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 14px;
+      padding: 1.85rem; display: flex; gap: 1.4rem; align-items: flex-start;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.04); transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .uc-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.09); transform: translateY(-2px); }
+    .uc-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+    .uci-1 { background: #eff6ff; } .uci-2 { background: #f0fdf4; }
+    .uci-3 { background: #fdf4ff; } .uci-4 { background: #fff7ed; }
+    .uc-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--text-dark); }
+    .uc-card p { font-size: 0.865rem; color: var(--text-muted); line-height: 1.65; }
+    .uc-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.85rem; }
+    .uc-tag { font-size: 0.7rem; font-weight: 600; padding: 0.18rem 0.6rem; border-radius: 100px; background: var(--teal-light); color: var(--teal-deeper); border: 1px solid var(--teal-mid); }
+
+    /* ══ TESTIMONIALS ══ */
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+    .testi-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05); position: relative;
+    }
+    .testi-card::before {
+      content: '"'; position: absolute; top: 1.2rem; left: 1.8rem;
+      font-size: 4rem; color: var(--teal-mid); font-family: Georgia, serif; line-height: 1;
+    }
+    .testi-quote { font-size: 0.92rem; color: var(--text-dark); line-height: 1.7; margin-bottom: 1.5rem; padding-top: 2rem; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: 0.85rem; }
+    .testi-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal-light) 0%, var(--teal-mid) 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; font-weight: 800; color: var(--teal-dark); flex-shrink: 0;
+    }
+    .testi-name { font-size: 0.875rem; font-weight: 700; color: var(--text-dark); }
+    .testi-role { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* ══ ROADMAP ══ */
+    .rm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+    .rm-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; padding: 1.75rem;
+    }
+    .rm-live { border-color: rgba(0,180,179,0.35); background: rgba(0,180,179,0.05); }
+    .rm-beta { border-color: rgba(251,191,36,0.25); background: rgba(251,191,36,0.04); }
+    .rm-status { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.9rem; }
+    .s-live { color: #4ade80; } .s-beta { color: #fbbf24; } .s-soon { color: rgba(255,255,255,0.38); }
+    .s-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .sd-live { background: #4ade80; animation: blink 2s infinite; }
+    .sd-beta { background: #fbbf24; } .sd-soon { background: rgba(255,255,255,0.28); }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .rm-card h4 { font-size: 1.02rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
+    .rm-card p { font-size: 0.84rem; color: rgba(255,255,255,0.48); line-height: 1.6; }
+
+    /* ══ PRICING ══ */
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; align-items: start; }
+    .price-card {
+      background: #fff; border: 1.5px solid var(--border); border-radius: 18px; padding: 2.25rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .price-card-feat {
+      background: linear-gradient(160deg, var(--navy) 0%, var(--navy-light) 100%);
+      border-color: var(--teal); transform: scale(1.03);
+      box-shadow: 0 12px 50px rgba(0,180,179,0.2);
+    }
+    .price-tier { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.7rem; }
+    .price-amount { font-size: 2.4rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1; color: var(--text-dark); }
+    .price-amount-lt { color: #fff; }
+    .price-period { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+    .price-period-lt { color: rgba(255,255,255,0.5); }
+    .price-desc { font-size: 0.875rem; color: var(--text-muted); margin: 0.9rem 0 1.4rem; line-height: 1.6; }
+    .price-desc-lt { color: rgba(255,255,255,0.55); }
+    .price-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.75rem; }
+    .price-list li { display: flex; align-items: center; gap: 0.55rem; font-size: 0.87rem; }
+    .price-list li.inc { color: var(--text-dark); }
+    .price-list li.inc-lt { color: rgba(255,255,255,0.82); }
+    .price-list li::before { content: '✓'; font-weight: 700; flex-shrink: 0; color: var(--teal); }
+    .btn-price {
+      width: 100%; padding: 0.85rem; border-radius: 10px; font-size: 0.93rem;
+      font-weight: 700; cursor: pointer; text-align: center; text-decoration: none;
+      display: block; transition: all 0.2s; border: none;
+    }
+    .btn-price-outline { background: transparent; border: 2px solid var(--border) !important; color: var(--text-dark); }
+    .btn-price-outline:hover { border-color: var(--teal) !important; color: var(--teal); }
+    .btn-price-teal { background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%); color: #fff; box-shadow: 0 4px 20px rgba(0,180,179,0.3); }
+    .btn-price-teal:hover { transform: translateY(-1px); }
+    .btn-price-ghost { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2) !important; color: #fff; }
+    .btn-price-ghost:hover { background: rgba(255,255,255,0.14); }
+
+    /* ══ FINAL CTA ══ */
+    .cta-section {
+      background: linear-gradient(140deg, var(--teal-dark) 0%, var(--teal-deeper) 45%, var(--navy-mid) 100%);
+      padding: 7rem 0; text-align: center;
+    }
+    .cta-section h2 { font-size: clamp(1.9rem, 3.5vw, 2.9rem); font-weight: 900; color: #fff; letter-spacing: -0.03em; margin-bottom: 1.1rem; }
+    .cta-section p { font-size: 1.05rem; color: rgba(255,255,255,0.72); margin-bottom: 2.4rem; max-width: 520px; margin-left: auto; margin-right: auto; }
+    .cta-btns { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .btn-white { background: #fff; color: var(--teal-dark); padding: 1rem 2.25rem; border-radius: 10px; font-size: 1rem; font-weight: 800; text-decoration: none; border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.2); transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.45rem; }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+    .btn-outline-white { background: rgba(255,255,255,0.1); color: #fff; border: 2px solid rgba(255,255,255,0.28); padding: 1rem 2rem; border-radius: 10px; font-size: 1rem; font-weight: 700; text-decoration: none; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.45rem; }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.18); }
+    .cta-footnote { margin-top: 1.4rem; font-size: 0.8rem; color: rgba(255,255,255,0.45); }
+
+    /* ══ FOOTER ══ */
+    footer { background: var(--navy); padding: 4rem 0 2rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    .footer-brand p { font-size: 0.86rem; color: rgba(255,255,255,0.42); line-height: 1.7; margin-top: 0.9rem; max-width: 270px; }
+    .footer-col h5 { font-size: 0.75rem; font-weight: 700; color: rgba(255,255,255,0.45); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.1rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-col ul li a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.865rem; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--teal); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; }
+    .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+    .footer-badges { display: flex; gap: 0.6rem; }
+    .fbadge { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); border-radius: 6px; padding: 0.22rem 0.65rem; font-size: 0.7rem; color: rgba(255,255,255,0.45); }
+
+    /* ══ PRIVACY PAGE ══ */
+    #privacy-page { display: none; background: #fff; min-height: 100vh; }
+    #privacy-page.show { display: block; }
+
+    /* Hero strip */
+    .privacy-hero { background: var(--navy); padding: 3.5rem 0 3rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .privacy-hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; letter-spacing: -0.03em; margin-bottom: 0.4rem; }
+    .privacy-hero p { color: rgba(255,255,255,0.45); font-size: 0.875rem; }
+
+    /* Two-column layout */
+    .privacy-layout {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 220px 1fr;
+      gap: 0; align-items: start;
+      padding: 0 2rem;
+    }
+
+    /* Left sticky sidebar */
+    .privacy-sidebar {
+      position: sticky; top: 72px;
+      padding: 2.5rem 0 4rem;
+      border-right: 1px solid var(--border);
+      height: calc(100vh - 72px); overflow-y: auto;
+    }
+    .privacy-sidebar-title {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 1rem; padding: 0 1.5rem;
+    }
+    .privacy-nav { list-style: none; display: flex; flex-direction: column; }
+    .privacy-nav li a {
+      display: block; padding: 0.42rem 1.5rem;
+      font-size: 0.825rem; color: var(--text-muted); text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: all 0.15s; line-height: 1.4;
+    }
+    .privacy-nav li a:hover { color: var(--teal-dark); border-left-color: var(--teal); background: var(--teal-light); }
+    .privacy-nav li a.active { color: var(--teal-dark); border-left-color: var(--teal); font-weight: 600; background: var(--teal-light); }
+
+    /* Right content */
+    .privacy-content-area { padding: 3rem 0 6rem 3.5rem; }
+
+    /* Individual sections — no box, clean typography */
+    .privacy-section { margin-bottom: 3.5rem; scroll-margin-top: 80px; }
+    .privacy-section h2 {
+      font-size: 1.35rem; font-weight: 800; color: var(--text-dark);
+      letter-spacing: -0.02em; margin-bottom: 1rem;
+      padding-bottom: 0.65rem; border-bottom: 1.5px solid var(--border);
+    }
+    .privacy-section h3 { font-size: 0.97rem; font-weight: 700; color: var(--text-dark); margin: 1.5rem 0 0.5rem; }
+    .privacy-section p { font-size: 0.9rem; color: #374151; line-height: 1.85; margin-bottom: 0.75rem; }
+    .privacy-section ul, .privacy-section ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.45rem; margin: 0.6rem 0 0.85rem; }
+    .privacy-section li { font-size: 0.9rem; color: #374151; line-height: 1.75; }
+    .privacy-section li strong { color: var(--text-dark); }
+    .privacy-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.875rem; }
+    .privacy-table th { background: var(--off-white); padding: 0.65rem 1rem; text-align: left; font-weight: 700; color: var(--text-dark); border: 1px solid var(--border); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .privacy-table td { padding: 0.65rem 1rem; border: 1px solid var(--border); color: #374151; vertical-align: top; }
+    .privacy-table tr:nth-child(even) td { background: #fafafa; }
+    .privacy-highlight {
+      background: var(--teal-light); border-left: 3px solid var(--teal);
+      border-radius: 0 6px 6px 0; padding: 0.9rem 1.25rem; margin: 1rem 0;
+      font-size: 0.875rem; color: var(--teal-deeper); line-height: 1.75;
+    }
+
+    @media (max-width: 860px) {
+      .privacy-layout { grid-template-columns: 1fr; }
+      .privacy-sidebar { display: none; }
+      .privacy-content-area { padding: 2rem 0 4rem; }
+    }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .problem-grid, .products-grid, .testi-grid, .rm-grid { grid-template-columns: 1fr; }
+      .numbers-grid { grid-template-columns: repeat(2,1fr); }
+      .how-steps { grid-template-columns: repeat(2,1fr); }
+      .how-steps::before { display: none; }
+      .api-inner { grid-template-columns: 1fr; }
+      .usecase-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .price-card-feat { transform: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      nav { top: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ DRAFT BANNER ══ -->
+<div class="draft-banner">
+  ⚠️ DESIGN DRAFT v2 -For approval only. Open wireframe.html in your browser. Share feedback before we build the real site.
+</div>
+
+<!-- ══ DEMO MODAL ══ -->
+<div class="modal-overlay" id="demoModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3>Book a Demo</h3>
+    <p>Schedule a 30-minute call with one of our co-founders. We'll walk you through the platform and discuss your use case.</p>
+    <div class="modal-founders">
+      <a class="founder-card" href="https://calendly.com/kshitij-givalgo/30min" target="_blank">
+        <div class="founder-avatar avatar-k">K</div>
+        <strong>Kshitij</strong>
+        <span>Co-founder</span>
+      </a>
+      <a class="founder-card" href="https://calendly.com/nishant-givalgo/30min" target="_blank">
+        <div class="founder-avatar avatar-n">N</div>
+        <strong>Nishant</strong>
+        <span>Co-founder</span>
+      </a>
+    </div>
+    <p class="modal-note">30 minutes · No commitment · We'll send a calendar invite</p>
+  </div>
+</div>
+
+<!-- ══ MAIN SITE ══ -->
+<div id="main-site">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo">
+      <!-- Full Givalgo V2-06 Logo -text color overridden to white -->
+      <svg viewBox="0 0 528.56 203.29" xmlns="http://www.w3.org/2000/svg" height="34" style="width:auto">
+        <!-- Text paths (navy #072643 → white in nav) -->
+        <path fill="#ffffff" d="M227.9,102.11c.51,11.11-.72,21.55-8.91,29.69-9.89,9.84-21.94,12.55-35.21,8.98-12.96-3.48-21.38-12.19-24.79-25.01-3.41-12.84-2.2-25.34,6.11-36.37,5.01-6.65,11.76-10.69,19.93-12.31,12.12-2.4,23.2-.34,32.69,7.94,4.89,4.26,7.8,9.48,8.68,15.13-4.56,0-9.07.06-13.57-.07-.63-.02-1.47-.78-1.83-1.42-6.63-11.65-25.59-12.81-35.01-.98-7.32,9.2-6.98,28.64,3.89,37.13,11.57,9.04,27.68,4.72,32.74-9.03.29-.79.5-1.61.85-2.74h-18v-10.94h32.41Z"/>
+        <path fill="#ffffff" d="M434.86,131.74c-6.19,7.61-13.99,9.39-22.59,7.01-8.78-2.43-14.65-8.36-16.49-17.43-1.92-9.5-1.38-18.75,5.15-26.71,5.54-6.76,16.54-10.13,24.65-6.91,3.53,1.4,6.47,4.27,9.6,6.42v-6.29h12.8c.09.67.27,1.38.27,2.1.03,15.06.19,30.13.02,45.19-.12,10.8-2.99,20.54-13.59,25.72-12.43,6.07-28.94,4.42-38.74-8.68,3.31-2.38,6.61-4.75,9.98-7.16,5.91,5.79,12.59,9.45,20.77,5.81,7.99-3.56,8.41-11.04,8.18-19.05ZM408.59,112.85c-.53,13.29,10.09,17.26,17.74,14.97,6.82-2.04,10.08-9.17,8.6-18.07-1.77-10.64-12.5-13.77-19.99-9.36-4.91,2.9-6.4,7.6-6.34,12.45Z"/>
+        <path fill="#ffffff" d="M349.88,108.66c.74-5.88-1.54-9.54-6.55-10.8-7.26-1.83-11.91.53-14.58,7.49-2-.09-4.03-.1-6.06-.29-2.03-.19-4.05-.56-6.07-.85,1.23-10.44,8.18-16.78,20.25-17.78,7.42-.62,14.75.03,20.66,5.52,4.1,3.81,5.41,8.89,5.55,14.08.29,11.47.09,22.95.09,34.67h-12.54c-.19-1.91-.39-3.89-.59-5.94-7.03,7.73-20.44,9.39-29.16,3.52-5.44-3.66-6.4-9.24-5.8-15.22.48-4.78,3.11-8.13,7.52-10.12,6.75-3.05,14.02-3.22,21.2-3.88,2.03-.19,4.08-.26,6.07-.39ZM350.13,118.81c-2.54,0-4.61-.15-6.64.03-3.54.33-7.16.53-10.56,1.47-1.64.45-3.46,2.24-4.09,3.85-.84,2.16-.12,4.69,2.31,5.8,5.01,2.29,9.95,1.35,14.6-1.12,4.06-2.16,3.97-6.25,4.38-10.04Z"/>
+        <path fill="#ffffff" d="M509.68,114.79c.77,15.19-12,27.72-27.96,27.46-14.76-.24-27.22-12-26.82-28.46.37-15.45,12.3-27.59,27.77-27.37,17.52.25,27.69,13.7,27.02,28.38ZM468.62,114.15c0,1.08-.06,2.17,0,3.25.35,5.58,4.01,10.27,9.35,12.03,5.16,1.71,11.46.1,14.8-3.93,3.59-4.33,3.84-9.43,3.24-14.74-.98-8.75-9.3-14.25-17.71-11.64-6.48,2.01-9.71,7-9.68,15.01Z"/>
+        <path fill="#ffffff" d="M293.19,140.92c-4.64,0-9.19.07-13.72-.07-.73-.02-1.82-.78-2.08-1.46-6.67-17.03-13.24-34.1-20.06-51.73,4.72,0,8.98-.12,13.21.12.71.04,1.61,1.5,1.97,2.47,4.41,11.79,8.73,23.62,13.09,35.48,4.4-12.61,8.83-25.32,13.25-38.01h14.9c-6.88,17.81-13.69,35.44-20.56,53.21Z"/>
+        <path fill="#ffffff" d="M387.04,140.77h-13.26v-74.53h13.26v74.53Z"/>
+        <path fill="#ffffff" d="M250.38,140.77h-13.27v-52.93h13.27v52.93Z"/>
+        <path fill="#ffffff" d="M243.8,81.74c-5.66.61-8.57-4.27-8.62-7.93-.06-4.59,4.06-8.39,8.88-8.34,4.4.04,8.21,3.84,8.3,8.27.1,4.61-3.55,8.02-8.56,8.01Z"/>
+        <!-- G Icon paths (keep original teal colors) -->
+        <path fill="#00848b" d="M70.01,130.83c-3.61,0-6.95-.74-10-2.23-3.06-1.49-5.7-3.47-7.94-5.96-2.24-2.48-4-5.37-5.29-8.66-1.29-3.29-1.94-6.79-1.94-10.49s.65-7.06,1.94-10.35c1.29-3.29,3.05-6.2,5.29-8.73,2.24-2.53,4.91-4.51,8-5.96,3.1-1.44,6.45-2.17,10.07-2.17.89,0,31.32-.03,32.2.07v-28.5c-.92-.05-31.4,0-32.33,0-7.4,0-14.31,1.47-20.72,4.4-6.41,2.93-12.01,6.95-16.78,12.05-4.78,5.1-8.54,11.01-11.3,17.73-2.76,6.72-4.13,13.87-4.13,21.45s1.38,14.73,4.13,21.45c2.75,6.72,6.52,12.63,11.3,17.73,4.78,5.1,10.37,9.12,16.78,12.05,6.41,2.93,13.32,4.4,20.72,4.4,2.06,0,4.09-.12,6.09-.35v-28.71c-1.96.51-3.98.77-6.09.77Z"/>
+        <path fill="#00b4b3" d="M106.34,103.47h-33.05l12.54,21.15c-1.86,1.7-3.9,3.07-6.12,4.1-1.17.55-2.38.99-3.62,1.35v-.02c-1.96.51-3.98.77-6.09.77-3.61,0-6.95-.74-10-2.23-.05-.02-.1-.05-.14-.07v29.61c3.27.65,6.66.98,10.15.98,2.06,0,4.09-.12,6.09-.35v-.03c5.21-.77,9.67-2.52,14.43-4.86,3.27-1.61,6.32-3.57,9.19-5.86l6.63,11.18v-55.72Z"/>
+      </svg>
+    </a>
+    <div class="nav-links">
+      <a href="#solutions">Solutions</a>
+      <a href="#api-section">API</a>
+      <a href="#use-cases">Use Cases</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://docs.givalgo.ai/" target="_blank">Docs</a>
+    </div>
+    <div class="nav-ctas">
+      <a href="#pricing" class="btn-nav-ghost">Get API Keys</a>
+      <button class="btn-nav-primary" onclick="openModal()">Book a Demo →</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <!-- Left -->
+    <div>
+      <h1>
+        Data and Compliance<br/>
+        Infrastructure for<br/>
+        <span class="gradient-text">Philanthropy</span>
+      </h1>
+      <p class="hero-desc">
+        Givalgo delivers structured, real-time nonprofit data -financial records,
+        compliance signals, and organizational intelligence -through enterprise-grade
+        APIs trusted by foundations, donor platforms, and compliance teams worldwide.
+      </p>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="openModal()">📅 &nbsp;Book a Demo</button>
+        <a href="#pricing" class="btn-ghost-hero">Get API Access →</a>
+      </div>
+      <div class="hero-stats-row">
+        <div>
+          <div class="hero-stat-num">1.9M+</div>
+          <div class="hero-stat-label">Nonprofits indexed</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div>
+          <div class="hero-stat-num">25M+</div>
+          <div class="hero-stat-label">Charity leaders screened</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div>
+          <div class="hero-stat-num">Nightly</div>
+          <div class="hero-stat-label">IRS data refresh</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right -Live API Card -->
+    <div>
+      <div class="api-card">
+        <div class="api-card-bar">
+          <div class="wdot wd-r"></div><div class="wdot wd-y"></div><div class="wdot wd-g"></div>
+          <span class="api-card-label">api.givalgo.ai &nbsp;·&nbsp; v1</span>
+        </div>
+        <div class="api-card-body">
+          <span class="cline"><span class="c-gray"># Verify any nonprofit -one API call</span></span>
+          <span class="cline"><span class="c-method">GET</span> <span class="c-url">api.givalgo.ai/v1/verify</span></span>
+          <span class="cline"><span class="c-gray">&nbsp;&nbsp;&nbsp;?ein=</span><span class="c-str">13-1641750</span></span>
+          <span class="cline"><span class="c-key">x-api-key:</span> <span class="c-str">gvlg_live_••••••••</span></span>
+          <div class="resp-box">
+            <div class="resp-head">↳ Response · 87ms</div>
+            <div class="resp-row"><span class="resp-k">name</span><span class="resp-v">"American Red Cross"</span></div>
+            <div class="resp-row"><span class="resp-k">status</span><span class="resp-v"><span class="pill pill-g">ELIGIBLE</span></span></div>
+            <div class="resp-row"><span class="resp-k">pub78_listed</span><span class="resp-v"><span class="pill pill-g">true</span></span></div>
+            <div class="resp-row"><span class="resp-k">revoked</span><span class="resp-v"><span class="pill pill-g">false</span></span></div>
+            <div class="resp-row"><span class="resp-k">ofac_org_screen</span><span class="resp-v"><span class="pill pill-g">CLEAR</span></span></div>
+            <div class="resp-row"><span class="resp-k">ofac_leadership</span><span class="resp-v"><span class="pill pill-g">CLEAR</span></span></div>
+            <div class="resp-row"><span class="resp-k">leaders_screened</span><span class="resp-v">14 officers</span></div>
+          </div>
+          <div class="differentiator-tag">
+            ⚡ The only API that screens charity leadership against OFAC sanctions lists
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TRUST BAR ══ -->
+<section class="trust-bar">
+  <div class="trust-inner">
+    <span class="trust-label">Designed for teams at</span>
+    <div class="trust-logos">
+      <div class="trust-item">DAF Sponsors</div>
+      <div class="trust-item">Community Foundations</div>
+      <div class="trust-item">Grant Management SaaS</div>
+      <div class="trust-item">Workplace Giving Platforms</div>
+      <div class="trust-item">Compliance Companies</div>
+      <div class="trust-item">Fintech Platforms</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROBLEM ══ -->
+<section class="sec sec-alt" id="problem">
+  <div class="container">
+    <div class="sec-header">
+      <div class="section-label">The Problem</div>
+      <h2 class="sec-title">Nonprofit data is fragmented, stale, and inaccessible</h2>
+      <div class="divider"></div>
+      <p class="sec-sub">Foundations and compliance teams waste thousands of hours every year stitching together government data from siloed sources. The few APIs that exist are archaic, expensive, and don't screen for what matters most.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="prob-card">
+        <div class="prob-icon pi-red">📄</div>
+        <h3>IRS data is raw and unstructured</h3>
+        <p>Form 990s are published as millions of raw XML files. No structure, no search, no API. Extracting actionable financial data requires months of engineering work that most teams simply don't have.</p>
+      </div>
+      <div class="prob-card">
+        <div class="prob-icon pi-amber">⏱️</div>
+        <h3>Manual verification takes hours</h3>
+        <p>Checking active status, OFAC sanctions, revocation lists, and Pub 78 eligibility means juggling four separate government websites. Most platforms still do this manually -and none screen charity leadership at all.</p>
+      </div>
+      <div class="prob-card">
+        <div class="prob-icon pi-purple">💸</div>
+        <h3>Existing APIs are archaic and expensive</h3>
+        <p>The legacy data providers in this space were built a decade ago. Their data is stale, their APIs are clunky, and their pricing was designed for institutions -not modern SaaS platforms building at scale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SOLUTIONS ══ -->
+<section class="sec sec-light" id="solutions">
+  <div class="container">
+    <div class="sec-header">
+      <div class="section-label">Our Solutions</div>
+      <h2 class="sec-title">One platform. Complete nonprofit intelligence.</h2>
+      <div class="divider"></div>
+      <p class="sec-sub">From raw IRS XML to structured API responses in milliseconds. Givalgo is the intelligence layer your platform has been waiting for.</p>
+
+      <!-- Blackbaud backing -->
+      <div style="display:flex; flex-direction:column; align-items:center; gap:0.5rem; margin-top:2rem; margin-bottom:0.25rem;">
+        <div style="display:inline-flex; align-items:center; gap:1.1rem; background:#fff; border:1.5px solid #e2e8f0; border-radius:14px; padding:0.9rem 2rem; box-shadow:0 2px 14px rgba(0,0,0,0.07);">
+          <span style="font-size:0.68rem; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:#94a3b8; white-space:nowrap;">Backed by</span>
+          <div style="width:1px; height:22px; background:#e2e8f0; flex-shrink:0;"></div>
+          <!-- Blackbaud icon: accurate teal-green gradient circle with b> -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" height="36" style="display:block; flex-shrink:0;">
+            <defs>
+              <linearGradient id="bbIconGrad" x1="15%" y1="5%" x2="85%" y2="95%">
+                <stop offset="0%" stop-color="#78dff0"/>
+                <stop offset="100%" stop-color="#44d688"/>
+              </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="50" fill="url(#bbIconGrad)"/>
+            <!-- b: vertical stem -->
+            <line x1="30" y1="17" x2="30" y2="78" stroke="#fff" stroke-width="11" stroke-linecap="round"/>
+            <!-- b: bowl — large clockwise arc from stem-top to stem-bottom, sweeping right -->
+            <path d="M 35,41 A 20,20 0 1 1 35,70" stroke="#fff" stroke-width="11" stroke-linecap="round" fill="none"/>
+            <!-- > chevron -->
+            <path d="M 67,43 L 80,53 L 67,63" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <!-- Blackbaud wordmark PNG — larger -->
+          <img src="blackbaud-logo.png" alt="Blackbaud" style="height:26px; display:block; opacity:0.82;"/>
+        </div>
+        <span style="font-size:0.75rem; color:#94a3b8; font-weight:500; letter-spacing:0.04em;">Social Good Startup Program</span>
+      </div>
+    </div>
+    <div class="products-grid">
+
+      <!-- CharityVerify -Flagship -->
+      <div class="prod-card prod-card-hero">
+        <div class="prod-icon">🛡️</div>
+        <h3>CharityVerify</h3>
+        <p class="prod-tag">Real-time compliance verification engine</p>
+        <p>Instantly verify any nonprofit's standing with a single API call. We run a 5-step verification -active status, Pub 78 eligibility, group exemption check, IRS revocation, and OFAC sanctions screening -in under 100ms.</p>
+        <ul class="prod-feats">
+          <li>Active 501(c)(3) status &amp; Pub 78 eligibility</li>
+          <li>IRS auto-revocation &amp; group exemption traversal</li>
+          <li>Screen charity officers &amp; directors against OFAC SDN + Consolidated lists</li>
+          <li>Fuzzy matching catches misspellings &amp; name variations</li>
+          <li>1.9M+ organizations · 4.5M+ records · nightly refresh</li>
+        </ul>
+        <div class="ai-tag">⚡ Only platform that screens charity leadership -not just the org name</div>
+        <a href="https://docs.givalgo.ai/" class="prod-link" target="_blank">View API docs →</a>
+      </div>
+
+      <!-- Form 990 API -->
+      <div class="prod-card">
+        <div class="prod-icon">📊</div>
+        <h3>Form 990 Intelligence API</h3>
+        <p class="prod-tag">Structured nonprofit financial data at API speed</p>
+        <p>We parse every IRS Form 990, 990-EZ, and 990-PF filing -transforming raw XML into clean, structured JSON. Query financials, governance, compensation, grants, and program data for any nonprofit by EIN.</p>
+        <ul class="prod-feats">
+          <li>Revenue, expenses, assets &amp; computed financial ratios</li>
+          <li>Officer compensation &amp; board composition</li>
+          <li>Grant recipients and program descriptions</li>
+          <li>Multi-year historical data with trend signals</li>
+          <li>Monthly refresh from IRS XML source files</li>
+        </ul>
+        <a href="#" class="prod-link" onclick="openModal(); return false;">Get early access →</a>
+      </div>
+
+      <!-- FaithVerify -->
+      <div class="prod-card">
+        <div class="prod-icon">⛪</div>
+        <h3>FaithVerify</h3>
+        <p class="prod-tag">Denomination &amp; religious organization verification</p>
+        <p>The only structured database of verified religious organizations in the US. AI agents continuously scan denominational databases and official websites to confirm legitimacy, affiliation, and active status.</p>
+        <ul class="prod-feats">
+          <li>40+ major denominations covered</li>
+          <li>IRS group exemption mapping &amp; hierarchy data</li>
+          <li>AI agents verify against official denominational registers</li>
+          <li>Active congregation status &amp; affiliation confirmation</li>
+          <li>Built for DAFs, payroll giving &amp; HR platforms</li>
+        </ul>
+        <div class="ai-tag">🤖 AI agents scan denominational databases continuously</div>
+        <a href="#" class="prod-link" onclick="openModal(); return false;">Get early access →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ NUMBERS ══ -->
+<section class="numbers-bar">
+  <div class="container">
+    <div class="numbers-grid">
+      <div class="num-item">
+        <div class="num-val">1.9M+</div>
+        <div class="num-lbl">Nonprofits Verified</div>
+      </div>
+      <div class="num-item">
+        <div class="num-val">25M+</div>
+        <div class="num-lbl">Charity Leaders Screened Against OFAC</div>
+      </div>
+      <div class="num-item">
+        <div class="num-val">1.3B+</div>
+        <div class="num-lbl">Structured Data Points Across IRS &amp; OFAC Databases</div>
+      </div>
+      <div class="num-item">
+        <div class="num-val">&lt;100ms</div>
+        <div class="num-lbl">Avg. API Response Time</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section class="sec sec-light" id="how-it-works">
+  <div class="container">
+    <div class="sec-header">
+      <div class="section-label">How It Works</div>
+      <h2 class="sec-title">From EIN to full verification in seconds</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <h4>Get your API key</h4>
+        <p>Sign up, choose Free, Basic, or Pro. Receive credentials instantly and integrate in minutes with our REST API.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">2</div>
+        <h4>Send an EIN query</h4>
+        <p><code style="font-size:0.8rem;background:#f0fdfd;padding:2px 6px;border-radius:4px;color:var(--teal-dark)">GET /v1/verify?ein=</code><br/>Pass any nonprofit's EIN. Batch queries and webhooks supported.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <h4>Get structured intelligence</h4>
+        <p>Receive a verified status, financial ratios, governance flags, and OFAC screening results -including all charity leaders -in one response.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">4</div>
+        <h4>Stay current automatically</h4>
+        <p>Our pipeline refreshes nightly from 6 IRS sources via Lambda. Subscribe to webhooks for real-time change alerts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ API SECTION ══ -->
+<section class="api-section" id="api-section">
+  <div class="container">
+    <div class="api-inner">
+      <div class="api-text">
+        <div class="section-label section-label-light">Developer API</div>
+        <h2>Built for developers.<br/>Designed for scale.</h2>
+        <p>A clean, well-documented REST API backed by a production-grade AWS pipeline -Lambda, RDS PostgreSQL, S3, EventBridge, and SNS -processing millions of records nightly. Query any of the 1.9M nonprofits in our database and get structured data back in under 100ms.</p>
+        <ul class="api-bullets">
+          <li><span class="teal-dot"></span> RESTful JSON API -<a href="https://docs.givalgo.ai/" target="_blank" style="color:var(--teal)">docs.givalgo.ai</a></li>
+          <li><span class="teal-dot"></span> Python, Node.js, and cURL examples for every endpoint</li>
+          <li><span class="teal-dot"></span> API key auth with Free / Basic / Pro usage plans</li>
+          <li><span class="teal-dot"></span> Webhook streams for real-time data change alerts</li>
+          <li><span class="teal-dot"></span> Custom domain: <code style="font-size:0.85rem; color:var(--teal)">api.givalgo.ai</code></li>
+        </ul>
+        <div class="api-btns">
+          <a href="https://docs.givalgo.ai/" target="_blank" class="btn-teal-sm">View API Docs →</a>
+          <button class="btn-ghost-sm" onclick="openModal()">Book a Demo</button>
+        </div>
+      </div>
+
+      <div class="code-win" id="apiCodeWin">
+        <div class="code-win-bar">
+          <span class="code-tab active" onclick="switchTab('python')" id="tab-python">Python</span>
+          <span class="code-tab" onclick="switchTab('curl')" id="tab-curl">cURL</span>
+          <span class="code-tab" onclick="switchTab('node')" id="tab-node">Node.js</span>
+        </div>
+
+        <!-- Python -->
+        <div class="code-body" id="code-python">
+          <div><span class="hl-p">import</span> <span class="hl-w">requests</span></div>
+          <br/>
+          <div><span class="hl-gr"># Verify a nonprofit + screen all leadership</span></div>
+          <div><span class="hl-w">response</span> <span class="hl-t">=</span> <span class="hl-w">requests</span><span class="hl-t">.</span><span class="hl-o">get</span><span class="hl-w">(</span></div>
+          <div>&nbsp;&nbsp;<span class="hl-g">"https://api.givalgo.ai/v1/verify"</span><span class="hl-w">,</span></div>
+          <div>&nbsp;&nbsp;<span class="hl-b">params</span><span class="hl-t">=</span><span class="hl-w">{</span><span class="hl-g">"ein"</span><span class="hl-t">:</span> <span class="hl-g">"13-1641750"</span><span class="hl-w">},</span></div>
+          <div>&nbsp;&nbsp;<span class="hl-b">headers</span><span class="hl-t">=</span><span class="hl-w">{</span><span class="hl-g">"x-api-key"</span><span class="hl-t">:</span> <span class="hl-g">"gvlg_live_••••••"</span><span class="hl-w">}</span></div>
+          <div><span class="hl-w">)</span></div>
+          <br/>
+          <div><span class="hl-w">data</span> <span class="hl-t">=</span> <span class="hl-w">response</span><span class="hl-t">.</span><span class="hl-o">json</span><span class="hl-w">()</span></div>
+          <div><span class="hl-p">print</span><span class="hl-w">(data[</span><span class="hl-g">"status"</span><span class="hl-w">])</span>          <span class="hl-gr"># "ELIGIBLE"</span></div>
+          <div><span class="hl-p">print</span><span class="hl-w">(data[</span><span class="hl-g">"ofac_org_screen"</span><span class="hl-w">])</span>  <span class="hl-gr"># "CLEAR"</span></div>
+          <div><span class="hl-p">print</span><span class="hl-w">(data[</span><span class="hl-g">"ofac_leadership"</span><span class="hl-w">])</span> <span class="hl-gr"># "CLEAR" ← unique to Givalgo</span></div>
+          <div><span class="hl-p">print</span><span class="hl-w">(data[</span><span class="hl-g">"leaders_screened"</span><span class="hl-w">])</span> <span class="hl-gr"># 14</span></div>
+          <div><span class="hl-p">print</span><span class="hl-w">(data[</span><span class="hl-g">"pub78_listed"</span><span class="hl-w">])</span>   <span class="hl-gr"># True</span></div>
+        </div>
+
+        <!-- cURL -->
+        <div class="code-body" id="code-curl" style="display:none;">
+          <div><span class="hl-gr"># Verify a nonprofit + screen all leadership</span></div>
+          <div><span class="hl-t">curl</span> <span class="hl-b">-s</span> <span class="hl-b">-G</span> <span class="hl-b">\</span></div>
+          <div>&nbsp;&nbsp;<span class="hl-g">"https://api.givalgo.ai/v1/verify"</span> <span class="hl-b">\</span></div>
+          <div>&nbsp;&nbsp;<span class="hl-b">--data-urlencode</span> <span class="hl-g">"ein=13-1641750"</span> <span class="hl-b">\</span></div>
+          <div>&nbsp;&nbsp;<span class="hl-b">-H</span> <span class="hl-g">"x-api-key: gvlg_live_••••••"</span> <span class="hl-b">\</span></div>
+          <div>&nbsp;&nbsp;<span class="hl-w">| python3 -m json.tool</span></div>
+          <br/>
+          <div><span class="hl-gr"># Response</span></div>
+          <div><span class="hl-w">{</span></div>
+          <div>&nbsp;&nbsp;<span class="hl-g">"ein"</span><span class="hl-w">:</span> <span class="hl-g">"131641750"</span><span class="hl-w">,</span></div>
+          <div>&nbsp;&nbsp;<span class="hl-g">"name"</span><span class="hl-w">:</span> <span class="hl-g">"American Red Cross"</span><span class="hl-w">,</span></div>
+          <div>&nbsp;&nbsp;<span class="hl-g">"status"</span><span class="hl-w">:</span> <span class="hl-g">"ELIGIBLE"</span><span class="hl-w">,</span></div>
+          <div>&nbsp;&nbsp;<span class="hl-g">"ofac_org_screen"</span><span class="hl-w">:</span> <span class="hl-g">"CLEAR"</span><span class="hl-w">,</span></div>
+          <div>&nbsp;&nbsp;<span class="hl-g">"ofac_leadership"</span><span class="hl-w">:</span> <span class="hl-g">"CLEAR"</span><span class="hl-w">,</span> <span class="hl-gr">// unique to Givalgo</span></div>
+          <div>&nbsp;&nbsp;<span class="hl-g">"leaders_screened"</span><span class="hl-w">:</span> <span class="hl-o">14</span><span class="hl-w">,</span></div>
+          <div>&nbsp;&nbsp;<span class="hl-g">"pub78_listed"</span><span class="hl-w">:</span> <span class="hl-p">true</span></div>
+          <div><span class="hl-w">}</span></div>
+        </div>
+
+        <!-- Node.js -->
+        <div class="code-body" id="code-node" style="display:none;">
+          <div><span class="hl-gr">// Verify a nonprofit + screen all leadership</span></div>
+          <div><span class="hl-p">const</span> <span class="hl-w">res</span> <span class="hl-t">=</span> <span class="hl-p">await</span> <span class="hl-o">fetch</span><span class="hl-w">(</span></div>
+          <div>&nbsp;&nbsp;<span class="hl-g">'https://api.givalgo.ai/v1/verify?ein=13-1641750'</span><span class="hl-w">,</span></div>
+          <div>&nbsp;&nbsp;<span class="hl-w">{</span> <span class="hl-b">headers</span><span class="hl-t">:</span> <span class="hl-w">{</span></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="hl-g">'x-api-key'</span><span class="hl-t">:</span> <span class="hl-g">'gvlg_live_••••••'</span></div>
+          <div>&nbsp;&nbsp;<span class="hl-w">} }</span></div>
+          <div><span class="hl-w">);</span></div>
+          <br/>
+          <div><span class="hl-p">const</span> <span class="hl-w">data</span> <span class="hl-t">=</span> <span class="hl-p">await</span> <span class="hl-w">res</span><span class="hl-t">.</span><span class="hl-o">json</span><span class="hl-w">();</span></div>
+          <div><span class="hl-w">console</span><span class="hl-t">.</span><span class="hl-o">log</span><span class="hl-w">(data.status);</span>          <span class="hl-gr">// "ELIGIBLE"</span></div>
+          <div><span class="hl-w">console</span><span class="hl-t">.</span><span class="hl-o">log</span><span class="hl-w">(data.ofac_org_screen);</span>  <span class="hl-gr">// "CLEAR"</span></div>
+          <div><span class="hl-w">console</span><span class="hl-t">.</span><span class="hl-o">log</span><span class="hl-w">(data.ofac_leadership);</span>  <span class="hl-gr">// "CLEAR" ← unique to Givalgo</span></div>
+          <div><span class="hl-w">console</span><span class="hl-t">.</span><span class="hl-o">log</span><span class="hl-w">(data.leaders_screened);</span> <span class="hl-gr">// 14</span></div>
+          <div><span class="hl-w">console</span><span class="hl-t">.</span><span class="hl-o">log</span><span class="hl-w">(data.pub78_listed);</span>    <span class="hl-gr">// true</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ USE CASES ══ -->
+<section class="sec sec-alt" id="use-cases">
+  <div class="container">
+    <div class="sec-header">
+      <div class="section-label">Use Cases</div>
+      <h2 class="sec-title">Built for the teams that move money for good</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="usecase-grid">
+      <div class="uc-card">
+        <div class="uc-icon uci-1">🏦</div>
+        <div>
+          <h3>DAFs &amp; Community Foundations</h3>
+          <p>Automate charity vetting at the point of grant recommendation. Verify active status, Pub 78 deductibility, financial health, and OFAC clearance -without manual research. Scale grant processing from days to seconds.</p>
+          <div class="uc-tags"><span class="uc-tag">EIN Verification</span><span class="uc-tag">Pub 78 Eligibility</span><span class="uc-tag">OFAC Screening</span></div>
+        </div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-icon uci-2">🏗️</div>
+        <div>
+          <h3>Grant Management SaaS &amp; Workplace Giving</h3>
+          <p>Embed Givalgo into your grant lifecycle and employee giving programs. Surface financial ratios, governance flags, and real-time compliance status directly in your platform UI -with zero manual research required.</p>
+          <div class="uc-tags"><span class="uc-tag">Financial Ratios</span><span class="uc-tag">Governance Flags</span><span class="uc-tag">Payroll Giving</span></div>
+        </div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-icon uci-3">🏛️</div>
+        <div>
+          <h3>Private &amp; Corporate Foundations</h3>
+          <p>Surface multi-year financial trends, program expense ratios, and board composition for every grantee. Conduct proper due diligence with structured 990 data instead of reading PDFs by hand.</p>
+          <div class="uc-tags"><span class="uc-tag">Multi-year Trends</span><span class="uc-tag">Board Data</span><span class="uc-tag">Program Ratios</span></div>
+        </div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-icon uci-4">💳</div>
+        <div>
+          <h3>Fintech &amp; Retail Fundraising Platforms</h3>
+          <p>Power donation rails, matching engines, and retail giving flows with verified nonprofit data. Prevent fraud, ensure tax compliance, and pass audits confidently -all from a single API integration.</p>
+          <div class="uc-tags"><span class="uc-tag">Fraud Prevention</span><span class="uc-tag">AML/KYC</span><span class="uc-tag">Matching Engines</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section class="sec sec-light" id="testimonials">
+  <div class="container">
+    <div class="sec-header">
+      <div class="section-label">What Teams Are Saying</div>
+      <h2 class="sec-title">Trusted by compliance teams and platform builders</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <p class="testi-quote">Givalgo cut our nonprofit vetting process from several hours a day down to zero minutes. It's fully automated. The OFAC leadership screening and church verification are something we couldn't find anywhere else -it's exactly what our compliance team required.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">HI</div>
+          <div>
+            <div class="testi-name">Head of Innovation</div>
+            <div class="testi-role">National Donor-Advised Fund</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-quote">We evaluated several data providers before landing on Givalgo. The depth of the API, low price, and scalability is exactly what a modern grant management platform needs. Integration was seamless.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">VP</div>
+          <div>
+            <div class="testi-name">VP of Product</div>
+            <div class="testi-role">Grant Management SaaS Platform</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-quote">Our corporate giving program serves thousands of employees. Before Givalgo, our compliance and ops team was responsible for regularly ingesting IRS and OFAC data and screening incoming grant requests -Candid was too expensive. Now the donor request is immediately approved and passed on to finance for disbursement.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">HC</div>
+          <div>
+            <div class="testi-name">Head of Compliance</div>
+            <div class="testi-role">Workplace Giving &amp; Payroll Platform</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ROADMAP ══ -->
+<section class="sec sec-dark" id="roadmap">
+  <div class="container">
+    <div class="sec-header">
+      <div class="section-label section-label-light">Our Roadmap</div>
+      <h2 class="sec-title sec-title-light">Building the definitive compliance layer for a $600B+ sector</h2>
+      <div class="divider"></div>
+      <p class="sec-sub sec-sub-light" style="margin-top:1rem;">We're starting where the data problems are most acute. Our roadmap leads to a full-stack compliance intelligence platform -eventually the trusted backbone for every philanthropic dollar that moves in America.</p>
+    </div>
+    <div class="rm-grid">
+      <div class="rm-card rm-live">
+        <div class="rm-status s-live"><span class="s-dot sd-live"></span> Live</div>
+        <h4>CharityVerify</h4>
+        <p>5-step real-time verification: active 501(c)(3) status, Pub 78 eligibility, group exemption traversal, IRS auto-revocation check, and OFAC sanctions screening -including every charity officer and director -across 1.9M+ organizations.</p>
+      </div>
+      <div class="rm-card rm-live">
+        <div class="rm-status s-live"><span class="s-dot sd-live"></span> Live</div>
+        <h4>FaithVerify</h4>
+        <p>AI agents continuously scan 40+ denominational databases and official websites to verify religious organization legitimacy, IRS group exemption status, and congregation-level affiliation -the only structured database of its kind.</p>
+      </div>
+      <div class="rm-card rm-live">
+        <div class="rm-status s-live"><span class="s-dot sd-live"></span> Live</div>
+        <h4>Form 990 Intelligence API</h4>
+        <p>Structured financial data from every IRS 990 filing -revenue, expenses, leadership compensation, grants, governance, and computed ratios. Monthly refresh via automated Lambda + EventBridge pipeline, backed by 1.3B+ structured data points.</p>
+      </div>
+      <div class="rm-card rm-beta">
+        <div class="rm-status s-beta"><span class="s-dot sd-beta"></span> Coming 2026</div>
+        <h4>Real-Time Filing &amp; Revocation Alerts</h4>
+        <p>Webhook streams triggered the moment a new 990 is filed, a status changes, a revocation is issued, or a sanctions list is updated. Stop polling. Start knowing instantly.</p>
+      </div>
+      <div class="rm-card">
+        <div class="rm-status s-soon"><span class="s-dot sd-soon"></span> Coming 2026</div>
+        <h4>Financial, Programmatic &amp; Governance Intelligence</h4>
+        <p>Deep analytical layers on top of raw IRS data -multi-year financial trend signals, program effectiveness benchmarks, governance risk flags, and board composition analytics. Built for foundations making high-stakes grant decisions.</p>
+      </div>
+      <div class="rm-card" style="border-color: rgba(0,180,179,0.2); background: linear-gradient(160deg, rgba(0,180,179,0.06) 0%, rgba(7,40,64,0.8) 100%);">
+        <div class="rm-status s-soon"><span class="s-dot sd-soon"></span> 2027 &amp; Beyond</div>
+        <h4>Full-Stack Charity Intelligence Platform</h4>
+        <p>Our north star: the go-to compliance infrastructure for philanthropy -an AI compliance agency that handles all your complex charity verification autonomously, so you can focus on what matters: judgment, relationships, and impact. <em style="color:rgba(255,255,255,0.35)">We are just getting started.</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRICING ══ -->
+<section class="sec sec-light" id="pricing">
+  <div class="container">
+    <div class="sec-header">
+      <div class="section-label">Pricing</div>
+      <h2 class="sec-title">Simple, transparent API pricing</h2>
+      <div class="divider"></div>
+      <p class="sec-sub">Start immediately. Scale as you grow. Enterprise teams get dedicated SLAs, custom data configurations, and a direct line to the founding team.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">Starter</div>
+        <div><span class="price-amount">$99</span><span class="price-period"> / month</span></div>
+        <p class="price-desc">For early-stage platforms and developers building their first integration.</p>
+        <ul class="price-list">
+          <li class="inc">1,000 API calls / month</li>
+          <li class="inc">CharityVerify -EIN verification</li>
+          <li class="inc">OFAC sanctions screening</li>
+          <li class="inc">Form 990 data (3 years)</li>
+          <li class="inc">Email support</li>
+        </ul>
+        <a href="#" class="btn-price btn-price-outline" onclick="openModal(); return false;">Get Started →</a>
+      </div>
+      <div class="price-card price-card-feat">
+        <div class="price-tier">Professional</div>
+        <div><span class="price-amount price-amount-lt">$499</span><span class="price-period price-period-lt"> / month</span></div>
+        <p class="price-desc price-desc-lt">For growing platforms that need full history, leadership screening, and webhooks.</p>
+        <ul class="price-list">
+          <li class="inc-lt">10,000 API calls / month</li>
+          <li class="inc-lt">Full CharityVerify + leadership OFAC</li>
+          <li class="inc-lt">Form 990 data -full history</li>
+          <li class="inc-lt">FaithVerify access</li>
+          <li class="inc-lt">Webhooks &amp; batch queries</li>
+          <li class="inc-lt">Priority support · 99.9% SLA</li>
+        </ul>
+        <a href="#" class="btn-price btn-price-teal" onclick="openModal(); return false;">Start Free Trial →</a>
+        <p style="font-size:0.73rem;color:rgba(255,255,255,0.38);text-align:center;margin-top:0.7rem;">14-day free trial · No credit card required</p>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">Enterprise</div>
+        <div><span class="price-amount">Custom</span></div>
+        <p class="price-desc">For foundations, compliance platforms, and fintech companies with high-volume or custom needs.</p>
+        <ul class="price-list">
+          <li class="inc">Unlimited API calls</li>
+          <li class="inc">Full database bulk export</li>
+          <li class="inc">Custom data configurations</li>
+          <li class="inc">Dedicated account manager</li>
+          <li class="inc">SOC 2 compliance support</li>
+          <li class="inc">Custom SLA &amp; MSA</li>
+        </ul>
+        <button class="btn-price btn-price-outline" onclick="openModal()">Book a Demo →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FINAL CTA ══ -->
+<section class="cta-section">
+  <div class="container">
+    <span class="badge" style="margin-bottom:1.4rem; display:inline-flex; background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.25); color:#fff;">Start verifying nonprofits today</span>
+    <h2>The infrastructure for<br/>trusted giving starts here.</h2>
+    <p>Join DAFs, foundations, and compliance platforms that trust Givalgo to verify, enrich, and power their philanthropic workflows.</p>
+    <div class="cta-btns">
+      <button class="btn-white" onclick="openModal()">📅 &nbsp;Book a 30-min Demo</button>
+      <a href="#pricing" class="btn-outline-white">Get API Access →</a>
+    </div>
+    <p class="cta-footnote">No commitment required &nbsp;·&nbsp; Response within 1 business day &nbsp;·&nbsp; 14-day free trial available</p>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <svg viewBox="0 0 528.56 203.29" xmlns="http://www.w3.org/2000/svg" height="28" style="width:auto">
+          <path fill="#ffffff" d="M227.9,102.11c.51,11.11-.72,21.55-8.91,29.69-9.89,9.84-21.94,12.55-35.21,8.98-12.96-3.48-21.38-12.19-24.79-25.01-3.41-12.84-2.2-25.34,6.11-36.37,5.01-6.65,11.76-10.69,19.93-12.31,12.12-2.4,23.2-.34,32.69,7.94,4.89,4.26,7.8,9.48,8.68,15.13-4.56,0-9.07.06-13.57-.07-.63-.02-1.47-.78-1.83-1.42-6.63-11.65-25.59-12.81-35.01-.98-7.32,9.2-6.98,28.64,3.89,37.13,11.57,9.04,27.68,4.72,32.74-9.03.29-.79.5-1.61.85-2.74h-18v-10.94h32.41Z"/>
+          <path fill="#ffffff" d="M434.86,131.74c-6.19,7.61-13.99,9.39-22.59,7.01-8.78-2.43-14.65-8.36-16.49-17.43-1.92-9.5-1.38-18.75,5.15-26.71,5.54-6.76,16.54-10.13,24.65-6.91,3.53,1.4,6.47,4.27,9.6,6.42v-6.29h12.8c.09.67.27,1.38.27,2.1.03,15.06.19,30.13.02,45.19-.12,10.8-2.99,20.54-13.59,25.72-12.43,6.07-28.94,4.42-38.74-8.68,3.31-2.38,6.61-4.75,9.98-7.16,5.91,5.79,12.59,9.45,20.77,5.81,7.99-3.56,8.41-11.04,8.18-19.05ZM408.59,112.85c-.53,13.29,10.09,17.26,17.74,14.97,6.82-2.04,10.08-9.17,8.6-18.07-1.77-10.64-12.5-13.77-19.99-9.36-4.91,2.9-6.4,7.6-6.34,12.45Z"/>
+          <path fill="#ffffff" d="M349.88,108.66c.74-5.88-1.54-9.54-6.55-10.8-7.26-1.83-11.91.53-14.58,7.49-2-.09-4.03-.1-6.06-.29-2.03-.19-4.05-.56-6.07-.85,1.23-10.44,8.18-16.78,20.25-17.78,7.42-.62,14.75.03,20.66,5.52,4.1,3.81,5.41,8.89,5.55,14.08.29,11.47.09,22.95.09,34.67h-12.54c-.19-1.91-.39-3.89-.59-5.94-7.03,7.73-20.44,9.39-29.16,3.52-5.44-3.66-6.4-9.24-5.8-15.22.48-4.78,3.11-8.13,7.52-10.12,6.75-3.05,14.02-3.22,21.2-3.88,2.03-.19,4.08-.26,6.07-.39ZM350.13,118.81c-2.54,0-4.61-.15-6.64.03-3.54.33-7.16.53-10.56,1.47-1.64.45-3.46,2.24-4.09,3.85-.84,2.16-.12,4.69,2.31,5.8,5.01,2.29,9.95,1.35,14.6-1.12,4.06-2.16,3.97-6.25,4.38-10.04Z"/>
+          <path fill="#ffffff" d="M509.68,114.79c.77,15.19-12,27.72-27.96,27.46-14.76-.24-27.22-12-26.82-28.46.37-15.45,12.3-27.59,27.77-27.37,17.52.25,27.69,13.7,27.02,28.38ZM468.62,114.15c0,1.08-.06,2.17,0,3.25.35,5.58,4.01,10.27,9.35,12.03,5.16,1.71,11.46.1,14.8-3.93,3.59-4.33,3.84-9.43,3.24-14.74-.98-8.75-9.3-14.25-17.71-11.64-6.48,2.01-9.71,7-9.68,15.01Z"/>
+          <path fill="#ffffff" d="M293.19,140.92c-4.64,0-9.19.07-13.72-.07-.73-.02-1.82-.78-2.08-1.46-6.67-17.03-13.24-34.1-20.06-51.73,4.72,0,8.98-.12,13.21.12.71.04,1.61,1.5,1.97,2.47,4.41,11.79,8.73,23.62,13.09,35.48,4.4-12.61,8.83-25.32,13.25-38.01h14.9c-6.88,17.81-13.69,35.44-20.56,53.21Z"/>
+          <path fill="#ffffff" d="M387.04,140.77h-13.26v-74.53h13.26v74.53Z"/>
+          <path fill="#ffffff" d="M250.38,140.77h-13.27v-52.93h13.27v52.93Z"/>
+          <path fill="#ffffff" d="M243.8,81.74c-5.66.61-8.57-4.27-8.62-7.93-.06-4.59,4.06-8.39,8.88-8.34,4.4.04,8.21,3.84,8.3,8.27.1,4.61-3.55,8.02-8.56,8.01Z"/>
+          <path fill="#00848b" d="M70.01,130.83c-3.61,0-6.95-.74-10-2.23-3.06-1.49-5.7-3.47-7.94-5.96-2.24-2.48-4-5.37-5.29-8.66-1.29-3.29-1.94-6.79-1.94-10.49s.65-7.06,1.94-10.35c1.29-3.29,3.05-6.2,5.29-8.73,2.24-2.53,4.91-4.51,8-5.96,3.1-1.44,6.45-2.17,10.07-2.17.89,0,31.32-.03,32.2.07v-28.5c-.92-.05-31.4,0-32.33,0-7.4,0-14.31,1.47-20.72,4.4-6.41,2.93-12.01,6.95-16.78,12.05-4.78,5.1-8.54,11.01-11.3,17.73-2.76,6.72-4.13,13.87-4.13,21.45s1.38,14.73,4.13,21.45c2.75,6.72,6.52,12.63,11.3,17.73,4.78,5.1,10.37,9.12,16.78,12.05,6.41,2.93,13.32,4.4,20.72,4.4,2.06,0,4.09-.12,6.09-.35v-28.71c-1.96.51-3.98.77-6.09.77Z"/>
+          <path fill="#00b4b3" d="M106.34,103.47h-33.05l12.54,21.15c-1.86,1.7-3.9,3.07-6.12,4.1-1.17.55-2.38.99-3.62,1.35v-.02c-1.96.51-3.98.77-6.09.77-3.61,0-6.95-.74-10-2.23-.05-.02-.1-.05-.14-.07v29.61c3.27.65,6.66.98,10.15.98,2.06,0,4.09-.12,6.09-.35v-.03c5.21-.77,9.67-2.52,14.43-4.86,3.27-1.61,6.32-3.57,9.19-5.86l6.63,11.18v-55.72Z"/>
+        </svg>
+        <p>The nonprofit data and compliance infrastructure layer for Donor-Advised Funds, Foundations, and Grant Management SaaS platforms.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Products</h5>
+        <ul>
+          <li><a href="#solutions">CharityVerify</a></li>
+          <li><a href="#solutions">Form 990 API</a></li>
+          <li><a href="#solutions">FaithVerify</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Developers</h5>
+        <ul>
+          <li><a href="https://docs.givalgo.ai/" target="_blank">API Documentation</a></li>
+          <li><a href="https://docs.givalgo.ai/" target="_blank">Getting Started</a></li>
+          <li><a href="https://docs.givalgo.ai/" target="_blank">API Reference</a></li>
+          <li><a href="#" onclick="openModal(); return false;">Get API Keys</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#" onclick="openModal(); return false;">Contact Us</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Givalgo, Inc. All rights reserved.</p>
+      <a href="https://www.linkedin.com/company/givalgo" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.82rem;transition:color 0.2s;" onmouseover="this.style.color='#00b4b3'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        Follow us on LinkedIn
+      </a>
+    </div>
+  </div>
+</footer>
+
+</div><!-- end #main-site -->
+
+<!-- ══ PRIVACY POLICY PAGE ══ -->
+<div id="privacy-page">
+  <nav style="background:rgba(4,28,44,0.97);padding:1rem 0;border-bottom:1px solid rgba(255,255,255,0.07);position:sticky;top:36px;z-index:100;">
+    <div style="max-width:1180px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;">
+      <a href="#" onclick="showMain(); return false;" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.7);font-weight:600;font-size:0.875rem;transition:color 0.2s;" onmouseover="this.style.color='#00b4b3'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">← Back to Givalgo.ai</a>
+      <span style="color:rgba(255,255,255,0.35);font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;">Privacy Policy</span>
+    </div>
+  </nav>
+
+  <div class="privacy-hero">
+    <div class="container">
+      <h1>Privacy Policy</h1>
+      <p>Last updated: March 30, 2026 &nbsp;·&nbsp; Effective date: March 30, 2026</p>
+    </div>
+  </div>
+
+  <div class="privacy-layout">
+
+    <!-- Left sticky sidebar nav -->
+    <div class="privacy-sidebar">
+      <div class="privacy-sidebar-title">On This Page</div>
+      <ul class="privacy-nav" id="privacyNav">
+        <li><a href="#pp-1" class="active">About This Policy</a></li>
+        <li><a href="#pp-2">Information We Collect</a></li>
+        <li><a href="#pp-3">How We Use Your Information</a></li>
+        <li><a href="#pp-4">Legal Basis for Processing</a></li>
+        <li><a href="#pp-5">Sharing and Disclosure</a></li>
+        <li><a href="#pp-6">Cookies and Tracking</a></li>
+        <li><a href="#pp-7">Data Security</a></li>
+        <li><a href="#pp-8">Data Retention</a></li>
+        <li><a href="#pp-9">International Transfers</a></li>
+        <li><a href="#pp-10">Children's Privacy</a></li>
+        <li><a href="#pp-11">Your Privacy Rights</a></li>
+        <li><a href="#pp-12">California Rights (CCPA)</a></li>
+        <li><a href="#pp-13">Changes to This Policy</a></li>
+      </ul>
+    </div>
+
+    <!-- Right content area -->
+    <div class="privacy-content-area">
+
+    <div class="privacy-section" id="pp-1">
+      <h2>1. About This Policy</h2>
+      <p>Givalgo, Inc. ("Givalgo," "we," "our," or "us") is committed to protecting the privacy and security of the information entrusted to us. This Privacy Policy describes how we collect, use, process, disclose, and protect your personal information when you:</p>
+      <ul>
+        <li>Visit our website at <strong>givalgo.ai</strong> and related subdomains</li>
+        <li>Access or use our API services at <strong>api.givalgo.ai</strong></li>
+        <li>Review our developer documentation at <strong>docs.givalgo.ai</strong></li>
+        <li>Communicate with us via email, forms, or other channels</li>
+        <li>Book a demo or attend a product presentation</li>
+      </ul>
+      <div class="privacy-highlight">
+        <strong>Important note about our data:</strong> Givalgo's core database is built entirely from publicly available U.S. government sources -IRS nonprofit filings, IRS sanctions data, and OFAC sanctions lists. We do not collect, store, or sell personal data about individual donors, nonprofit beneficiaries, or third-party individuals. All nonprofit and organizational data in our platform is sourced from public government records and processed in accordance with applicable law.
+      </div>
+      <p>This policy applies to all users globally. Where we reference specific legal frameworks (such as GDPR or CCPA), those sections apply only to users in the relevant jurisdiction.</p>
+    </div>
+
+    <div class="privacy-section" id="pp-2">
+      <h2>2. Information We Collect</h2>
+
+      <h3>2.1 Information You Provide Directly</h3>
+      <p>When you create an account, subscribe to a plan, or contact us, we collect:</p>
+      <ul>
+        <li><strong>Account Information:</strong> Full name, work email address, company name, job title, and password (stored as a salted hash -never in plain text)</li>
+        <li><strong>Billing Information:</strong> Payment card details and billing address, processed and stored by our payment processor (Stripe). We do not store full card numbers on our systems.</li>
+        <li><strong>Communication Data:</strong> Any messages, inquiries, or feedback you submit via email, contact forms, or demo requests</li>
+        <li><strong>Demo Booking Data:</strong> Name, email, company, and any notes provided when booking a product demonstration via our scheduling system (Calendly)</li>
+        <li><strong>Survey and Feedback Data:</strong> Responses to optional user research surveys or NPS feedback requests</li>
+      </ul>
+
+      <h3>2.2 Information Collected Automatically</h3>
+      <p>When you interact with our website or API, we automatically collect certain technical data:</p>
+      <table class="privacy-table">
+        <thead>
+          <tr><th>Data Type</th><th>Examples</th><th>Purpose</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Log Data</td><td>IP address, browser type, OS, referrer URL, pages visited, timestamps</td><td>Security monitoring, debugging, analytics</td></tr>
+          <tr><td>API Usage Data</td><td>API key ID, endpoint called, EINs queried, response codes, latency, request volume</td><td>Billing, rate limiting, usage dashboards, audit logs</td></tr>
+          <tr><td>Device Information</td><td>Screen resolution, device type, browser version</td><td>Product improvement, compatibility</td></tr>
+          <tr><td>Session Data</td><td>Login timestamps, session duration, feature interactions</td><td>Security, product analytics</td></tr>
+        </tbody>
+      </table>
+      <p>API usage logs are stored in our <code style="font-size:0.85rem;background:#f0fdfd;padding:2px 6px;border-radius:4px;color:var(--teal-dark)">api_usage_log</code> table in our PostgreSQL database, associated with your API key ID (not your personal email) to provide usage dashboards and enforce plan limits.</p>
+
+      <h3>2.3 Information from Third Parties</h3>
+      <p>We may receive limited information about you from:</p>
+      <ul>
+        <li><strong>Payment Processors (Stripe):</strong> Confirmation of payment success/failure and subscription status</li>
+        <li><strong>Authentication Providers:</strong> If you sign in via SSO or OAuth, we receive your name and email from that provider</li>
+        <li><strong>Referral Partners:</strong> If you were referred to us, we may receive your organization name and contact details from a mutual partner</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section" id="pp-3">
+      <h2>3. How We Use Your Information</h2>
+      <p>We use the information we collect for the following purposes:</p>
+
+      <h3>3.1 Providing and Operating Our Services</h3>
+      <ul>
+        <li>Creating and managing your account and API credentials</li>
+        <li>Processing payments and managing subscription plans</li>
+        <li>Delivering API responses and maintaining service uptime</li>
+        <li>Providing usage dashboards, rate limit enforcement, and billing summaries</li>
+        <li>Responding to support requests and technical inquiries</li>
+      </ul>
+
+      <h3>3.2 Security and Compliance</h3>
+      <ul>
+        <li>Detecting, preventing, and investigating fraudulent or unauthorized use of our API</li>
+        <li>Maintaining audit logs for compliance with financial regulations and AML/KYC obligations applicable to our enterprise customers</li>
+        <li>Protecting the integrity of our infrastructure and preventing abuse</li>
+        <li>Complying with applicable laws, including OFAC, AML, and IRS regulations</li>
+      </ul>
+
+      <h3>3.3 Product Improvement and Analytics</h3>
+      <ul>
+        <li>Analyzing aggregated, anonymized usage patterns to improve API performance and coverage</li>
+        <li>Conducting internal research on which features are most valuable to our users</li>
+        <li>Identifying and fixing bugs, performance bottlenecks, and data quality issues</li>
+      </ul>
+
+      <h3>3.4 Communication</h3>
+      <ul>
+        <li>Sending transactional emails: account confirmations, password resets, billing receipts, API key notifications</li>
+        <li>Sending product update communications and release notes (you may opt out at any time)</li>
+        <li>Scheduling and conducting product demonstrations</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section" id="pp-4">
+      <h2>4. Legal Basis for Processing (GDPR)</h2>
+      <p>If you are located in the European Economic Area (EEA), United Kingdom, or Switzerland, we process your personal data under the following legal bases:</p>
+      <table class="privacy-table">
+        <thead><tr><th>Processing Activity</th><th>Legal Basis</th></tr></thead>
+        <tbody>
+          <tr><td>Providing API services and fulfilling your subscription</td><td>Performance of a contract (Art. 6(1)(b) GDPR)</td></tr>
+          <tr><td>Processing payments</td><td>Performance of a contract</td></tr>
+          <tr><td>Sending transactional emails</td><td>Performance of a contract / Legitimate interests</td></tr>
+          <tr><td>Security monitoring and fraud prevention</td><td>Legitimate interests (Art. 6(1)(f) GDPR)</td></tr>
+          <tr><td>Product analytics (aggregated)</td><td>Legitimate interests</td></tr>
+          <tr><td>Marketing communications</td><td>Consent (Art. 6(1)(a) GDPR) -you may withdraw at any time</td></tr>
+          <tr><td>Compliance with legal obligations</td><td>Legal obligation (Art. 6(1)(c) GDPR)</td></tr>
+        </tbody>
+      </table>
+      <p>Where we rely on legitimate interests, we have assessed that our interests do not override your rights and freedoms as a data subject.</p>
+    </div>
+
+    <div class="privacy-section" id="pp-5">
+      <h2>5. Sharing and Disclosure</h2>
+      <p><strong>We do not sell, rent, or trade your personal information to third parties.</strong> We may share your information in the following limited circumstances:</p>
+
+      <h3>5.1 Service Providers</h3>
+      <p>We share data with carefully vetted service providers who process it on our behalf, subject to strict data processing agreements. Current providers include:</p>
+      <ul>
+        <li><strong>Amazon Web Services (AWS):</strong> Cloud infrastructure, database hosting (RDS PostgreSQL), file storage (S3), serverless compute (Lambda), and API Gateway. Data is stored in <code style="font-size:0.85rem;background:#f0fdfd;padding:2px 6px;border-radius:4px;color:var(--teal-dark)">us-east-2</code> (Ohio, USA).</li>
+        <li><strong>Stripe:</strong> Payment processing and subscription management. Stripe is PCI-DSS Level 1 certified.</li>
+        <li><strong>Calendly:</strong> Demo scheduling. Your name and email are shared when booking a call.</li>
+      </ul>
+
+      <h3>5.2 Legal and Regulatory Disclosures</h3>
+      <p>We may disclose your information if required to do so by law or in good-faith belief that such action is necessary to: (i) comply with a legal obligation, subpoena, or court order; (ii) protect and defend the rights or property of Givalgo; (iii) prevent or investigate possible wrongdoing in connection with our services; or (iv) protect the personal safety of users or the public.</p>
+
+      <h3>5.3 Business Transfers</h3>
+      <p>In the event of a merger, acquisition, reorganization, bankruptcy, or sale of all or a portion of our assets, your information may be transferred to the acquiring entity. We will notify you via email or a prominent website notice before your personal information becomes subject to a different privacy policy.</p>
+
+      <h3>5.4 With Your Consent</h3>
+      <p>We may share your information for any other purpose with your explicit consent.</p>
+    </div>
+
+    <div class="privacy-section" id="pp-6">
+      <h2>6. Cookies and Tracking Technologies</h2>
+      <p>Our website uses a minimal set of cookies strictly necessary for operation:</p>
+      <table class="privacy-table">
+        <thead><tr><th>Cookie Type</th><th>Purpose</th><th>Duration</th></tr></thead>
+        <tbody>
+          <tr><td>Session Cookie</td><td>Maintains your authenticated session on the docs and dashboard</td><td>Session (deleted on browser close)</td></tr>
+          <tr><td>CSRF Token</td><td>Protects against cross-site request forgery attacks</td><td>Session</td></tr>
+          <tr><td>Preference Cookie</td><td>Remembers your UI preferences (e.g., dark/light mode)</td><td>1 year</td></tr>
+        </tbody>
+      </table>
+      <div class="privacy-highlight">
+        We do <strong>not</strong> use third-party advertising cookies, behavioral tracking pixels, or cross-site tracking technologies. We do not use Google Analytics, Facebook Pixel, or similar tracking services on our platform. Our analytics are entirely first-party and privacy-preserving.
+      </div>
+    </div>
+
+    <div class="privacy-section" id="pp-7">
+      <h2>7. Data Security</h2>
+      <p>We take the security of your data seriously and implement multiple layers of protection:</p>
+      <ul>
+        <li><strong>Encryption in Transit:</strong> All communications between your browser/application and our servers use TLS 1.3</li>
+        <li><strong>Encryption at Rest:</strong> Our RDS PostgreSQL database uses AES-256 encryption at rest via AWS</li>
+        <li><strong>Secrets Management:</strong> API keys, database credentials, and service tokens are stored in AWS Secrets Manager -never in source code or environment variables</li>
+        <li><strong>Network Isolation:</strong> Our database runs in a private VPC subnet with no direct internet access; only our Lambda functions (within the same VPC) can connect</li>
+        <li><strong>API Key Authentication:</strong> Every API request requires a valid API key passed via <code style="font-size:0.85rem;background:#f0fdfd;padding:2px 6px;border-radius:4px;color:var(--teal-dark)">x-api-key</code> header; keys are hashed before storage</li>
+        <li><strong>Rate Limiting:</strong> Per-key rate limits are enforced at the API Gateway layer to prevent abuse</li>
+        <li><strong>Audit Logging:</strong> All API requests are logged with key ID, timestamp, endpoint, and response code for security monitoring</li>
+        <li><strong>SOC 2 Type II:</strong> We are currently working toward SOC 2 Type II certification</li>
+      </ul>
+      <p>While we implement industry-standard safeguards, no security system is impenetrable. We cannot guarantee the absolute security of data transmitted over the internet. In the event of a data breach affecting your personal information, we will notify you in accordance with applicable law.</p>
+    </div>
+
+    <div class="privacy-section" id="pp-8">
+      <h2>8. Data Retention</h2>
+      <p>We retain different categories of data for different periods based on business and legal requirements:</p>
+      <table class="privacy-table">
+        <thead><tr><th>Data Category</th><th>Retention Period</th><th>Reason</th></tr></thead>
+        <tbody>
+          <tr><td>Account information</td><td>Duration of subscription + 3 years after closure</td><td>Legal/tax obligations</td></tr>
+          <tr><td>Payment records</td><td>7 years</td><td>Financial regulations</td></tr>
+          <tr><td>API usage logs</td><td>90 days (rolling)</td><td>Billing, debugging, security</td></tr>
+          <tr><td>Support communications</td><td>3 years</td><td>Service quality, dispute resolution</td></tr>
+          <tr><td>Audit logs (security)</td><td>1 year</td><td>Security monitoring</td></tr>
+          <tr><td>Marketing consent records</td><td>Until withdrawal + 3 years</td><td>Legal compliance (GDPR)</td></tr>
+        </tbody>
+      </table>
+      <p>When your account is closed or data reaches its retention limit, we securely delete or anonymize it. You may request early deletion of your personal data (subject to legal retention obligations) by contacting <a href="mailto:privacy@givalgo.ai" style="color:var(--teal-dark)">privacy@givalgo.ai</a>.</p>
+    </div>
+
+    <div class="privacy-section" id="pp-9">
+      <h2>9. International Data Transfers</h2>
+      <p>Givalgo is incorporated in the United States, and our infrastructure is hosted in the AWS <code style="font-size:0.85rem;background:#f0fdfd;padding:2px 6px;border-radius:4px;color:var(--teal-dark)">us-east-2</code> (Ohio) region. If you are accessing our services from outside the United States, your information will be transferred to and processed in the United States.</p>
+      <p>For users in the European Economic Area (EEA) or United Kingdom, such transfers are made pursuant to Standard Contractual Clauses (SCCs) approved by the European Commission, or other legally recognized transfer mechanisms. By using our services, you consent to these transfers where required.</p>
+    </div>
+
+    <div class="privacy-section" id="pp-10">
+      <h2>10. Children's Privacy</h2>
+      <p>Our services are not directed to individuals under the age of 16. We do not knowingly collect personal information from children under 16. If you are a parent or guardian and believe your child has provided us with personal information, please contact us at <a href="mailto:privacy@givalgo.ai" style="color:var(--teal-dark)">privacy@givalgo.ai</a> and we will promptly delete that information.</p>
+    </div>
+
+    <div class="privacy-section" id="pp-11">
+      <h2>11. Your Privacy Rights</h2>
+      <p>Depending on your location, you may have the following rights regarding your personal data. To exercise any of these rights, contact us at <a href="mailto:privacy@givalgo.ai" style="color:var(--teal-dark)">privacy@givalgo.ai</a>:</p>
+
+      <h3>Rights Available to All Users</h3>
+      <ul>
+        <li><strong>Access:</strong> Request a copy of the personal data we hold about you</li>
+        <li><strong>Correction:</strong> Request correction of inaccurate or incomplete personal data</li>
+        <li><strong>Deletion:</strong> Request deletion of your personal data (subject to legal retention requirements)</li>
+        <li><strong>Portability:</strong> Receive your personal data in a structured, machine-readable format</li>
+        <li><strong>Opt-Out of Marketing:</strong> Unsubscribe from marketing emails at any time by clicking the unsubscribe link or emailing us</li>
+      </ul>
+
+      <h3>Additional Rights for EEA / UK Users (GDPR)</h3>
+      <ul>
+        <li><strong>Restriction of Processing:</strong> Request that we restrict processing of your data in certain circumstances</li>
+        <li><strong>Object to Processing:</strong> Object to processing based on legitimate interests or for direct marketing</li>
+        <li><strong>Withdraw Consent:</strong> Where processing is based on consent, withdraw it at any time without affecting prior processing</li>
+        <li><strong>Lodge a Complaint:</strong> You have the right to lodge a complaint with your local data protection authority (DPA)</li>
+      </ul>
+
+      <p>We will respond to all verifiable requests within 30 days. In complex cases, we may extend this by an additional 60 days with notice. We will not discriminate against you for exercising your privacy rights.</p>
+    </div>
+
+    <div class="privacy-section" id="pp-12">
+      <h2>12. California Privacy Rights (CCPA / CPRA)</h2>
+      <p>If you are a California resident, the California Consumer Privacy Act (CCPA), as amended by the California Privacy Rights Act (CPRA), grants you additional rights:</p>
+      <ul>
+        <li><strong>Right to Know:</strong> Know what personal information we collect, use, disclose, and sell</li>
+        <li><strong>Right to Delete:</strong> Request deletion of your personal information (with certain exceptions)</li>
+        <li><strong>Right to Correct:</strong> Request correction of inaccurate personal information</li>
+        <li><strong>Right to Opt-Out of Sale:</strong> We do not sell personal information. There is nothing to opt out of.</li>
+        <li><strong>Right to Limit Use of Sensitive Personal Information:</strong> We do not use sensitive personal information beyond what is necessary to provide our services</li>
+        <li><strong>Non-Discrimination:</strong> We will not discriminate against you for exercising any of these rights</li>
+      </ul>
+      <p>To submit a CCPA request, email <a href="mailto:privacy@givalgo.ai" style="color:var(--teal-dark)">privacy@givalgo.ai</a> with "CCPA Request" in the subject line. We will verify your identity before processing the request.</p>
+    </div>
+
+    <div class="privacy-section" id="pp-13">
+      <h2>13. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy periodically to reflect changes in our practices, technology, legal requirements, or for other operational reasons. When we make material changes, we will:</p>
+      <ul>
+        <li>Update the "Last updated" date at the top of this policy</li>
+        <li>Send an email notification to registered users at least 14 days before the change takes effect</li>
+        <li>Post a prominent notice on our website for 30 days following the change</li>
+      </ul>
+      <p>Your continued use of our services after the effective date of any updated policy constitutes your acceptance of the revised terms. If you disagree with the changes, you may close your account and request deletion of your data.</p>
+      <p>We maintain an archive of previous versions of this Privacy Policy available upon request.</p>
+    </div>
+
+    </div><!-- end privacy-content-area -->
+  </div><!-- end privacy-layout -->
+</div>
+
+<script>
+  function openModal() {
+    document.getElementById('demoModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('demoModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('demoModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  function showPrivacy() {
+    document.getElementById('main-site').style.display = 'none';
+    document.getElementById('privacy-page').classList.add('show');
+    window.scrollTo(0, 0);
+  }
+  function switchTab(lang) {
+    document.querySelectorAll('#apiCodeWin .code-body').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('#apiCodeWin .code-tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('code-' + lang).style.display = 'block';
+    document.getElementById('tab-' + lang).classList.add('active');
+  }
+
+  function showMain() {
+    document.getElementById('main-site').style.display = 'block';
+    document.getElementById('privacy-page').classList.remove('show');
+    window.scrollTo(0, 0);
+  }
+
+  /* Privacy sidebar scroll-spy */
+  (function() {
+    var sections = ['pp-1','pp-2','pp-3','pp-4','pp-5','pp-6','pp-7','pp-8','pp-9','pp-10','pp-11','pp-12','pp-13'];
+    var navLinks = {};
+    sections.forEach(function(id) {
+      var link = document.querySelector('#privacyNav a[href="#' + id + '"]');
+      if (link) navLinks[id] = link;
+    });
+    function onScroll() {
+      var scrollY = window.pageYOffset + 120;
+      var active = sections[0];
+      sections.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollY) active = id;
+      });
+      Object.keys(navLinks).forEach(function(id) {
+        navLinks[id].classList.toggle('active', id === active);
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+
+  /* Auto-show privacy page if ?page=privacy in URL */
+  (function() {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('page') === 'privacy') {
+      showPrivacy();
+    }
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Givalgo Wireframe",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4200", "--directory", "/Users/kshitijchaudhary/Givalgo Website - Claude"],
+      "port": 4200
+    }
+  ]
+}

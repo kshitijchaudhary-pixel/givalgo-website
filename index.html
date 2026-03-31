@@ -396,13 +396,15 @@
     .testi-card {
       background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 2rem;
       box-shadow: 0 2px 12px rgba(0,0,0,0.05); position: relative;
+      display: flex; flex-direction: column;
     }
+    .testi-author { margin-top: auto; }
     .testi-card::before {
       content: '"'; position: absolute; top: 1.2rem; left: 1.8rem;
       font-size: 4rem; color: var(--teal-mid); font-family: Georgia, serif; line-height: 1;
     }
     .testi-quote { font-size: 0.92rem; color: var(--text-dark); line-height: 1.7; margin-bottom: 1.5rem; padding-top: 2rem; font-style: italic; }
-    .testi-author { display: flex; align-items: center; gap: 0.85rem; }
+    .testi-author { display: flex; align-items: center; gap: 0.85rem; margin-top: auto; }
     .testi-avatar {
       width: 40px; height: 40px; border-radius: 50%;
       background: linear-gradient(135deg, var(--teal-light) 0%, var(--teal-mid) 100%);
@@ -791,7 +793,7 @@
       <h1>
         Data and Compliance<br/>
         Infrastructure for<br/>
-        <span class="gradient-text">Philanthropy</span>
+        <span class="gradient-text">Grantmakers</span>
       </h1>
       <p class="hero-desc">
         Givalgo delivers structured, real-time nonprofit data -financial records,
@@ -805,7 +807,7 @@
       <div class="hero-stats-row">
         <div>
           <div class="hero-stat-num">20K</div>
-          <div class="hero-stat-label">Records in a single Bulk API call</div>
+          <div class="hero-stat-label">Records in a<br/>single Bulk API call</div>
         </div>
         <div class="stat-divider"></div>
         <div>
@@ -843,7 +845,7 @@
             <div class="resp-row"><span class="resp-k">leaders_screened</span><span class="resp-v">14 officers</span></div>
           </div>
           <div class="differentiator-tag">
-            ⚡ The only API that screens charity leadership against OFAC sanctions lists
+            ⚡ The only API that screens charity leadership against sanctions lists
           </div>
         </div>
       </div>
@@ -858,10 +860,10 @@
     <div class="trust-logos">
       <div class="trust-item">DAF Sponsors</div>
       <div class="trust-item">Community Foundations</div>
-      <div class="trust-item">Grant Management SaaS</div>
+      <div class="trust-item">Private Foundations</div>
+      <div class="trust-item">Grant Management Software</div>
       <div class="trust-item">Workplace Giving Platforms</div>
-      <div class="trust-item">Compliance Companies</div>
-      <div class="trust-item">Fintech Platforms</div>
+      <div class="trust-item">Retail Fundraising Platforms</div>
     </div>
   </div>
 </section>
@@ -884,12 +886,12 @@
       <div class="prob-card">
         <div class="prob-icon pi-amber">⏱️</div>
         <h3>Manual verification takes hours</h3>
-        <p>Checking active status, OFAC sanctions, revocation lists, and Pub 78 eligibility means juggling four separate government websites. Most platforms still do this manually -and none screen charity leadership at all.</p>
+        <p>Checking active status, sanctions, revocation lists, and Pub 78 eligibility means juggling four separate web pages and running searches. Many grantmakers still do this manually, with charity leadership screening being the most time-consuming.</p>
       </div>
       <div class="prob-card">
         <div class="prob-icon pi-purple">💸</div>
         <h3>Existing APIs are archaic and expensive</h3>
-        <p>The legacy data providers in this space were built a decade ago. Their data is stale, their APIs are clunky, and their pricing was designed for institutions -not modern SaaS platforms building at scale.</p>
+        <p>The legacy data providers in this space were built decades ago. Their data is often stale and incomplete, their APIs are clunky, and their pricing was designed for institutions -not modern grantmakers and SaaS platforms.</p>
       </div>
     </div>
   </div>
@@ -902,14 +904,14 @@
       <div class="section-label">Our Solutions</div>
       <h2 class="sec-title">One platform. Complete nonprofit intelligence.</h2>
       <div class="divider"></div>
-      <p class="sec-sub">From raw IRS XML to structured API responses in milliseconds. Givalgo is the intelligence layer your platform has been waiting for.</p>
+      <p class="sec-sub">From raw IRS XML to structured API responses to approvals/ flags in milliseconds.<br/><br/>Givalgo is the intelligence layer your platform has been waiting for.</p>
 
       <!-- Blackbaud backing -->
       <div style="display:flex; flex-direction:column; align-items:center; gap:0.5rem; margin-top:2rem; margin-bottom:0.25rem;">
         <div style="display:inline-flex; align-items:center; gap:1.1rem; background:#fff; border:1.5px solid #e2e8f0; border-radius:14px; padding:0.9rem 2rem; box-shadow:0 2px 14px rgba(0,0,0,0.07);">
-          <span style="font-size:0.68rem; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:#94a3b8; white-space:nowrap;">Backed by</span>
+          <span style="font-size:0.95rem; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:#94a3b8; white-space:nowrap;">Backed by</span>
           <div style="width:1px; height:22px; background:#e2e8f0; flex-shrink:0;"></div>
-          <img src="blackbaud-logo.png" alt="Blackbaud" style="height:42px; display:block; opacity:0.95;"/>
+          <span style="font-size:1.15rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#2d6a4f; white-space:nowrap;">Blackbaud</span>
         </div>
         <span style="font-size:0.75rem; color:#94a3b8; font-weight:500; letter-spacing:0.04em;">Social Good Startup Program</span>
       </div>
@@ -921,7 +923,7 @@
         <div class="prod-icon">🛡️</div>
         <h3>CharityVerify</h3>
         <p class="prod-tag">Real-time compliance verification engine</p>
-        <p>Instantly verify any nonprofit's standing with a single API call. We run a 5-step verification -active status, Pub 78 eligibility, group exemption check, IRS revocation, and OFAC sanctions screening -in under 100ms.</p>
+        <p>Instantly verify any nonprofit's standing with a single API call. We run a 6-step verification - active IRS status, Pub 78 eligibility, group exemption check, IRS revocation, org OFAC sanction screening, and leadership screening -in under 100ms.</p>
         <ul class="prod-feats">
           <li>Active 501(c)(3) status &amp; Pub 78 eligibility</li>
           <li>IRS auto-revocation &amp; group exemption traversal</li>
@@ -929,7 +931,7 @@
           <li>Fuzzy matching catches misspellings &amp; name variations</li>
           <li>1.9M+ organizations · 4.5M+ records · nightly refresh</li>
         </ul>
-        <div class="ai-tag">⚡ Only platform that screens charity leadership -not just the org name</div>
+        <div class="ai-tag">⚡ The only platform that screens charity leadership, not just the organization name</div>
         <a href="https://docs.givalgo.ai/" class="prod-link" target="_blank">View API docs →</a>
       </div>
 
@@ -937,14 +939,14 @@
       <div class="prod-card">
         <div class="prod-icon">📊</div>
         <h3>Form 990 Intelligence API</h3>
-        <p class="prod-tag">Structured nonprofit financial data at API speed</p>
+        <p class="prod-tag">Structured financial, governance and programmatic data at API speed</p>
         <p>We parse every IRS Form 990, 990-EZ, and 990-PF filing -transforming raw XML into clean, structured JSON. Query financials, governance, compensation, grants, and program data for any nonprofit by EIN.</p>
         <ul class="prod-feats">
           <li>Revenue, expenses, assets &amp; computed financial ratios</li>
           <li>Officer compensation &amp; board composition</li>
           <li>Grant recipients and program descriptions</li>
+          <li>Governance, policies and board compositions</li>
           <li>Multi-year historical data with trend signals</li>
-          <li>Monthly refresh from IRS XML source files</li>
         </ul>
         <a href="#" class="prod-link" onclick="openModal(); return false;">Get early access →</a>
       </div>
@@ -954,15 +956,15 @@
         <div class="prod-icon">⛪</div>
         <h3>FaithVerify</h3>
         <p class="prod-tag">Denomination &amp; religious organization verification</p>
-        <p>The only structured database of verified religious organizations in the US. AI agents continuously scan denominational databases and official websites to confirm legitimacy, affiliation, and active status.</p>
+        <p>The only structured database of verified religious organizations in the US that can accept tax-deductible donations. AI agents continuously scan denominational databases and official websites to confirm legitimacy, affiliation, and active status.</p>
         <ul class="prod-feats">
-          <li>40+ major denominations covered</li>
+          <li>Instant status verification of over 90% American churches</li>
           <li>IRS group exemption mapping &amp; hierarchy data</li>
           <li>AI agents verify against official denominational registers</li>
           <li>Active congregation status &amp; affiliation confirmation</li>
-          <li>Built for DAFs, payroll giving &amp; HR platforms</li>
+          <li>Built for DAFs, community foundations, and workplace giving platforms</li>
         </ul>
-        <div class="ai-tag">🤖 AI agents scan denominational databases continuously</div>
+        <div class="ai-tag">🤖 AI agents scan denominational directories and church websites to verify 501(c)(3) equivalency.</div>
         <a href="#" class="prod-link" onclick="openModal(); return false;">Get early access →</a>
       </div>
 
@@ -980,11 +982,11 @@
       </div>
       <div class="num-item">
         <div class="num-val">25M+</div>
-        <div class="num-lbl">Charity Leaders Screened Against OFAC</div>
+        <div class="num-lbl">Charity Leaders Screened</div>
       </div>
       <div class="num-item">
         <div class="num-val">1.3B+</div>
-        <div class="num-lbl">Structured Data Points Across IRS &amp; OFAC Databases</div>
+        <div class="num-lbl">Structured Data Points</div>
       </div>
       <div class="num-item">
         <div class="num-val">&lt;100ms</div>
@@ -1006,7 +1008,7 @@
       <div class="how-step">
         <div class="how-num">1</div>
         <h4>Get your API key</h4>
-        <p>Sign up, choose Free, Basic, or Pro. Receive credentials instantly and integrate in minutes with our REST API.</p>
+        <p>Sign up and choose your product/ tier. Receive credentials instantly and integrate in minutes with our REST API.</p>
       </div>
       <div class="how-step">
         <div class="how-num">2</div>
@@ -1130,7 +1132,7 @@
         <div class="uc-icon uci-1">🏦</div>
         <div>
           <h3>DAFs &amp; Community Foundations</h3>
-          <p>Automate charity vetting at the point of grant recommendation. Verify active status, Pub 78 deductibility, financial health, and OFAC clearance -without manual research. Scale grant processing from days to seconds.</p>
+          <p>Automate charity vetting at the point of grant recommendation. Verify active status, Pub 78 deductibility, Revocation Lists and OFAC clearance - without manual research. Scale grant processing from days to seconds.</p>
           <div class="uc-tags"><span class="uc-tag">EIN Verification</span><span class="uc-tag">Pub 78 Eligibility</span><span class="uc-tag">OFAC Screening</span></div>
         </div>
       </div>
@@ -1146,7 +1148,7 @@
         <div class="uc-icon uci-3">🏛️</div>
         <div>
           <h3>Private &amp; Corporate Foundations</h3>
-          <p>Surface multi-year financial trends, program expense ratios, and board composition for every grantee. Conduct proper due diligence with structured 990 data instead of reading PDFs by hand.</p>
+          <p>Surface multi-year financial trends, program expense ratios, board composition and risk-flags for every grantee. Conduct thorough due-diligence with structured data on potential grantees instead of manually going through docs.</p>
           <div class="uc-tags"><span class="uc-tag">Multi-year Trends</span><span class="uc-tag">Board Data</span><span class="uc-tag">Program Ratios</span></div>
         </div>
       </div>
@@ -1187,7 +1189,7 @@
           <div class="testi-avatar">VP</div>
           <div>
             <div class="testi-name">VP of Product</div>
-            <div class="testi-role">Grant Management SaaS Platform</div>
+            <div class="testi-role">Grant Management Platform</div>
           </div>
         </div>
       </div>
@@ -1218,7 +1220,7 @@
       <div class="rm-card rm-live">
         <div class="rm-status s-live"><span class="s-dot sd-live"></span> Live</div>
         <h4>CharityVerify</h4>
-        <p>5-step real-time verification: active 501(c)(3) status, Pub 78 eligibility, group exemption traversal, IRS auto-revocation check, and OFAC sanctions screening -including every charity officer and director -across 1.9M+ organizations.</p>
+        <p>6-step real-time verification: active 501(c)(3) status, Pub 78 eligibility, group exemption traversal, IRS auto-revocation check, OFAC sanction checks, and leadership screening - including every charity officer and director -across 1.9M+ organizations.</p>
       </div>
       <div class="rm-card rm-live">
         <div class="rm-status s-live"><span class="s-dot sd-live"></span> Live</div>
@@ -1242,8 +1244,8 @@
       </div>
       <div class="rm-card" style="border-color: rgba(0,180,179,0.2); background: linear-gradient(160deg, rgba(0,180,179,0.06) 0%, rgba(7,40,64,0.8) 100%);">
         <div class="rm-status s-soon"><span class="s-dot sd-soon"></span> 2027 &amp; Beyond</div>
-        <h4>Full-Stack Charity Intelligence Platform</h4>
-        <p>Our north star: the go-to compliance infrastructure for philanthropy -an AI compliance agency that handles all your complex charity verification autonomously, so you can focus on what matters: judgment, relationships, and impact. <em style="color:rgba(255,255,255,0.35)">We are just getting started.</em></p>
+        <h4>Full-Stack Philanthropy Compliance Platform</h4>
+        <p>Our north star: the go-to compliance infrastructure for philanthropy -an AI compliance agency that handles all your complex compliance-related tasks autonomously, so you can focus on what matters: judgment, relationships, and impact. <em style="color:rgba(255,255,255,0.35)">We are just getting started.</em></p>
       </div>
     </div>
   </div>
@@ -1264,7 +1266,7 @@
         <div><span class="price-amount">$99</span><span class="price-period"> / month</span></div>
         <p class="price-desc">For early-stage platforms and developers building their first integration.</p>
         <ul class="price-list">
-          <li class="inc">1,000 API calls / month</li>
+          <li class="inc">200 calls/month</li>
           <li class="inc">CharityVerify -EIN verification</li>
           <li class="inc">OFAC sanctions screening</li>
           <li class="inc">Form 990 data (3 years)</li>
@@ -1277,11 +1279,11 @@
         <div><span class="price-amount price-amount-lt">$499</span><span class="price-period price-period-lt"> / month</span></div>
         <p class="price-desc price-desc-lt">For growing platforms that need full history, leadership screening, and webhooks.</p>
         <ul class="price-list">
-          <li class="inc-lt">10,000 API calls / month</li>
+          <li class="inc-lt">2000 API calls / month</li>
           <li class="inc-lt">Full CharityVerify + leadership OFAC</li>
           <li class="inc-lt">Form 990 data -full history</li>
-          <li class="inc-lt">FaithVerify access</li>
-          <li class="inc-lt">Webhooks &amp; batch queries</li>
+          <li class="inc-lt">FaithVerify integration</li>
+          <li class="inc-lt">Bulk and PDF API access</li>
           <li class="inc-lt">Priority support · 99.9% SLA</li>
         </ul>
         <a href="#" class="btn-price btn-price-teal" onclick="openModal(); return false;">Start Free Trial →</a>
@@ -1296,8 +1298,8 @@
           <li class="inc">Full database bulk export</li>
           <li class="inc">Custom data configurations</li>
           <li class="inc">Dedicated account manager</li>
-          <li class="inc">SOC 2 compliance support</li>
-          <li class="inc">Custom SLA &amp; MSA</li>
+          <li class="inc">Real-time alerts</li>
+          <li class="inc">Human-in-the-loop for additional deep-dive</li>
         </ul>
         <button class="btn-price btn-price-outline" onclick="openModal()">Book a Demo →</button>
       </div>

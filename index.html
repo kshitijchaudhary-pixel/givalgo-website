@@ -46,6 +46,13 @@
     .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--teal) 0%, var(--teal-dark) 100%); border-radius: 2px; margin: 1rem auto 0; }
     .divider-left { margin-left: 0; }
 
+    /* ── Draft Banner ── */
+    .draft-banner {
+      background: #fff3cd; border-bottom: 2px solid #ffc107;
+      padding: 0.55rem 2rem; text-align: center;
+      font-size: 0.82rem; font-weight: 600; color: #856404;
+      position: sticky; top: 0; z-index: 9999;
+    }
 
     /* ══ DEMO MODAL ══ */
     .modal-overlay {
@@ -603,6 +610,7 @@
     /* ══ TABLET (≤ 900px) ══ */
     @media (max-width: 900px) {
       nav { top: 0; position: sticky; }
+      .draft-banner { display: none; }
       .nav-links, .nav-ctas { display: none; }
       .hamburger { display: flex; }
 

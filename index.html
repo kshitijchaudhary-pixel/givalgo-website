@@ -1627,7 +1627,7 @@
 
 <script>
   // ── Billing toggle ──────────────────────────────────────────
-  let isAnnual = false;
+  let isAnnual = true;
   function toggleBilling() {
     isAnnual = !isAnnual;
     const toggle = document.getElementById('billingToggle');
@@ -1639,6 +1639,14 @@
     document.getElementById('pro-price').textContent = isAnnual ? '$399' : '$499';
     document.getElementById('pro-annual-note').textContent = isAnnual ? 'Billed as $4,788 / year' : '';
   }
+  // Initialise to annual on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('billingToggle').classList.add('active');
+    document.getElementById('starter-price').textContent = '$79';
+    document.getElementById('starter-annual-note').textContent = 'Billed as $948 / year';
+    document.getElementById('pro-price').textContent = '$399';
+    document.getElementById('pro-annual-note').textContent = 'Billed as $4,788 / year';
+  });
 
   function openModal() {
     document.getElementById('demoModal').classList.add('open');

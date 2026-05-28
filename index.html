@@ -150,6 +150,17 @@
       box-shadow: 0 2px 12px rgba(0,180,179,0.3);
     }
     .btn-nav-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+    /* "NEW" pill inside the Discover nav button. Tiny, high-contrast,
+       pinned to the right of the label so it reads as a status flag
+       rather than another character in the name. */
+    .badge-new {
+      display: inline-block; margin-left: 0.45rem;
+      padding: 0.1rem 0.4rem; border-radius: 999px;
+      background: rgba(255,255,255,0.22); color: #fff;
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.04em;
+      text-transform: uppercase; line-height: 1.2;
+      vertical-align: middle;
+    }
 
     /* ══ HERO ══ */
     .hero {
@@ -792,6 +803,7 @@
       <a href="https://docs.givalgo.ai/" target="_blank">API Docs</a>
     </div>
     <div class="nav-ctas">
+      <a href="https://discover.givalgo.ai" class="btn-nav-primary" target="_blank" rel="noopener">Discover<span class="badge-new">New</span></a>
       <a href="#pricing" class="btn-nav-ghost">Get API Keys</a>
       <button class="btn-nav-primary" onclick="openModal()">Book a Demo →</button>
     </div>
@@ -808,6 +820,7 @@
     <a href="#pricing" onclick="closeMobileNav()">Pricing</a>
     <a href="https://docs.givalgo.ai/" target="_blank" onclick="closeMobileNav()">API Docs</a>
     <div class="mobile-nav-ctas">
+      <a href="https://discover.givalgo.ai" class="mobile-btn-primary" target="_blank" rel="noopener" onclick="closeMobileNav()">Discover<span class="badge-new">New</span></a>
       <a href="#pricing" class="mobile-btn-ghost" onclick="closeMobileNav()">Get API Keys</a>
       <button class="mobile-btn-primary" onclick="closeMobileNav(); openModal();">Book a Demo →</button>
     </div>

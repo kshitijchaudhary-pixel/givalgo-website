@@ -491,14 +491,15 @@
     .rm-card p { font-size: 0.84rem; color: rgba(255,255,255,0.48); line-height: 1.6; }
 
     /* ══ PRICING ══ */
-    .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.75rem; align-items: start; max-width: 900px; margin: 0 auto; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.75rem; align-items: stretch; max-width: 900px; margin: 0 auto; }
     .price-card {
       background: #fff; border: 1.5px solid var(--border); border-radius: 18px; padding: 2.25rem;
       box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      display: flex; flex-direction: column;
     }
     .price-card-feat {
       background: linear-gradient(160deg, var(--navy) 0%, var(--navy-light) 100%);
-      border-color: var(--teal); transform: scale(1.03);
+      border-color: var(--teal);
       box-shadow: 0 12px 50px rgba(0,180,179,0.2);
     }
     .price-tier { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.7rem; }
@@ -508,7 +509,7 @@
     .price-period-lt { color: rgba(255,255,255,0.5); }
     .price-desc { font-size: 0.875rem; color: var(--text-muted); margin: 0.9rem 0 1.4rem; line-height: 1.6; }
     .price-desc-lt { color: rgba(255,255,255,0.55); }
-    .price-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.75rem; }
+    .price-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.75rem; flex: 1; }
     .price-list li { display: flex; align-items: center; gap: 0.55rem; font-size: 0.87rem; }
     .price-list li.inc { color: var(--text-dark); }
     .price-list li.inc-lt { color: rgba(255,255,255,0.82); }
@@ -1361,9 +1362,9 @@
         <div><span class="price-amount">Custom</span></div>
         <p class="price-desc">For platforms &amp; teams embedding Givalgo data. Usage-based plans, scoped to your needs.</p>
         <ul class="price-list">
-          <li class="inc"><strong>Verify API</strong> - eligibility, sanctions, Bulk Verify &amp; Report API</li>
-          <li class="inc"><strong>Data Pro API</strong> - 450+ attributes per organization</li>
-          <li class="inc"><strong>FaithVerify API</strong> - religious-org verification</li>
+          <li class="inc"><span><strong>Verify API</strong> - IRS, State AG &amp; Sanctions</span></li>
+          <li class="inc"><span><strong>Data Pro API</strong> - 450+ attributes per organization</span></li>
+          <li class="inc"><span><strong>FaithVerify API</strong> - religious-org verification</span></li>
           <li class="inc">Custom configurations &amp; volume</li>
           <li class="inc">Dedicated support &amp; founder access</li>
         </ul>

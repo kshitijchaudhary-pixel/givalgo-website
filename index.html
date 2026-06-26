@@ -207,8 +207,8 @@
     }
     .btn-ghost-hero:hover { border-color: var(--teal); color: var(--teal); background: rgba(0,180,179,0.06); }
     .hero-stats-row {
-      display: flex; align-items: center; gap: 1rem; margin-top: 2rem;
-      padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);
+      display: grid; grid-template-columns: 1fr 1px 1fr 1px 1fr; align-items: center; gap: 1rem; margin-top: 2rem;
+      padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;
     }
     .hero-stat-num { font-size: 1.65rem; font-weight: 900; color: var(--teal); letter-spacing: -0.03em; line-height: 1; }
     .hero-stat-label { font-size: 0.65rem; color: rgba(255,255,255,0.48); font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 0.2rem; }
@@ -250,6 +250,33 @@
       background: rgba(0,180,179,0.1); border: 1px solid rgba(0,180,179,0.2); border-radius: 8px;
       font-size: 0.75rem; color: var(--teal); font-weight: 600; display: flex; align-items: center; gap: 0.5rem;
     }
+
+    /* Hero carousel — rotating product frames (API → Ask → Profile) */
+    .hero-stage { display: grid; }
+    .hero-slide { grid-area: 1 / 1; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity 0.55s ease, transform 0.55s ease; pointer-events: none; }
+    .hero-slide.active { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
+    .carousel-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.1rem; }
+    .carousel-dot { width: 8px; height: 8px; padding: 0; border: none; border-radius: 100px; cursor: pointer; background: rgba(255,255,255,0.22); transition: all 0.3s; }
+    .carousel-dot.active { background: var(--teal); width: 22px; box-shadow: 0 0 12px rgba(0,180,179,0.6); }
+    .app-body { padding: 1.4rem; }
+    .ask-input { display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(0,180,179,0.3); border-radius: 10px; padding: 0.75rem 0.9rem; font-size: 0.82rem; color: rgba(255,255,255,0.92); }
+    .ask-cursor { width: 2px; height: 15px; background: var(--teal); display: inline-block; animation: blink 1.1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .ask-meta { font-size: 0.62rem; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.1em; margin: 1.1rem 0 0.5rem; }
+    .ask-result { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; padding: 0.7rem 0.85rem; margin-top: 0.55rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; }
+    .ask-result .arn { font-size: 0.8rem; color: rgba(255,255,255,0.92); font-weight: 600; }
+    .ask-result .arm { font-size: 0.67rem; color: rgba(255,255,255,0.4); margin-top: 0.15rem; }
+    .ask-badge { font-size: 0.62rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 100px; white-space: nowrap; background: rgba(74,211,255,0.12); color: #4ad3ff; border: 1px solid rgba(74,211,255,0.3); }
+    .prof-head { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; margin-bottom: 1.1rem; }
+    .prof-name { font-size: 0.92rem; font-weight: 700; color: #fff; }
+    .prof-sub { font-size: 0.66rem; color: rgba(255,255,255,0.4); margin-top: 0.2rem; }
+    .prof-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-bottom: 1.1rem; }
+    .prof-stat { background: rgba(255,255,255,0.04); border-radius: 8px; padding: 0.65rem 0.4rem; text-align: center; }
+    .prof-stat .v { font-size: 0.95rem; font-weight: 800; color: var(--teal); }
+    .prof-stat .l { font-size: 0.55rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.25rem; }
+    .prof-chart { display: flex; align-items: flex-end; gap: 0.5rem; height: 88px; padding: 0.7rem; background: rgba(0,180,179,0.05); border: 1px solid rgba(0,180,179,0.18); border-radius: 10px; }
+    .prof-bar { flex: 1; background: linear-gradient(180deg, #00d8d6, #00848b); border-radius: 4px 4px 0 0; min-height: 6px; }
+    .prof-cap { font-size: 0.6rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.55rem; }
 
     /* ══ TRUST BAR ══ */
     .trust-bar {
@@ -464,7 +491,7 @@
     .rm-card p { font-size: 0.84rem; color: rgba(255,255,255,0.48); line-height: 1.6; }
 
     /* ══ PRICING ══ */
-    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; align-items: start; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.75rem; align-items: start; max-width: 900px; margin: 0 auto; }
     .price-card {
       background: #fff; border: 1.5px solid var(--border); border-radius: 18px; padding: 2.25rem;
       box-shadow: 0 2px 12px rgba(0,0,0,0.05);
@@ -745,10 +772,7 @@
 </head>
 <body>
 
-<!-- ══ DRAFT BANNER ══ -->
-<div class="draft-banner">
-  ⚠️ DESIGN DRAFT v2 -For approval only. Open wireframe.html in your browser. Share feedback before we build the real site.
-</div>
+<!-- ══ DRAFT BANNER removed ══ -->
 
 <!-- ══ DEMO MODAL ══ -->
 <div class="modal-overlay" id="demoModal">
@@ -796,7 +820,8 @@
       </svg>
     </a>
     <div class="nav-links">
-      <a href="#solutions">Solutions</a>
+      <a href="#discover">Discover</a>
+      <a href="#solutions">APIs</a>
       <a href="#use-cases">Use Cases</a>
       <a href="#roadmap">Roadmap</a>
       <a href="#pricing">Pricing</a>
@@ -804,7 +829,7 @@
     </div>
     <div class="nav-ctas">
       <a href="https://discover.givalgo.ai" class="btn-nav-primary" target="_blank" rel="noopener">Discover<span class="badge-new">New</span></a>
-      <a href="#pricing" class="btn-nav-ghost">Get API Keys</a>
+      <a href="#pricing" class="btn-nav-ghost">Talk to Sales</a>
       <button class="btn-nav-primary" onclick="openModal()">Book a Demo →</button>
     </div>
     <!-- Hamburger (mobile only) -->
@@ -814,14 +839,15 @@
   </div>
   <!-- Mobile nav dropdown -->
   <div class="mobile-nav" id="mobileNav">
-    <a href="#solutions" onclick="closeMobileNav()">Solutions</a>
+    <a href="#discover" onclick="closeMobileNav()">Discover</a>
+    <a href="#solutions" onclick="closeMobileNav()">APIs</a>
     <a href="#use-cases" onclick="closeMobileNav()">Use Cases</a>
     <a href="#roadmap" onclick="closeMobileNav()">Roadmap</a>
     <a href="#pricing" onclick="closeMobileNav()">Pricing</a>
     <a href="https://docs.givalgo.ai/" target="_blank" onclick="closeMobileNav()">API Docs</a>
     <div class="mobile-nav-ctas">
       <a href="https://discover.givalgo.ai" class="mobile-btn-primary" target="_blank" rel="noopener" onclick="closeMobileNav()">Discover<span class="badge-new">New</span></a>
-      <a href="#pricing" class="mobile-btn-ghost" onclick="closeMobileNav()">Get API Keys</a>
+      <a href="#pricing" class="mobile-btn-ghost" onclick="closeMobileNav()">Talk to Sales</a>
       <button class="mobile-btn-primary" onclick="closeMobileNav(); openModal();">Book a Demo →</button>
     </div>
   </div>
@@ -833,26 +859,25 @@
     <!-- Left -->
     <div>
       <h1>
-        Data and Compliance<br/>
-        Infrastructure for<br/>
-        <span class="gradient-text">Grantmakers</span>
+        Find, vet, and fund<br/>
+        the <span class="gradient-text">right nonprofits.</span>
       </h1>
       <p class="hero-desc">
-        Givalgo delivers structured, real-time nonprofit data - financial records, compliance signals, and organizational intelligence - through enterprise-grade APIs trusted by Donor-Advised Funds, Foundations, and Grant Management Platforms.
+        The prospecting &amp; due-diligence platform for grantmakers - built on robust, authoritative data sources covering $1.2T+ in grant flows.
       </p>
       <div class="hero-ctas">
-        <button class="btn-primary" onclick="openModal()">📅 &nbsp;Book a Demo</button>
-        <a href="#pricing" class="btn-ghost-hero">Get API Access →</a>
+        <a href="https://discover.givalgo.ai" class="btn-primary" target="_blank" rel="noopener">Try Discover free →</a>
+        <button class="btn-ghost-hero" onclick="openModal()">📅 &nbsp;Book a Demo</button>
       </div>
       <div class="hero-stats-row">
         <div>
-          <div class="hero-stat-num">20K</div>
-          <div class="hero-stat-label">Records / API call</div>
+          <div class="hero-stat-num">$1.2T+</div>
+          <div class="hero-stat-label">Grant flows tracked</div>
         </div>
         <div class="stat-divider"></div>
         <div>
-          <div class="hero-stat-num">550+</div>
-          <div class="hero-stat-label">Hours saved / year</div>
+          <div class="hero-stat-num">450+</div>
+          <div class="hero-stat-label">Attributes / org</div>
         </div>
         <div class="stat-divider"></div>
         <div>
@@ -860,34 +885,103 @@
           <div class="hero-stat-label">Data refresh</div>
         </div>
       </div>
+      <!-- Backed by Blackbaud -->
+      <div style="display:flex; flex-direction:column; align-items:center; gap:0.5rem; margin-top:2rem;">
+        <div style="display:inline-flex; align-items:center; gap:0.9rem; background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:0.55rem 1.3rem; box-shadow:0 6px 24px rgba(0,0,0,0.28);">
+          <span style="font-size:0.64rem; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:#94a3b8; white-space:nowrap;">Backed by</span>
+          <div style="width:1px; height:18px; background:#e2e8f0; flex-shrink:0;"></div>
+          <a href="https://www.blackbaud.com/social-good-startup-program" target="_blank" rel="noopener noreferrer"><img src="blackbaud-logo.png" alt="Blackbaud" style="height:28px; display:block;"/></a>
+        </div>
+        <span style="font-size:0.64rem; color:rgba(255,255,255,0.45); font-weight:500; letter-spacing:0.04em;">Social Good Startup Program</span>
+      </div>
     </div>
 
-    <!-- Right -Live API Card -->
-    <div>
-      <div class="api-card">
-        <div class="api-card-bar">
-          <div class="wdot wd-r"></div><div class="wdot wd-y"></div><div class="wdot wd-g"></div>
-          <span class="api-card-label">api.givalgo.ai &nbsp;·&nbsp; v1</span>
-        </div>
-        <div class="api-card-body">
-          <span class="cline"><span class="c-gray"># Verify any nonprofit -one API call</span></span>
-          <span class="cline"><span class="c-method">GET</span> <span class="c-url">api.givalgo.ai/v1/verify</span></span>
-          <span class="cline"><span class="c-gray">&nbsp;&nbsp;&nbsp;?ein=</span><span class="c-str">13-1641750</span></span>
-          <span class="cline"><span class="c-key">x-api-key:</span> <span class="c-str">gvlg_live_••••••••</span></span>
-          <div class="resp-box">
-            <div class="resp-head">↳ Response · 87ms</div>
-            <div class="resp-row"><span class="resp-k">name</span><span class="resp-v">"American Red Cross"</span></div>
-            <div class="resp-row"><span class="resp-k">status</span><span class="resp-v"><span class="pill pill-g">ELIGIBLE</span></span></div>
-            <div class="resp-row"><span class="resp-k">pub78_listed</span><span class="resp-v"><span class="pill pill-g">true</span></span></div>
-            <div class="resp-row"><span class="resp-k">revoked</span><span class="resp-v"><span class="pill pill-g">false</span></span></div>
-            <div class="resp-row"><span class="resp-k">ofac_org_screen</span><span class="resp-v"><span class="pill pill-g">CLEAR</span></span></div>
-            <div class="resp-row"><span class="resp-k">ofac_leadership</span><span class="resp-v"><span class="pill pill-g">CLEAR</span></span></div>
-            <div class="resp-row"><span class="resp-k">leaders_screened</span><span class="resp-v">14 officers</span></div>
+    <!-- Right -rotating product carousel (API · Ask · Profile) -->
+    <div class="hero-carousel" id="heroCarousel">
+      <div class="hero-stage">
+
+        <!-- Slide 1: Verify API -->
+        <div class="hero-slide active" data-slide="0">
+          <div class="api-card">
+            <div class="api-card-bar">
+              <div class="wdot wd-r"></div><div class="wdot wd-y"></div><div class="wdot wd-g"></div>
+              <span class="api-card-label">api.givalgo.ai &nbsp;·&nbsp; v1</span>
+            </div>
+            <div class="api-card-body">
+              <span class="cline"><span class="c-gray"># Verify any nonprofit -one API call</span></span>
+              <span class="cline"><span class="c-method">GET</span> <span class="c-url">api.givalgo.ai/v1/verify</span></span>
+              <span class="cline"><span class="c-gray">&nbsp;&nbsp;&nbsp;?ein=</span><span class="c-str">45-3829107</span></span>
+              <span class="cline"><span class="c-key">x-api-key:</span> <span class="c-str">gvlg_live_••••••••</span></span>
+              <div class="resp-box">
+                <div class="resp-head">↳ Response · 87ms</div>
+                <div class="resp-row"><span class="resp-k">name</span><span class="resp-v">"Brightwater Foundation"</span></div>
+                <div class="resp-row"><span class="resp-k">status</span><span class="resp-v"><span class="pill pill-g">ELIGIBLE</span></span></div>
+                <div class="resp-row"><span class="resp-k">pub78_listed</span><span class="resp-v"><span class="pill pill-g">true</span></span></div>
+                <div class="resp-row"><span class="resp-k">revoked</span><span class="resp-v"><span class="pill pill-g">false</span></span></div>
+                <div class="resp-row"><span class="resp-k">ofac_org_screen</span><span class="resp-v"><span class="pill pill-g">CLEAR</span></span></div>
+                <div class="resp-row"><span class="resp-k">ofac_leadership</span><span class="resp-v"><span class="pill pill-g">CLEAR</span></span></div>
+                <div class="resp-row"><span class="resp-k">leaders_screened</span><span class="resp-v">14 officers</span></div>
+              </div>
+              <div class="differentiator-tag">
+                ⚡ The only API that screens charity leadership against sanctions lists
+              </div>
+            </div>
           </div>
-          <div class="differentiator-tag">
-            ⚡ The only API that screens charity leadership against sanctions lists
+        </div>
+
+        <!-- Slide 2: Discover Ask (prospecting) -->
+        <div class="hero-slide" data-slide="1">
+          <div class="api-card">
+            <div class="api-card-bar">
+              <div class="wdot wd-r"></div><div class="wdot wd-y"></div><div class="wdot wd-g"></div>
+              <span class="api-card-label">discover.givalgo.ai/ask</span>
+            </div>
+            <div class="app-body">
+              <div class="ask-input">🔍&nbsp; Environmental nonprofits in Texas Triangle with at least $1M grants in last 3 years<span class="ask-cursor"></span></div>
+              <div class="ask-meta">42 matches · parsed in 112ms</div>
+              <div class="ask-result"><div><div class="arn">Hill Country Conservation Fund</div><div class="arm">Austin, TX · $4.2M revenue</div></div><span class="ask-badge">$3.1M grants</span></div>
+              <div class="ask-result"><div><div class="arn">Rio Verde Land Trust</div><div class="arm">San Antonio, TX · $2.8M revenue</div></div><span class="ask-badge">$1.8M grants</span></div>
+              <div class="ask-result"><div><div class="arn">Lone Star Rivers Alliance</div><div class="arm">Houston, TX · $1.6M revenue</div></div><span class="ask-badge">$1.2M grants</span></div>
+              <div class="differentiator-tag">🔍 Ask in plain English — search 1.9M nonprofits &amp; their funders</div>
+            </div>
           </div>
         </div>
+
+        <!-- Slide 3: Org profile (due diligence) -->
+        <div class="hero-slide" data-slide="2">
+          <div class="api-card">
+            <div class="api-card-bar">
+              <div class="wdot wd-r"></div><div class="wdot wd-y"></div><div class="wdot wd-g"></div>
+              <span class="api-card-label">discover.givalgo.ai/org</span>
+            </div>
+            <div class="app-body">
+              <div class="prof-head">
+                <div><div class="prof-name">Hill Country Conservation Fund</div><div class="prof-sub">EIN 45-3829107 · Austin, TX</div></div>
+                <span class="pill pill-g">ELIGIBLE</span>
+              </div>
+              <div class="prof-stats">
+                <div class="prof-stat"><div class="v">$4.2M</div><div class="l">Revenue</div></div>
+                <div class="prof-stat"><div class="v">$9.1M</div><div class="l">Assets</div></div>
+                <div class="prof-stat"><div class="v">A−</div><div class="l">Health</div></div>
+              </div>
+              <div class="prof-chart">
+                <div class="prof-bar" style="height:38%"></div>
+                <div class="prof-bar" style="height:52%"></div>
+                <div class="prof-bar" style="height:60%"></div>
+                <div class="prof-bar" style="height:79%"></div>
+                <div class="prof-bar" style="height:100%"></div>
+              </div>
+              <div class="prof-cap">Revenue · 5-year trend</div>
+              <div class="differentiator-tag">📈 Full financials, governance &amp; grant history in one view</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="carousel-dots">
+        <button class="carousel-dot active" data-dot="0" aria-label="Verify API frame"></button>
+        <button class="carousel-dot" data-dot="1" aria-label="Discover Ask frame"></button>
+        <button class="carousel-dot" data-dot="2" aria-label="Org profile frame"></button>
       </div>
     </div>
   </div>
@@ -909,30 +1003,66 @@
 </section>
 
 <!-- ══ PROBLEM ══ -->
-<section class="sec sec-alt" id="problem">
+<section class="sec sec-light" id="problem">
   <div class="container">
     <div class="sec-header">
       <div class="section-label">The Problem</div>
-      <h2 class="sec-title">Nonprofit data is fragmented, incomplete, and expensive</h2>
+      <h2 class="sec-title">Finding and vetting the right nonprofits is slow and manual</h2>
       <div class="divider"></div>
-      <p class="sec-sub">Grantmakers waste thousands of hours every year stitching together government data from siloed sources. The few APIs that exist are archaic, expensive, and don't screen for what matters most.</p>
+      <p class="sec-sub">Grantmakers lose thousands of hours every year hunting for the right organizations and piecing together the data to vet them - from filings to sanctions lists to the open web. What exists is scattered, archaic, and doesn't surface what matters for a confident funding decision.</p>
     </div>
     <div class="problem-grid">
       <div class="prob-card">
-        <div class="prob-icon pi-red">📄</div>
-        <h3>IRS data is raw and unstructured</h3>
-        <p>Form 990s are published as millions of raw XML files. No structure, no search, no API. Extracting actionable financial data requires months of engineering work that most teams simply don't have.</p>
+        <div class="prob-icon pi-red">🧩</div>
+        <h3>Data is scattered and unstructured</h3>
+        <p>What you need is spread across IRS filings, sanctions and watchlists, watchdog sites, and the open web - most of it raw and unstructured. Pulling it into one place takes months of manual work or engineering.</p>
       </div>
       <div class="prob-card">
         <div class="prob-icon pi-amber">⏱️</div>
-        <h3>Manual verification takes hours</h3>
-        <p>Checking active status, sanctions, revocation lists, and Pub 78 eligibility means juggling four separate web pages and running searches. Many grantmakers still do this manually, with charity leadership screening being the most time-consuming.</p>
+        <h3>Manual verification across sources takes hours</h3>
+        <p>Checking eligibility, revocation, sanctions, and governance means juggling separate websites and running searches by hand for every organization - and re-doing it all whenever something changes.</p>
       </div>
       <div class="prob-card">
         <div class="prob-icon pi-purple">💸</div>
-        <h3>Existing APIs are archaic and expensive</h3>
-        <p>The legacy data providers in this space were built decades ago. Their data is often stale and incomplete, their APIs are clunky, and their pricing was designed for legacy institutions - not modern grantmakers and SaaS platforms.</p>
+        <h3>Existing solutions are archaic and expensive</h3>
+        <p>The legacy providers in this space were built decades ago. Their data is often stale and incomplete, their tools are clunky, and their pricing was designed for legacy institutions - not modern grantmakers and platforms.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DISCOVER (the app) ══ -->
+<section class="sec sec-alt" id="discover">
+  <div class="container">
+    <div class="sec-header">
+      <div class="section-label">Givalgo Discover</div>
+      <h2 class="sec-title">Comprehensive prospecting &amp; due diligence, made easy</h2>
+      <div class="divider"></div>
+      <p class="sec-sub">The web app for grantmaking teams. Sign up in less than 2 minutes and search 1.9M+ nonprofits and the funders behind them, vet any organization, get a holistic understanding of all their operations, and turn raw data into decisions.</p>
+    </div>
+    <div class="products-grid">
+      <div class="prod-card">
+        <div class="prod-icon">🔍</div>
+        <h3>Find</h3>
+        <p class="prod-tag">Prospecting</p>
+        <p>Search by cause, geography, size, financials, growth, and who-funds-whom. Ask in plain English and build exportable shortlists in seconds.</p>
+      </div>
+      <div class="prod-card">
+        <div class="prod-icon">🛡️</div>
+        <h3>Vet</h3>
+        <p class="prod-tag">Due diligence</p>
+        <p>Check IRS eligibility, revocation, sanctions, governance and risk signals before money moves - the full picture in one view.</p>
+      </div>
+      <div class="prod-card">
+        <div class="prod-icon">📈</div>
+        <h3>Analyze</h3>
+        <p class="prod-tag">Intelligence</p>
+        <p>Turn raw 990 filings into structured insight on finances, leadership, programs and multi-year trends - ready for reports and decisions.</p>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:2.5rem;">
+      <a href="https://discover.givalgo.ai" class="btn-primary" target="_blank" rel="noopener">Try Discover free →</a>
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.9rem;">Free to start · Pro trial available - no credit card required</p>
     </div>
   </div>
 </section>
@@ -941,61 +1071,52 @@
 <section class="sec sec-light" id="solutions">
   <div class="container">
     <div class="sec-header">
-      <div class="section-label">Our Solutions</div>
-      <h2 class="sec-title">One platform. Complete nonprofit intelligence.</h2>
+      <div class="section-label">Givalgo API</div>
+      <h2 class="sec-title">Power your product with nonprofit intelligence</h2>
       <div class="divider"></div>
-      <p class="sec-sub">From raw IRS XML to structured API responses to approvals/ flags in milliseconds.<br/>Givalgo is the intelligence layer your platform has been waiting for.</p>
-
-      <!-- Blackbaud backing -->
-      <div style="display:flex; flex-direction:column; align-items:center; gap:0.5rem; margin-top:2rem; margin-bottom:0.25rem;">
-        <div style="display:inline-flex; align-items:center; gap:1.1rem; background:#fff; border:1.5px solid #e2e8f0; border-radius:14px; padding:0.9rem 2rem; box-shadow:0 2px 14px rgba(0,0,0,0.07);">
-          <span style="font-size:0.75rem; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:#94a3b8; white-space:nowrap;">Backed by</span>
-          <div style="width:1px; height:22px; background:#e2e8f0; flex-shrink:0;"></div>
-          <a href="https://www.blackbaud.com/social-good-startup-program" target="_blank" rel="noopener noreferrer"><img src="blackbaud-logo.png" alt="Blackbaud" style="height:46px; display:block; opacity:0.95;"/></a>
-        </div>
-        <span style="font-size:0.75rem; color:#94a3b8; font-weight:500; letter-spacing:0.04em;">Social Good Startup Program</span>
-      </div>
+      <p class="sec-sub">The same authoritative data behind Discover, delivered as fast, structured APIs - so platforms and teams can verify, enrich, and prospect right inside their own workflows.</p>
     </div>
     <div class="products-grid">
 
-      <!-- CharityVerify -Flagship -->
+      <!-- Verify API -Flagship -->
       <div class="prod-card prod-card-hero">
         <div class="prod-icon">🛡️</div>
-        <h3>CharityVerify</h3>
-        <p class="prod-tag">Real-time compliance verification engine</p>
-        <p>Instantly verify any nonprofit's standing with a single API call. We run a 6-step verification - active IRS status, Pub 78 eligibility, group exemption check, IRS revocation, org OFAC sanction screening, and leadership screening -in under 100ms.</p>
+        <h3>Verify API</h3>
+        <p class="prod-tag">Real-time eligibility &amp; sanctions verification</p>
+        <p>Instantly verify any nonprofit's standing with a single API call - a 6-step check covering active IRS status, Pub 78 eligibility, group exemption, IRS revocation, org OFAC screening, and leadership screening, all in under 100ms.</p>
         <ul class="prod-feats">
           <li>Active 501(c)(3) status &amp; Pub 78 eligibility</li>
           <li>IRS auto-revocation &amp; group exemption traversal</li>
           <li>Screen charity officers &amp; directors against OFAC SDN + Consolidated lists</li>
-          <li>Fuzzy matching catches misspellings &amp; name variations</li>
-          <li>1.9M+ organizations · 4.5M+ records · nightly refresh</li>
+          <li>Validate against California FTB &amp; AG charity registries</li>
+          <li><span><strong>Bulk Verify</strong> - up to 20K verifications for batch screening</span></li>
+          <li><span><strong>Report API</strong> - generate a shareable due-diligence report</span></li>
         </ul>
-        <div class="ai-tag">⚡ Only platform that screens charity leadership, not just the org name</div>
+        <div class="ai-tag">⚡ The only API that screens charity leadership, not just the org name</div>
         <a href="https://docs.givalgo.ai/" class="prod-link" target="_blank">View API docs →</a>
       </div>
 
-      <!-- Form 990 API -->
+      <!-- Data Pro API -->
       <div class="prod-card">
         <div class="prod-icon">📊</div>
-        <h3>Form 990 Intelligence API</h3>
-        <p class="prod-tag">Structured financial, governance and programmatic data at API speed</p>
-        <p>We parse every IRS Form 990, 990-EZ, and 990-PF filing -transforming raw XML into clean, structured JSON. Query financials, governance, compensation, grants, and program data for any nonprofit by EIN.</p>
+        <h3>Data Pro API</h3>
+        <p class="prod-tag">450+ extracted &amp; computed attributes per organization</p>
+        <p>We parse every IRS Form 990, 990-EZ, and 990-PF filing - transforming raw XML into clean, structured JSON. Query 450+ extracted and computed attributes per nonprofit by EIN, spanning tens of thousands of underlying data points across filing years.</p>
         <ul class="prod-feats">
           <li>Revenue, expenses, assets &amp; computed financial ratios</li>
           <li>Officer compensation &amp; board composition</li>
-          <li>Grant recipients and program descriptions</li>
-          <li>Governance, policies and board compositions</li>
-          <li>Multi-year historical data with trend signals</li>
+          <li>Grants made &amp; received, with funder-recipient mapping</li>
+          <li>Programs, mission, governance &amp; policy signals</li>
+          <li>Multi-year history with growth &amp; trend indicators</li>
         </ul>
-        <div class="ai-tag">📊 Structured financial, governance and programmatic data across all IRS 990 filings</div>
-        <a href="#" class="prod-link" onclick="openModal(); return false;">Get early access →</a>
+        <div class="ai-tag">📊 450+ attributes spanning tens of thousands of data points per org</div>
+        <a href="#" class="prod-link" onclick="openModal(); return false;">Talk to sales →</a>
       </div>
 
-      <!-- FaithVerify -->
+      <!-- FaithVerify API -->
       <div class="prod-card">
         <div class="prod-icon">⛪</div>
-        <h3>FaithVerify</h3>
+        <h3>FaithVerify API</h3>
         <p class="prod-tag">Denomination &amp; religious organization verification</p>
         <p>The only structured database of religious organizations that can accept tax-deductible donations. AI agents scan denominational databases and official websites to confirm legitimacy and affiliation.</p>
         <ul class="prod-feats">
@@ -1006,7 +1127,7 @@
           <li>Built for DAFs, community foundations, and workplace giving platforms</li>
         </ul>
         <div class="ai-tag">🤖 AI agents scan denominational directories and church websites to verify 501(c)(3) equivalency.</div>
-        <a href="#" class="prod-link" onclick="openModal(); return false;">Get early access →</a>
+        <a href="#" class="prod-link" onclick="openModal(); return false;">Talk to sales →</a>
       </div>
 
     </div>
@@ -1022,8 +1143,8 @@
         <div class="num-lbl">Nonprofits Verified</div>
       </div>
       <div class="num-item">
-        <div class="num-val">25M+</div>
-        <div class="num-lbl">Charity Leaders Screened</div>
+        <div class="num-val">3.6M+</div>
+        <div class="num-lbl">Grants Mapped</div>
       </div>
       <div class="num-item">
         <div class="num-val">1.3B+</div>
@@ -1049,7 +1170,7 @@
       <div class="how-step">
         <div class="how-num">1</div>
         <h4>Get your API key</h4>
-        <p>Sign up and choose your product/ tier. Receive credentials instantly and integrate in minutes with our REST API.</p>
+        <p>Tell us about your use case and we'll provision your credentials. Integrate in minutes with our REST API.</p>
       </div>
       <div class="how-step">
         <div class="how-num">2</div>
@@ -1120,7 +1241,7 @@
   <div class="container">
     <div class="sec-header">
       <div class="section-label">What Teams Are Saying</div>
-      <h2 class="sec-title">Trusted by compliance teams and platform builders</h2>
+      <h2 class="sec-title">Trusted by grantmaking and platform teams</h2>
       <div class="divider"></div>
     </div>
     <div class="testi-grid">
@@ -1163,40 +1284,40 @@
   <div class="container">
     <div class="sec-header">
       <div class="section-label section-label-light">Our Roadmap</div>
-      <h2 class="sec-title sec-title-light">Building the definitive compliance layer for a $600B+ sector</h2>
+      <h2 class="sec-title sec-title-light">Building the definitive prospecting &amp; due-diligence platform for a $600B+ sector</h2>
       <div class="divider"></div>
-      <p class="sec-sub sec-sub-light" style="margin-top:1rem;">We're starting where the data problems are most acute. Our roadmap leads to a full-stack compliance intelligence platform -eventually the trusted backbone for every philanthropic dollar that moves in America.</p>
+      <p class="sec-sub sec-sub-light" style="margin-top:1rem;">We're starting where the data problems are most acute. Our roadmap leads to a full-stack intelligence platform for grantmakers -eventually the trusted backbone for every philanthropic dollar that moves in America.</p>
     </div>
     <div class="rm-grid">
       <div class="rm-card rm-live">
         <div class="rm-status s-live"><span class="s-dot sd-live"></span> Live</div>
-        <h4>CharityVerify</h4>
-        <p>6-step real-time verification: active 501(c)(3) status, Pub 78 eligibility, group exemption traversal, IRS auto-revocation check, OFAC sanction checks, and leadership screening - including every charity officer and director -across 1.9M+ organizations.</p>
+        <h4>Verify API</h4>
+        <p>6-step real-time verification: active 501(c)(3) status, Pub 78 eligibility, group exemption traversal, IRS auto-revocation check, OFAC sanction checks, and leadership screening - including every charity officer and director -across 1.9M+ organizations. Includes Bulk Verify and the Report API.</p>
       </div>
       <div class="rm-card rm-live">
         <div class="rm-status s-live"><span class="s-dot sd-live"></span> Live</div>
-        <h4>FaithVerify</h4>
+        <h4>FaithVerify API</h4>
         <p>AI agents continuously scan 40+ denominational databases and official websites to verify religious organization legitimacy, IRS group exemption status, and congregation-level affiliation -the only structured database of its kind.</p>
       </div>
       <div class="rm-card rm-live">
         <div class="rm-status s-live"><span class="s-dot sd-live"></span> Live</div>
-        <h4>Form 990 Intelligence API</h4>
-        <p>Structured financial data from every IRS 990 filing -revenue, expenses, leadership compensation, grants, governance, and computed ratios. Monthly refresh via automated Lambda + EventBridge pipeline, backed by 1.3B+ structured data points.</p>
+        <h4>Data Pro API</h4>
+        <p>450+ extracted and computed attributes from every IRS 990 filing -revenue, expenses, leadership compensation, grants made and received, governance, and computed ratios. Automated Lambda + EventBridge pipeline, backed by 1.3B+ structured data points.</p>
+      </div>
+      <div class="rm-card rm-live">
+        <div class="rm-status s-live"><span class="s-dot sd-live"></span> Live</div>
+        <h4>Givalgo Discover</h4>
+        <p>The web app for grantmaking teams -prospect, vet, and analyze 1.9M+ nonprofits and the funders behind them in plain English. Natural-language search, full due-diligence, financials, grants, and peer benchmarks, all in the browser.</p>
       </div>
       <div class="rm-card rm-beta">
         <div class="rm-status s-beta"><span class="s-dot sd-beta"></span> Coming soon</div>
-        <h4>Real-Time Filing &amp; Revocation Alerts</h4>
-        <p>Webhook streams triggered the moment a new 990 is filed, a status changes, a revocation is issued, or a sanctions list is updated. Stop polling. Start knowing instantly.</p>
-      </div>
-      <div class="rm-card">
-        <div class="rm-status s-soon"><span class="s-dot sd-soon"></span> Coming 2026</div>
-        <h4>Financial, Programmatic &amp; Governance Intelligence</h4>
-        <p>Deep analytical layers on top of raw IRS data -multi-year financial trend signals, program effectiveness benchmarks, governance risk flags, and board composition analytics. Built for foundations making high-stakes grant decisions.</p>
+        <h4>Givalgo Watch</h4>
+        <p>Real-time monitoring of your portfolio of nonprofits -track every organization you care about across IRS filings, sanctions lists, and the news, and get alerted the moment something changes.</p>
       </div>
       <div class="rm-card" style="border-color: rgba(0,180,179,0.2); background: linear-gradient(160deg, rgba(0,180,179,0.06) 0%, rgba(7,40,64,0.8) 100%);">
-        <div class="rm-status s-soon"><span class="s-dot sd-soon"></span> 2027 &amp; Beyond</div>
-        <h4>Full-Stack Philanthropy Compliance Platform</h4>
-        <p>Our north star: the go-to compliance infrastructure for philanthropy -an AI compliance agency that handles all your complex compliance-related tasks autonomously, so you can focus on what matters: judgment, relationships, and impact. <em style="color:rgba(255,255,255,0.35)">We are just getting started.</em></p>
+        <div class="rm-status s-soon"><span class="s-dot sd-soon"></span> Q3 2026</div>
+        <h4>Givalgo AI — Autonomous Due Diligence</h4>
+        <p>Point Givalgo AI at any organization and get a complete, citation-backed due-diligence brief in seconds -financials, governance, risk flags, and live web research, synthesized for you. Then ask follow-up questions in plain English.</p>
       </div>
     </div>
   </div>
@@ -1207,76 +1328,46 @@
   <div class="container">
     <div class="sec-header">
       <div class="section-label">Pricing</div>
-      <h2 class="sec-title">Simple, transparent API pricing</h2>
+      <h2 class="sec-title">Start free. Scale when you're ready.</h2>
       <div class="divider"></div>
-      <p class="sec-sub">Start immediately. Scale as you grow. Enterprise teams get dedicated SLAs, custom data configurations, and a direct line to the founding team.</p>
-    </div>
-
-    <!-- Billing toggle -->
-    <div class="billing-toggle-wrap">
-      <span class="billing-label">Monthly</span>
-      <button class="billing-toggle" id="billingToggle" onclick="toggleBilling()" aria-label="Toggle billing period">
-        <span class="billing-toggle-thumb"></span>
-      </button>
-      <span class="billing-label">Annual <span class="save-badge">Save 20%</span></span>
+      <p class="sec-sub">Use Discover free, or talk to us about API access for your platform. Either way, you get a direct line to the founding team.</p>
     </div>
 
     <div class="pricing-grid">
 
-      <!-- Starter -->
-      <div class="price-card">
-        <div class="price-tier">Starter</div>
-        <div>
-          <span class="price-amount" id="starter-price">$99</span>
-          <span class="price-period"> / month</span>
-        </div>
-        <p class="price-annual-note" id="starter-annual-note"></p>
-        <p class="price-desc">For early-stage platforms building their first compliance integration.</p>
-        <ul class="price-list">
-          <li class="inc">100 API calls / mo</li>
-          <li class="inc">Real-time EIN Verification</li>
-          <li class="inc">Tax Deductibility check</li>
-          <li class="inc">OFAC screening</li>
-          <li class="inc">California AG check</li>
-          <li class="inc">Reports API access</li>
-        </ul>
-        <a href="#" class="btn-price btn-price-outline" onclick="openModal(); return false;">Get Started →</a>
-      </div>
-
-      <!-- Professional -->
+      <!-- Discover (the app) -->
       <div class="price-card price-card-feat">
-        <div class="price-tier">Professional</div>
+        <div class="price-tier">Discover</div>
         <div>
-          <span class="price-amount price-amount-lt" id="pro-price">$499</span>
-          <span class="price-period price-period-lt"> / month</span>
+          <span class="price-amount price-amount-lt">Free</span>
+          <span class="price-period price-period-lt"> to start</span>
         </div>
-        <p class="price-annual-note-lt" id="pro-annual-note"></p>
-        <p class="price-desc price-desc-lt">For growing platforms that need leadership screening and bulk API access.</p>
+        <p class="price-annual-note-lt">Pro (worth $20 / mo) - 30-day trial, no credit card</p>
+        <p class="price-desc price-desc-lt">The web app for grantmaking teams. Prospect, vet, and analyze nonprofits right in your browser.</p>
         <ul class="price-list">
-          <li class="inc-lt">1,000 API calls / mo</li>
-          <li class="inc-lt">Everything in Starter</li>
-          <li class="inc-lt">Leadership sanction screening</li>
-          <li class="inc-lt">Bulk API access</li>
-          <li class="inc-lt">Priority support</li>
+          <li class="inc-lt">Search 1.9M+ nonprofits &amp; their funders</li>
+          <li class="inc-lt">Ask - natural-language prospecting</li>
+          <li class="inc-lt">Full verification &amp; due-diligence</li>
+          <li class="inc-lt">5-year financials, grants &amp; benchmarks</li>
+          <li class="inc-lt">Pro free for 30 days, then $20 / mo</li>
         </ul>
-        <a href="#" class="btn-price btn-price-teal" onclick="openModal(); return false;">Start Free Trial →</a>
-        <p style="font-size:0.73rem;color:rgba(255,255,255,0.38);text-align:center;margin-top:0.7rem;">14-day free trial · No credit card required</p>
+        <a href="https://discover.givalgo.ai" class="btn-price btn-price-teal" target="_blank" rel="noopener">Try Discover free →</a>
+        <p style="font-size:0.73rem;color:rgba(255,255,255,0.38);text-align:center;margin-top:0.7rem;">No credit card required</p>
       </div>
 
-      <!-- Custom -->
+      <!-- API (sales-led) -->
       <div class="price-card">
-        <div class="price-tier">Custom</div>
+        <div class="price-tier">Givalgo API</div>
         <div><span class="price-amount">Custom</span></div>
-        <p class="price-desc">For foundations, compliance platforms, and fintech companies with high-volume or custom needs.</p>
+        <p class="price-desc">For platforms &amp; teams embedding Givalgo data. Usage-based plans, scoped to your needs.</p>
         <ul class="price-list">
-          <li class="inc">Unlimited API calls</li>
-          <li class="inc">Form 990 Intelligence API</li>
-          <li class="inc">FaithVerify API</li>
-          <li class="inc">Custom API configurations</li>
-          <li class="inc">Dedicated account manager</li>
-          <li class="inc">Human-in-the-loop</li>
+          <li class="inc"><strong>Verify API</strong> - eligibility, sanctions, Bulk Verify &amp; Report API</li>
+          <li class="inc"><strong>Data Pro API</strong> - 450+ attributes per organization</li>
+          <li class="inc"><strong>FaithVerify API</strong> - religious-org verification</li>
+          <li class="inc">Custom configurations &amp; volume</li>
+          <li class="inc">Dedicated support &amp; founder access</li>
         </ul>
-        <button class="btn-price btn-price-outline" onclick="openModal()">Book a Demo →</button>
+        <button class="btn-price btn-price-outline" onclick="openModal()">Book a call →</button>
       </div>
 
     </div>
@@ -1286,14 +1377,14 @@
 <!-- ══ FINAL CTA ══ -->
 <section class="cta-section">
   <div class="container">
-    <span class="badge" style="margin-bottom:1.4rem; display:inline-flex; background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.25); color:#fff;">Start verifying nonprofits today</span>
-    <h2>The infrastructure for<br/>trusted giving starts here.</h2>
-    <p>Join DAFs, foundations, and compliance platforms that trust Givalgo to verify, enrich, and power their philanthropic workflows.</p>
+    <span class="badge" style="margin-bottom:1.4rem; display:inline-flex; background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.25); color:#fff;">Find, vet, and fund - faster</span>
+    <h2>Start with Discover free,<br/>or build with our APIs.</h2>
+    <p>Join the grantmakers and platforms that trust Givalgo to find the right nonprofits, vet them with confidence, and power their giving.</p>
     <div class="cta-btns">
-      <button class="btn-white" onclick="openModal()">📅 &nbsp;Book a 30-min Demo</button>
-      <a href="#pricing" class="btn-outline-white">Get API Access →</a>
+      <a href="https://discover.givalgo.ai" class="btn-white" target="_blank" rel="noopener">Try Discover free →</a>
+      <button class="btn-outline-white" onclick="openModal()">📅 &nbsp;Book a Demo</button>
     </div>
-    <p class="cta-footnote">No commitment required &nbsp;·&nbsp; Response within 1 business day &nbsp;·&nbsp; 14-day free trial available</p>
+    <p class="cta-footnote">No commitment required &nbsp;·&nbsp; Response within 1 business day &nbsp;·&nbsp; 30-day Discover trial, no card</p>
   </div>
 </section>
 
@@ -1314,14 +1405,15 @@
           <path fill="#00848b" d="M70.01,130.83c-3.61,0-6.95-.74-10-2.23-3.06-1.49-5.7-3.47-7.94-5.96-2.24-2.48-4-5.37-5.29-8.66-1.29-3.29-1.94-6.79-1.94-10.49s.65-7.06,1.94-10.35c1.29-3.29,3.05-6.2,5.29-8.73,2.24-2.53,4.91-4.51,8-5.96,3.1-1.44,6.45-2.17,10.07-2.17.89,0,31.32-.03,32.2.07v-28.5c-.92-.05-31.4,0-32.33,0-7.4,0-14.31,1.47-20.72,4.4-6.41,2.93-12.01,6.95-16.78,12.05-4.78,5.1-8.54,11.01-11.3,17.73-2.76,6.72-4.13,13.87-4.13,21.45s1.38,14.73,4.13,21.45c2.75,6.72,6.52,12.63,11.3,17.73,4.78,5.1,10.37,9.12,16.78,12.05,6.41,2.93,13.32,4.4,20.72,4.4,2.06,0,4.09-.12,6.09-.35v-28.71c-1.96.51-3.98.77-6.09.77Z"/>
           <path fill="#00b4b3" d="M106.34,103.47h-33.05l12.54,21.15c-1.86,1.7-3.9,3.07-6.12,4.1-1.17.55-2.38.99-3.62,1.35v-.02c-1.96.51-3.98.77-6.09.77-3.61,0-6.95-.74-10-2.23-.05-.02-.1-.05-.14-.07v29.61c3.27.65,6.66.98,10.15.98,2.06,0,4.09-.12,6.09-.35v-.03c5.21-.77,9.67-2.52,14.43-4.86,3.27-1.61,6.32-3.57,9.19-5.86l6.63,11.18v-55.72Z"/>
         </svg>
-        <p>The nonprofit data and compliance infrastructure layer for Donor-Advised Funds, Foundations, and Grant Management SaaS platforms.</p>
+        <p>The prospecting and due-diligence platform for grantmakers - available as the Discover app or enterprise APIs.</p>
       </div>
       <div class="footer-col">
         <h5>Products</h5>
         <ul>
-          <li><a href="#solutions">CharityVerify</a></li>
-          <li><a href="#solutions">Form 990 API</a></li>
-          <li><a href="#solutions">FaithVerify</a></li>
+          <li><a href="https://discover.givalgo.ai" target="_blank" rel="noopener">Discover</a></li>
+          <li><a href="#solutions">Verify API</a></li>
+          <li><a href="#solutions">Data Pro API</a></li>
+          <li><a href="#solutions">FaithVerify API</a></li>
           <li><a href="#pricing">Pricing</a></li>
         </ul>
       </div>
@@ -1331,7 +1423,7 @@
           <li><a href="https://docs.givalgo.ai/" target="_blank">API Documentation</a></li>
           <li><a href="https://docs.givalgo.ai/" target="_blank">Getting Started</a></li>
           <li><a href="https://docs.givalgo.ai/" target="_blank">API Reference</a></li>
-          <li><a href="#" onclick="openModal(); return false;">Get API Keys</a></li>
+          <li><a href="#" onclick="openModal(); return false;">Talk to Sales</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1639,27 +1731,25 @@
 </div>
 
 <script>
-  // ── Billing toggle ──────────────────────────────────────────
-  let isAnnual = true;
-  function toggleBilling() {
-    isAnnual = !isAnnual;
-    const toggle = document.getElementById('billingToggle');
-    toggle.classList.toggle('active', isAnnual);
-    // Starter
-    document.getElementById('starter-price').textContent = isAnnual ? '$79' : '$99';
-    document.getElementById('starter-annual-note').textContent = isAnnual ? 'Billed as $948 / year' : '';
-    // Professional
-    document.getElementById('pro-price').textContent = isAnnual ? '$399' : '$499';
-    document.getElementById('pro-annual-note').textContent = isAnnual ? 'Billed as $4,788 / year' : '';
-  }
-  // Initialise to annual on page load
-  document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('billingToggle').classList.add('active');
-    document.getElementById('starter-price').textContent = '$79';
-    document.getElementById('starter-annual-note').textContent = 'Billed as $948 / year';
-    document.getElementById('pro-price').textContent = '$399';
-    document.getElementById('pro-annual-note').textContent = 'Billed as $4,788 / year';
-  });
+  // ── Hero carousel ───────────────────────────────────────────
+  (function(){
+    var car = document.getElementById('heroCarousel');
+    if (!car) return;
+    var slides = car.querySelectorAll('.hero-slide');
+    var dots = car.querySelectorAll('.carousel-dot');
+    var i = 0, timer = null;
+    function go(n){
+      i = (n + slides.length) % slides.length;
+      slides.forEach(function(s, k){ s.classList.toggle('active', k === i); });
+      dots.forEach(function(d, k){ d.classList.toggle('active', k === i); });
+    }
+    function start(){ timer = setInterval(function(){ go(i + 1); }, 4200); }
+    function stop(){ if (timer) { clearInterval(timer); timer = null; } }
+    dots.forEach(function(d, k){ d.addEventListener('click', function(){ go(k); stop(); start(); }); });
+    car.addEventListener('mouseenter', stop);
+    car.addEventListener('mouseleave', start);
+    start();
+  })();
 
   function openModal() {
     document.getElementById('demoModal').classList.add('open');

@@ -51,22 +51,30 @@ def head(title, desc, canonical, extra=''):
 ''' % dict(t=title, d=desc, c=canonical, ga=GA.rstrip('\n'), x=extra)
 
 CHEV='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>'
-def nav(on_pricing=False):
-    p='/' if on_pricing else ''
+USECASE_LINKS=[('/for/daf-sponsors/','DAF sponsors &amp; community foundations','Verify every recommendation before it moves'),
+               ('/for/platforms/','Grant management &amp; giving platforms','Embed verification and data in your product'),
+               ('/for/foundations/','Private &amp; corporate foundations','Prospect, vet, and brief in one workspace')]
+def nav(on_pricing=False, current=None):
+    p='/' if (on_pricing or current) else ''
     products=('<div class="menu" id="productsMenu">'
-              '<button type="button" class="menu-btn" aria-haspopup="true" aria-expanded="false" aria-controls="productsPanel" onclick="toggleMenu(event)">Products '+CHEV+'</button>'
+              '<button type="button" class="menu-btn" aria-haspopup="true" aria-expanded="false" aria-controls="productsPanel" onclick="toggleMenu(event, this)">Products '+CHEV+'</button>'
               '<div class="menu-panel" id="productsPanel" role="menu">'
               '<a role="menuitem" href="'+p+'#discover"><b>Discover</b><span>The workspace for grantmaking teams</span></a>'
               '<a role="menuitem" href="'+p+'#apis"><b>APIs</b><span>Verify, Data, Research, and FaithVerify</span></a>'
               '</div></div>')
+    usecases=('<div class="menu" id="usecasesMenu">'
+              '<button type="button" class="menu-btn" aria-haspopup="true" aria-expanded="false" aria-controls="usecasesPanel" onclick="toggleMenu(event, this)">Use Cases '+CHEV+'</button>'
+              '<div class="menu-panel" id="usecasesPanel" role="menu">'
+              + ''.join('<a role="menuitem" href="%s"%s><b>%s</b><span>%s</span></a>'%(h, ' aria-current="page"' if h==current else '', t, d) for h,t,d in USECASE_LINKS) +
+              '</div></div>')
     links=[('Docs','https://docs.givalgo.ai/'),('Pricing','/pricing/')]
     a=''.join('<a href="%s"%s>%s</a>'%(h,' aria-current="page"' if (t=='Pricing' and on_pricing) else '',t) for t,h in links)
-    mobile=''.join('<a onclick="closeMobileNav()" href="%s">%s</a>'%(h,t) for t,h in [('Discover',p+'#discover'),('APIs',p+'#apis'),('Docs','https://docs.givalgo.ai/'),('Pricing','/pricing/')])
+    mobile=''.join('<a onclick="closeMobileNav()" href="%s">%s</a>'%(h,t) for t,h in [('Discover',p+'#discover'),('APIs',p+'#apis')]+[(t,h) for h,t,d in USECASE_LINKS]+[('Docs','https://docs.givalgo.ai/'),('Pricing','/pricing/')])
     return '''<a class="skip" href="#main">Skip to content</a>
 <header class="nav" id="siteNav">
   <div class="container nav-inner">
     <a class="logo" href="/" aria-label="Givalgo home">@@LOGO@@</a>
-    <nav class="nav-links" aria-label="Primary">%s%s</nav>
+    <nav class="nav-links" aria-label="Primary">%s%s%s</nav>
     <div class="nav-actions">
       <a class="nav-signin" href="https://discover.givalgo.ai">Sign in</a>
       <button type="button" class="btn btn-outline btn-sm" onclick="openModal()">Book a demo</button>
@@ -75,7 +83,7 @@ def nav(on_pricing=False):
   </div>
   <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">%s<a href="https://discover.givalgo.ai">Sign in</a><button type="button" class="btn btn-primary" onclick="closeMobileNav(); openModal()">Book a demo</button></nav>
 </header>
-''' % (products, a, mobile)
+''' % (products, usecases, a, mobile)
 
 FOOTER='''<footer class="footer" id="footer">
   <div class="container footer-grid">
@@ -249,7 +257,7 @@ PRICING='''<main id="main">
     <div class="api-card">
       <div>
         <div class="tier-price"><span class="amount">Custom</span><span class="per">usage-based, scoped to your needs</span></div>
-        <p class="lead">For platforms and teams embedding Givalgo data: DAF sponsors, grant management software, workplace giving, and fintech.</p>
+        <p class="lead">Built for DAF sponsors, community foundations, and the grant management and giving platforms that serve them.</p>
         <div class="cta-row"><button type="button" class="btn btn-primary" onclick="openModal()">Talk to Sales %(arrow)s</button><a class="link" href="https://docs.givalgo.ai/">Read the API docs</a></div>
         <p class="hint">API provisioned in less than 24 hours</p>
       </div>
@@ -261,7 +269,7 @@ PRICING='''<main id="main">
 ''' % dict(arrow=I['arrow'],
   free=tier("FREE","$0","","For occasional lookups.",["10 searches a day","Organization profile snapshot","Current-year financials","IRS status indicator"],"Get started","https://discover.givalgo.ai",False,""),
   pro=tier("PRO","$20","/ mo","For grantmakers and researchers.",["Unlimited searches","Discover Ask (plain-English prospecting)","5-year financial explorer and peer benchmarking","Full grants table","Unlimited Verify Now","Radar Bulk Verify (lists up to 100 EINs)","Givalgo Watch (monitor 3 organizations)","AI due-diligence briefs (5 a month) and AI summaries"],"Start Pro","https://discover.givalgo.ai",True,"Billed annually · 14-day free trial, no card",popular=True,price_id="proPrice",note_id="proNote"),
-  adv=tier("ADVANCED","Custom","","For compliance and diligence teams.",["Everything in Pro","Organization accounts: multi-seat, shared workspace","AI due-diligence briefs (50 a month)","Givalgo Radar: bulk verification and daily monitoring","Unlimited data export","Downloadable Verify reports","Priority support"],"Book a demo","#",False,""),
+  adv=tier("ADVANCED","Custom","","For compliance and diligence teams.",["Everything in Pro","Organization accounts: multi-seat, shared workspace","AI due-diligence briefs at the volume you need","Givalgo Radar, sized to your portfolio: bulk verification and daily monitoring","Unlimited data export","Downloadable Verify reports","Priority support"],"Book a demo","#",False,""),
   api_li=li(["Verify API: IRS status, Pub 78, auto-revocation, state registries, OFAC on the org and its leaders","Data API: search, prospecting, and organization profiles from every 990","Data Pro API: 450+ extracted and computed fields on any single organization","Research API: a complete, citation-backed due-diligence brief in one call","FaithVerify API: denomination and religious-organization verification","Custom configurations and volume, with dedicated support and founder access"]))
 PRICING=PRICING.replace('<a class="btn btn-outline" href="#">Book a demo</a>','<a class="btn btn-outline" href="#" onclick="openModal(); return false;">Book a demo</a>')
 
@@ -303,16 +311,28 @@ SITE_JS='''
   })();
 
   /* Products menu: hover opens on desktop (CSS); click toggles for touch and keyboard. */
-  function toggleMenu(e) {
-    var m = document.getElementById('productsMenu'), b = m.querySelector('.menu-btn');
-    var open = m.classList.toggle('open'); b.setAttribute('aria-expanded', open ? 'true' : 'false');
+  function closeMenus(except) {
+    document.querySelectorAll('.menu').forEach(function (m) { if (m !== except) { m.classList.remove('open'); m.querySelector('.menu-btn').setAttribute('aria-expanded', 'false'); } });
+  }
+  function toggleMenu(e, btn) {
+    var m = (btn || e.target).closest('.menu'); closeMenus(m);
+    var open = m.classList.toggle('open'); m.querySelector('.menu-btn').setAttribute('aria-expanded', open ? 'true' : 'false');
     if (e) e.stopPropagation();
   }
   (function () {
-    var m = document.getElementById('productsMenu'); if (!m) return;
-    document.addEventListener('click', function (e) { if (!m.contains(e.target)) { m.classList.remove('open'); m.querySelector('.menu-btn').setAttribute('aria-expanded', 'false'); } });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { m.classList.remove('open'); m.querySelector('.menu-btn').setAttribute('aria-expanded', 'false'); } });
-    m.querySelectorAll('.menu-panel a').forEach(function (a) { a.addEventListener('click', function () { m.classList.remove('open'); }); });
+    if (!document.querySelector('.menu')) return;
+    document.addEventListener('click', function (e) { if (!e.target.closest('.menu')) closeMenus(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenus(); });
+    document.querySelectorAll('.menu-panel a').forEach(function (a) { a.addEventListener('click', function () { closeMenus(); }); });
+  })();
+
+  /* Nav: navy over the hero, light once the hero has scrolled out. */
+  (function () {
+    var nav = document.getElementById('siteNav'), hero = document.querySelector('.hero, .uc-hero'); if (!nav || !hero) return;
+    if (!('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (entries) {
+      nav.classList.toggle('light', !entries[0].isIntersecting);
+    }, { rootMargin: '-72px 0px 0px 0px', threshold: 0 }).observe(hero);
   })();
 
   /* Close the demo modal on Escape or on a backdrop click. */
@@ -345,3 +365,104 @@ pricing=(head('Pricing — Givalgo','Givalgo Discover is free to start, with Pro
 pricing=pricing.replace('@@LOGO@@',LOGO)
 open(os.path.join(R,'pricing','index.html'),'w').write(pricing)
 print('index.html',len(index),'pricing/index.html',len(pricing),'site.css',os.path.getsize(os.path.join(R,'assets','site.css')))
+
+# ---------------- Use-case pages ----------------
+def uc_verify_card():
+    rows=[("IRS status","Active"),("Pub 78","Listed"),("Auto-revocation","Not revoked"),("CA AG registry","Clear"),("OFAC · organization","Clear"),("OFAC · leadership","Clear · officers screened")]
+    chk=''.join('<div class="chk"><b>%s</b><span>%s%s</span></div>'%(k,I['check'],v) for k,v in rows)
+    return ('<div class="verify-card dark"><div class="code-head"><span>VERIFY · EIN 87-3179766</span><span>&lt;100 MS</span></div>'
+            '<div class="verify-body"><div class="org">Vinegar Hill Food Pantry <span>· Brooklyn, NY</span></div>'+chk+
+            '<div class="chk all">'+I['verify']+'Eligible · Report saved to the grant file</div></div></div>')
+def uc_code_card():
+    return ('<div class="code"><div class="code-head"><span>API.GIVALGO.AI · V1</span><span>&lt;100 MS</span></div><div class="code-body">'
+            '<div class="c-muted">// Verify any nonprofit in one call</div><div><span class="c-teal">GET</span> /v1/verify?ein=87-3179766</div><div class="c-dim">x-api-key: gvlg_live_••••••••</div>'
+            '<div class="code-resp"><div><span>name</span><b>"Vinegar Hill Food Pantry"</b></div><div><span>status</span><b class="c-teal">ELIGIBLE</b></div><div><span>pub78_listed</span><b class="c-teal">true</b></div><div><span>revoked</span><b class="c-teal">false</b></div><div><span>ofac_org_screen</span><b class="c-teal">CLEAR</b></div><div><span>ofac_leadership</span><b class="c-teal">CLEAR</b></div></div></div></div>')
+def uc_gif():
+    return '<img class="product-gif" src="/assets/discover-flow.gif" srcset="/assets/discover-flow.gif 1x, /assets/discover-flow@2x.gif 2x" width="560" height="520" loading="lazy" alt="Givalgo Discover: search, profile, verification, report, and monitoring" />'
+SALES_CTA='<button type="button" class="btn btn-primary" onclick="openModal()">Talk to Sales %s</button><a class="link" href="#" onclick="openModal(); return false;">Book a demo</a>' % I['arrow']
+DEMO_CTA='<button type="button" class="btn btn-primary" onclick="openModal()">Book a demo %s</button><a class="link" href="#" onclick="openModal(); return false;">Talk to Sales</a>' % I['arrow']
+UC_TPL='''<main id="main">
+<section class="uc-hero dark" id="top">
+  <div class="container">
+    <div class="col-text"><div class="eyebrow">%(eyebrow)s</div><h1>%(h1)s</h1><p class="lead">%(sub)s</p><div class="cta-row">%(cta)s</div></div>
+    <div class="uc-visual">%(visual)s</div>
+  </div>
+</section>
+<section class="backed">
+  <div class="container"><span class="eyebrow-xs">BACKED BY</span><a href="https://www.blackbaud.com/social-good-startup-program" target="_blank" rel="noopener">Blackbaud Social Good Startup Program</a><span class="hint">· %(trust)s</span></div>
+</section>
+<section class="sec" id="how">
+  <div class="container">
+    <div class="eyebrow">HOW IT WORKS</div>
+    <h2>How Givalgo works for %(audience)s.</h2>
+    <div class="how">%(steps)s</div>
+    <div class="cta-row" style="margin-top:8px;">%(cta)s</div>
+  </div>
+</section>
+<section class="sec sec-alt" id="features">
+  <div class="container">
+    <div class="eyebrow">WHAT YOU USE</div>
+    <h2>%(feat_title)s</h2>
+    <p class="lead lead-narrow">%(feat_sub)s</p>
+    <div class="uc-grid">%(tiles)s</div>
+  </div>
+</section>
+<section class="sec close" id="get-started">
+  <div class="container">
+    <h2>%(close_h2)s</h2>
+    <div class="cta-row center">%(close_cta)s</div>
+    <p class="hint">%(close_note)s</p>
+  </div>
+</section>
+</main>
+'''
+def uc_page(eyebrow, h1, sub, cta, visual, audience, trust, steps, feat_title, feat_sub, tiles, close_h2, close_cta, close_note):
+    step_html=''.join('<div class="how-step"><span class="how-n">%d</span><div class="how-body"><h3>%s</h3><p>%s</p></div></div>'%(i,t,d) for i,(t,d) in enumerate(steps,1))
+    tile_html=''.join('<div class="uc-tile"><span class="feature-icon">%s</span><h3>%s</h3><p>%s</p></div>'%(I[ic],n,d) for ic,n,d in tiles)
+    return UC_TPL % dict(eyebrow=eyebrow,h1=h1,sub=sub,cta=cta,visual=visual,trust=trust,audience=audience,steps=step_html,feat_title=feat_title,feat_sub=feat_sub,tiles=tile_html,close_h2=close_h2,close_cta=close_cta,close_note=close_note)
+def two_btn(a,b): return '<button type="button" class="btn btn-primary" onclick="openModal()">%s</button><button type="button" class="btn btn-outline" onclick="openModal()">%s</button>'%(a,b)
+USECASES={
+ 'for/daf-sponsors': dict(title='For DAF sponsors and community foundations — Givalgo',
+   desc='Verify every grant recommendation before it moves: IRS eligibility, sanctions, state registries, and church verification in one call, with monitoring after the grant is paid.',
+   page=uc_page("FOR DAF SPONSORS &amp; COMMUNITY FOUNDATIONS","Every grant recommendation, verified before it moves.",
+     "Run IRS eligibility, sanctions, state registry, and church checks the moment a donor recommends a grant, then keep watching after it is paid. Built for the compliance and grants teams behind donor-advised funds.",
+     SALES_CTA, uc_verify_card(), "DAF sponsors and community foundations", "Designed for DAF sponsors, community foundations, and the platforms that serve them",
+     [("Verify at the point of recommendation","One call checks active status, Pub 78, auto-revocation, state registries, and OFAC on the organization and every officer and director. Eligible grants move on; flagged ones go to review."),
+      ("Route churches through FaithVerify","Religious organizations rarely file a 990. FaithVerify confirms affiliation against denominational registers and IRS group exemptions, so church grants clear as fast as any other."),
+      ("Re-screen the portfolio you already hold","Bulk Verify checks up to 20K EINs at once. The Report API drops a shareable record into the grant file for auditors."),
+      ("Monitor after the grant is paid","Watch tracks every grantee across IRS filings, sanctions lists, and adverse media, and alerts your team the moment something changes.")],
+     "Compliance that runs itself.","The pieces most DAF sponsors and community foundations turn on, in the order they usually turn them on.",
+     [("verify","Verify API","Six-step eligibility and sanctions check on any EIN, under 100 ms."),("verify","FaithVerify API","Verification for religious organizations that never file a 990."),("research","Bulk Verify","Screen an entire grantee list, up to 20K EINs, in one request."),("research","Report API","A shareable verification record for every approved grant."),("monitor","Givalgo Watch","Ongoing monitoring across IRS, sanctions, and adverse media."),("research","Discover for advisors","Research and profiles for donor-relations and philanthropic advisors.")],
+     "See it on your own grant queue.", two_btn("Book a demo","Talk to Sales"), "30-minute call with a co-founder · No commitment")),
+ 'for/platforms': dict(title='For grant management and giving platforms — Givalgo',
+   desc='Nonprofit verification, organization data, and on-demand diligence briefs built into your product with one REST integration.',
+   page=uc_page("FOR GRANT MANAGEMENT &amp; GIVING PLATFORMS","Nonprofit verification and data, built into your product.",
+     "One REST integration for eligibility checks, organization profiles, and on-demand diligence briefs. Refreshed nightly from IRS and sanctions sources, provisioned in less than 24 hours.",
+     SALES_CTA, uc_code_card(), "grant management and giving platforms", "Built for grant management software, workplace and payroll giving, and donation rails",
+     [("Verify at onboarding and payout","Gate nonprofit sign-ups, matching, and disbursements on a live eligibility and sanctions check, including every officer and director."),
+      ("Enrich your UI with organization data","Search and profiles from the Data API power lookups, autocomplete, and grantee pages. Data Pro adds 450+ fields per organization when you need depth."),
+      ("Generate diligence briefs inside the grant lifecycle","The Research API returns a citation-backed brief for any organization, so reviewers never leave your product."),
+      ("Stay current without a data team","Nightly refresh from IRS and sanctions sources, webhooks for status changes, and bulk endpoints for backfills.")],
+     "Everything behind Discover, as APIs.","Pick the endpoints you need. Usage-based pricing, scoped to your volume.",
+     [("verify","Verify API","Eligibility, revocation, state registries, and OFAC in one call."),("research","Data API","Search, prospecting, and profiles from every 990, 990-EZ, and 990-PF."),("research","Data Pro API","450+ extracted and computed fields on any single organization."),("monitor","Research API","A complete, citation-backed due-diligence brief on demand."),("verify","FaithVerify API","Verification for churches and religious organizations."),("monitor","Webhooks &amp; bulk","Status-change events and batch endpoints up to 20K EINs.")],
+     "Get a sandbox key today.", two_btn("Talk to Sales","Book a demo"), "30-minute call with a co-founder · API provisioned in less than 24 hours")),
+ 'for/foundations': dict(title='For private and corporate foundations — Givalgo',
+   desc='Research, verification, and monitoring for 1.9M nonprofits in one workspace, with AI diligence briefs that turn a shortlist into a board-ready memo.',
+   page=uc_page("FOR PRIVATE &amp; CORPORATE FOUNDATIONS","From prospect list to board-ready diligence, in one workspace.",
+     "Discover gives program staff research, verification, and monitoring for 1.9M nonprofits, and AI briefs that turn a shortlist into a consistent diligence memo.",
+     DEMO_CTA, uc_gif(), "private and corporate foundations", "Used by program officers, grants managers, and corporate giving teams",
+     [("Prospect with Search and Ask","Find organizations by cause, geography, size, financials, and who funds whom, or describe what you want in plain English. Export the shortlist."),
+      ("Vet in one view","Five-year financials, peer benchmarks, governance flags, and Verify Now, all on the organization's profile."),
+      ("Brief the board with AI diligence","Diligence Briefs write the memo with every claim sourced to filings and the open web, in a consistent format across grantees."),
+      ("Keep the portfolio monitored","Watch alerts you when a grantee's IRS status, sanctions exposure, or news coverage changes, so renewals start from current facts.")],
+     "Discover, end to end.","What a foundation team uses week to week, plus the APIs for teams with a grants system to feed.",
+     [("research","Search &amp; Ask","1.9M nonprofits and 151K funders, filters or plain English."),("research","Organization profiles","Financials, leadership, programs, grants, and governance from every 990."),("monitor","Diligence Briefs","AI-written, citation-backed memos, 5 a month on Pro and more on Advanced."),("research","Peer benchmarking","Compare any organization against its sector and size peers."),("monitor","Givalgo Watch","Portfolio monitoring across IRS, sanctions, and adverse media."),("verify","Research &amp; Data Pro APIs","Feed briefs and 450+ fields straight into your grants system.")],
+     "Start with a conversation.", two_btn("Book a demo","Talk to Sales"), "30-minute call with a co-founder · No commitment")),
+}
+for path, uc in USECASES.items():
+    os.makedirs(os.path.join(R, path), exist_ok=True)
+    html=(head(uc['title'], uc['desc'], 'https://givalgo.ai/'+path+'/')
+          +'<body>\n\n'+MODAL+'\n<div id="main-site">\n'+nav(current='/'+path+'/')+uc['page']+footer(True)+'</div>\n'+scripts(False)+'</body>\n</html>\n')
+    html=html.replace('@@LOGO@@',LOGO)
+    open(os.path.join(R, path, 'index.html'),'w').write(html)
+    print(path, len(html))

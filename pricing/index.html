@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing — Givalgo</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="description" content="Givalgo Discover is free to start, with Pro at $20 a month billed annually. Verify, Data, and FaithVerify APIs are priced for your volume." />
+  <meta name="theme-color" content="#0C1830" />
+  <link rel="canonical" href="https://givalgo.ai/pricing/" />
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://givalgo.ai/pricing/" />
+  <meta property="og:title" content="Pricing — Givalgo" />
+  <meta property="og:description" content="Givalgo Discover is free to start, with Pro at $20 a month billed annually. Verify, Data, and FaithVerify APIs are priced for your volume." />
+  <meta property="og:image" content="https://givalgo.ai/givalgo-og.png" />
+  <meta property="og:image:width" content="2203" />
+  <meta property="og:image:height" content="847" />
+  <meta property="og:image:alt" content="Givalgo — Research, verify, and monitor the nonprofits you fund" />
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pricing — Givalgo" />
+  <meta name="twitter:description" content="Givalgo Discover is free to start, with Pro at $20 a month billed annually. Verify, Data, and FaithVerify APIs are priced for your volume." />
+  <meta name="twitter:image" content="https://givalgo.ai/givalgo-og.png" />
+
+  <!-- ──────────────────────────────────────────────────────────────────────
+       Google Analytics 4 — THIS MARKETING SITE ONLY.
+       The Discover app and the APIs deliberately do not carry it: they run
+       first-party analytics (user_events), which is what the Privacy Policy
+       section 6 below promises and what we tell buyers during diligence.
+       Keep that split — it is a positioning decision, not an oversight.
+  ─────────────────────────────────────────────────────────────────────── -->
+  <script>
+    /* Paste the Measurement ID from GA4 Admin → Data Streams → Web. Until it
+       is a real ID nothing loads and nothing is sent, so this is safe to ship
+       before the property exists — the same pattern Discover uses for
+       GOOGLE_SITE_VERIFICATION in layout.tsx. */
+    var GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
+
+    /* A real ID can legitimately contain an "X", so this tests the shape and
+       excludes the exact placeholder rather than sniffing for a letter. */
+    var GA_ENABLED = /^G-[A-Z0-9]{6,}$/.test(GA_MEASUREMENT_ID)
+                     && GA_MEASUREMENT_ID !== 'G-XXXXXXXXXX';
+
+    if (GA_ENABLED) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+
+      /* Consent Mode v2. These defaults are only read at the moment 'config'
+         runs, so they must be set first. Advertising storage stays denied
+         permanently: we run no ads and hold no remarketing audiences, so
+         granting it would collect data we would never use while widening the
+         disclosure we owe visitors for nothing in return.
+         GA4 truncates IP addresses on collection and offers no toggle for it,
+         so there is deliberately no anonymize_ip here — that parameter is
+         Universal Analytics and is ignored by GA4. */
+      gtag('consent', 'default', {
+        ad_storage:          'denied',
+        ad_user_data:        'denied',
+        ad_personalization:  'denied',
+        analytics_storage:   'granted'
+      });
+
+      gtag('js', new Date());
+      gtag('config', GA_MEASUREMENT_ID, {
+        /* 13 months rather than the 2-year default, to match the retention
+           posture the Privacy Policy describes. */
+        cookie_expires: 34128000
+      });
+
+      /* Marketing → app handoff. GA4's built-in outbound-click measurement
+         does NOT fire for discover.givalgo.ai, because a subdomain of this
+         site is not "outbound" — so without this the one conversion that
+         matters on this page would be invisible. */
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+        if (!a) return;
+        var href = a.getAttribute('href') || '';
+        if (href.indexOf('discover.givalgo.ai') === -1) return;
+        gtag('event', 'to_discover', {
+          link_url:  href.slice(0, 200),
+          link_text: (a.textContent || '').trim().slice(0, 80)
+        });
+      });
+
+      var gaEl = document.createElement('script');
+      gaEl.async = true;
+      gaEl.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+      document.head.appendChild(gaEl);
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+
+<div class="modal-overlay" id="demoModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3>Book a Demo</h3>
+    <p>Schedule a 30-minute call with one of our co-founders. We'll walk you through the platform and discuss your use case.</p>
+    <div class="modal-founders">
+      <a class="founder-card" href="https://calendly.com/kshitij-givalgo/30min" target="_blank">
+        <div class="founder-avatar avatar-k">K</div>
+        <strong>Kshitij</strong>
+        <span>Co-founder</span>
+      </a>
+      <a class="founder-card" href="https://calendly.com/nishant-givalgo/30min" target="_blank">
+        <div class="founder-avatar avatar-n">N</div>
+        <strong>Nishant</strong>
+        <span>Co-founder</span>
+      </a>
+    </div>
+    <p class="modal-note">30 minutes · No commitment · We'll send a calendar invite</p>
+  </div>
+</div>
+
+<div id="main-site">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav" id="siteNav">
+  <div class="container nav-inner">
+    <a class="logo" href="/" aria-label="Givalgo home"><span class="logo-mark">G</span><span class="logo-word">Givalgo</span></a>
+    <nav class="nav-links" aria-label="Primary"><a href="/#discover">Discover</a><a href="/#apis">APIs</a><a href="https://docs.givalgo.ai/">Docs</a><a href="/pricing/" aria-current="page">Pricing</a></nav>
+    <div class="nav-actions">
+      <a class="nav-signin" href="https://discover.givalgo.ai">Sign in</a>
+      <button type="button" class="btn btn-outline btn-sm" onclick="openModal()">Book a demo</button>
+      <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" aria-controls="mobileNav" aria-expanded="false" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile"><a onclick="closeMobileNav()" href="/#discover">Discover</a><a onclick="closeMobileNav()" href="/#apis">APIs</a><a onclick="closeMobileNav()" href="https://docs.givalgo.ai/">Docs</a><a onclick="closeMobileNav()" href="/pricing/" aria-current="page">Pricing</a><a href="https://discover.givalgo.ai">Sign in</a><button type="button" class="btn btn-primary" onclick="closeMobileNav(); openModal()">Book a demo</button></nav>
+</header>
+<main id="main">
+<section class="hero hero-sm">
+  <div class="container hero-inner">
+    <div class="eyebrow">PRICING</div>
+    <h1>Start free. Scale when you are ready.</h1>
+    <p class="lead">Discover is self-serve and free to start. APIs are priced for your volume and use case.</p>
+  </div>
+</section>
+
+<section class="sec" id="discover-pricing">
+  <div class="container">
+    <div class="pricing-head">
+      <div><div class="eyebrow">GIVALGO DISCOVER</div><h2>The workspace for grantmaking teams.</h2></div>
+      <div class="billing">
+        <div class="tabs" role="tablist" aria-label="Billing period">
+          <button type="button" class="tab" role="tab" aria-selected="false" data-billing="monthly">Monthly</button>
+          <button type="button" class="tab on" role="tab" aria-selected="true" data-billing="annual">Annual <span class="save">Save 20%</span></button>
+        </div>
+        <span class="hint">Cancel anytime · No long-term contracts</span>
+      </div>
+    </div>
+    <div class="tiers">
+<div class="tier">
+  <div class="tier-top"><span class="tier-name">FREE</span></div>
+  <div class="tier-price"><span class="amount">$0</span><span class="per"></span></div>
+  <p class="tier-who">For occasional lookups.</p>
+  <div class="tier-cta"><a class="btn btn-outline" href="https://discover.givalgo.ai" target="_blank" rel="noopener">Get started</a><span class="hint"></span></div>
+  <ul><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>10 searches a day</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Organization profile snapshot</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Current-year financials</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>IRS status indicator</li></ul>
+</div>
+<div class="tier popular">
+  <div class="tier-top"><span class="tier-name">PRO</span><span class="badge">MOST POPULAR</span></div>
+  <div class="tier-price"><span class="amount" id="proPrice">$20</span><span class="per">/ mo</span></div>
+  <p class="tier-who">For grantmakers and researchers.</p>
+  <div class="tier-cta"><a class="btn btn-primary" href="https://discover.givalgo.ai" target="_blank" rel="noopener">Start Pro</a><span class="hint" id="proNote">Billed annually · 14-day free trial, no card</span></div>
+  <ul><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Unlimited searches</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Discover Ask (plain-English prospecting)</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>5-year financial explorer and peer benchmarking</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Full grants table</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Unlimited Verify Now</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Radar Bulk Verify (lists up to 100 EINs)</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Givalgo Watch (monitor 3 organizations)</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>AI due-diligence briefs (5 a month) and AI summaries</li></ul>
+</div>
+<div class="tier">
+  <div class="tier-top"><span class="tier-name">ADVANCED</span></div>
+  <div class="tier-price"><span class="amount">Custom</span><span class="per"></span></div>
+  <p class="tier-who">For compliance and diligence teams.</p>
+  <div class="tier-cta"><a class="btn btn-outline" href="#" onclick="openModal(); return false;">Book a demo</a><span class="hint"></span></div>
+  <ul><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Everything in Pro</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Organization accounts: multi-seat, shared workspace</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>AI due-diligence briefs (50 a month)</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Givalgo Radar: bulk verification and daily monitoring</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Unlimited data export</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Downloadable Verify reports</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Priority support</li></ul>
+</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt" id="api-pricing">
+  <div class="container">
+    <div class="eyebrow">GIVALGO API</div>
+    <h2>Build nonprofit verification and data into your platform.</h2>
+    <div class="api-card">
+      <div>
+        <div class="tier-price"><span class="amount">Custom</span><span class="per">usage-based, scoped to your needs</span></div>
+        <p class="lead">For platforms and teams embedding Givalgo data: DAF sponsors, grant management software, workplace giving, and fintech.</p>
+        <div class="cta-row"><button type="button" class="btn btn-primary" onclick="openModal()">Talk to Sales <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button><a class="link" href="https://docs.givalgo.ai/">Read the API docs</a></div>
+        <p class="hint">API provisioned in less than 24 hours</p>
+      </div>
+      <ul><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Verify API: IRS status, Pub 78, auto-revocation, state registries, OFAC on the org and its leaders</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Data API: search, prospecting, and organization profiles from every 990</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Data Pro API: 450+ extracted and computed fields on any single organization</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>FaithVerify API: denomination and religious-organization verification</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Custom configurations and volume, with dedicated support and founder access</li></ul>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="footer" id="footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="logo" href="/" aria-label="Givalgo home"><span class="logo-mark">G</span><span class="logo-word">Givalgo</span></a>
+      <p>Nonprofit intelligence for grantmakers. Available as the Discover app or as APIs.</p>
+    </div>
+    <div><h4>Products</h4><a href="https://discover.givalgo.ai">Discover</a><a href="/#apis">Verify API</a><a href="/#apis">Data API</a><a href="/#apis">FaithVerify API</a><a href="/pricing/">Pricing</a></div>
+    <div><h4>Developers</h4><a href="https://docs.givalgo.ai/">API documentation</a><a href="https://docs.givalgo.ai/">Getting started</a><a href="#" onclick="openModal(); return false;">Book a demo</a></div>
+    <div><h4>Company</h4><a href="#" onclick="openModal(); return false;">Contact us</a><a href="/?page=privacy">Privacy policy</a><a href="https://www.linkedin.com/company/givalgo" target="_blank" rel="noopener">LinkedIn</a></div>
+  </div>
+  <div class="container footer-bottom">© 2026 Givalgo, Inc. All rights reserved. Data sourced from IRS public records.</div>
+</footer>
+</div>
+<script>
+  function openModal() {
+    document.getElementById('demoModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('demoModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('demoModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  function toggleMobileNav() {
+    var nav = document.getElementById('mobileNav');
+    var btn = document.getElementById('hamburger');
+    nav.classList.toggle('open');
+    btn.classList.toggle('open');
+  }
+  function closeMobileNav() {
+    document.getElementById('mobileNav').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
+
+  /* Hero search: Search vs Ask hands off to the matching Discover route. */
+  (function () {
+    var form = document.getElementById('heroSearch'); if (!form) return;
+    var input = document.getElementById('q'), hint = document.getElementById('searchHint');
+    var modes = {
+      search: { action: 'https://discover.givalgo.ai/search', ph: 'EIN, org name, keywords, or cause and location', hint: 'No account needed. 2 free searches, then sign up free. Opens in Discover.' },
+      ask:    { action: 'https://discover.givalgo.ai/ask',    ph: 'Ask in plain English: food banks in Chicago that got over $1M in grants', hint: 'Ask is part of Discover Pro. Opens Discover, where you can sign in or start a free trial.' }
+    };
+    form.querySelectorAll('.tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var m = modes[tab.getAttribute('data-mode')];
+        form.querySelectorAll('.tab').forEach(function (t) { t.classList.toggle('on', t === tab); t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
+        form.action = m.action; input.placeholder = m.ph; hint.textContent = m.hint; input.focus();
+      });
+    });
+    form.addEventListener('submit', function () {
+      if (window.GA_ENABLED && typeof gtag === 'function') {
+        gtag('event', 'to_discover', { link_url: form.action, link_text: 'hero search: ' + (input.value || '').trim().slice(0, 80) });
+      }
+    });
+  })();
+
+  /* Pricing: Monthly / Annual toggle for Discover Pro. */
+  (function () {
+    var tabs = document.querySelectorAll('.billing .tab'); if (!tabs.length) return;
+    var price = document.getElementById('proPrice'), note = document.getElementById('proNote');
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var annual = tab.getAttribute('data-billing') === 'annual';
+        tabs.forEach(function (t) { t.classList.toggle('on', t === tab); t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
+        price.textContent = annual ? '$20' : '$25';
+        note.textContent = annual ? 'Billed annually · 14-day free trial, no card' : 'Billed monthly · 14-day free trial, no card';
+      });
+    });
+  })();
+
+  /* Close the demo modal on Escape or on a backdrop click. */
+  (function () {
+    var overlay = document.getElementById('demoModal'); if (!overlay) return;
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+  })();
+</script>
+</body>
+</html>

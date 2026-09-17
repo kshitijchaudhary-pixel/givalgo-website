@@ -1,0 +1,66 @@
+  <!-- ──────────────────────────────────────────────────────────────────────
+       Google Analytics 4 — THIS MARKETING SITE ONLY.
+       The Discover app and the APIs deliberately do not carry it: they run
+       first-party analytics (user_events), which is what the Privacy Policy
+       section 6 below promises and what we tell buyers during diligence.
+       Keep that split — it is a positioning decision, not an oversight.
+  ─────────────────────────────────────────────────────────────────────── -->
+  <script>
+    /* Paste the Measurement ID from GA4 Admin → Data Streams → Web. Until it
+       is a real ID nothing loads and nothing is sent, so this is safe to ship
+       before the property exists — the same pattern Discover uses for
+       GOOGLE_SITE_VERIFICATION in layout.tsx. */
+    var GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
+
+    /* A real ID can legitimately contain an "X", so this tests the shape and
+       excludes the exact placeholder rather than sniffing for a letter. */
+    var GA_ENABLED = /^G-[A-Z0-9]{6,}$/.test(GA_MEASUREMENT_ID)
+                     && GA_MEASUREMENT_ID !== 'G-XXXXXXXXXX';
+
+    if (GA_ENABLED) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+
+      /* Consent Mode v2. These defaults are only read at the moment 'config'
+         runs, so they must be set first. Advertising storage stays denied
+         permanently: we run no ads and hold no remarketing audiences, so
+         granting it would collect data we would never use while widening the
+         disclosure we owe visitors for nothing in return.
+         GA4 truncates IP addresses on collection and offers no toggle for it,
+         so there is deliberately no anonymize_ip here — that parameter is
+         Universal Analytics and is ignored by GA4. */
+      gtag('consent', 'default', {
+        ad_storage:          'denied',
+        ad_user_data:        'denied',
+        ad_personalization:  'denied',
+        analytics_storage:   'granted'
+      });
+
+      gtag('js', new Date());
+      gtag('config', GA_MEASUREMENT_ID, {
+        /* 13 months rather than the 2-year default, to match the retention
+           posture the Privacy Policy describes. */
+        cookie_expires: 34128000
+      });
+
+      /* Marketing → app handoff. GA4's built-in outbound-click measurement
+         does NOT fire for discover.givalgo.ai, because a subdomain of this
+         site is not "outbound" — so without this the one conversion that
+         matters on this page would be invisible. */
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+        if (!a) return;
+        var href = a.getAttribute('href') || '';
+        if (href.indexOf('discover.givalgo.ai') === -1) return;
+        gtag('event', 'to_discover', {
+          link_url:  href.slice(0, 200),
+          link_text: (a.textContent || '').trim().slice(0, 80)
+        });
+      });
+
+      var gaEl = document.createElement('script');
+      gaEl.async = true;
+      gaEl.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+      document.head.appendChild(gaEl);
+    }
+  </script>

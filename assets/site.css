@@ -74,7 +74,8 @@ h3 { font-size: 18px; font-weight: 700; }
 .bar input::placeholder { color: #7B8DA6; }
 .bar .btn { height: 48px; padding: 0 22px; font-size: 15px; }
 .bar:focus-within { box-shadow: 0 12px 40px rgba(0,0,0,0.35), 0 0 0 3px rgba(94,234,212,0.5); }
-.chips { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; color: var(--c-faint); }
+.chips { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; font-size: 13px; color: var(--c-faint); }
+.search .hint { text-align: center; }
 .chips a { display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.05); color: var(--c-text); font-size: 13px; font-weight: 500; text-decoration: none; }
 .chips a:hover { border-color: rgba(94,234,212,0.5); }
 

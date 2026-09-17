@@ -173,12 +173,13 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
 .chk b { font-weight: 600; }
 .chk span { display: flex; align-items: center; gap: 6px; color: var(--c-teal); font-weight: 700; font-size: 12px; }
 .chk.all { margin-top: 6px; justify-content: flex-start; gap: 8px; background: rgba(94,234,212,0.12); border-color: rgba(94,234,212,0.4); color: var(--c-teal); font-weight: 700; }
-.how { display: flex; flex-direction: column; margin-top: 8px; }
+.how { display: flex; flex-direction: column; margin-top: 28px; border-bottom: 1px solid var(--c-border); }
+.how-cta { margin-top: 28px; }
 .how-step { display: flex; gap: 18px; align-items: flex-start; padding: 22px 0; border-top: 1px solid var(--c-border); }
 .how-n { flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: rgba(0,180,179,0.14); color: var(--c-teal); font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center; }
-.how-body { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 32px; flex-grow: 1; }
-.how-body h3 { font-size: 20px; letter-spacing: -0.01em; }
-.how-body p { font-size: 15px; line-height: 1.6; color: var(--c-muted); }
+.how-body { display: grid; grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr); gap: 32px; flex-grow: 1; }
+.how-body h3 { font-size: 20px; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.how-body p { font-size: 15px; line-height: 1.6; min-height: 48px; color: var(--c-muted); }
 .uc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 8px; }
 .uc-tile { border-radius: 14px; border: 1px solid var(--c-border); background: var(--c-panel); padding: 20px; display: flex; flex-direction: column; gap: 8px; }
 .uc-tile .feature-icon { width: 36px; height: 36px; border-radius: 9px; }
@@ -229,6 +230,8 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
   .hamburger { display: flex; }
   .two-col, .api-bottom, .api-card, .uc-hero .container, .how-body { grid-template-columns: 1fr; gap: 32px; }
   .how-body { gap: 8px; }
+  .how-body h3 { white-space: normal; }
+  .how-body p { min-height: 0; }
   .uc-hero h1 { font-size: 40px; }
   .uc-visual { justify-content: center; }
   .uc-grid { grid-template-columns: 1fr; }

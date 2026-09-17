@@ -396,7 +396,7 @@ UC_TPL='''<main id="main">
     <div class="eyebrow">HOW IT WORKS</div>
     <h2>How Givalgo works for %(audience)s.</h2>
     <div class="how">%(steps)s</div>
-    <div class="cta-row" style="margin-top:8px;">%(cta)s</div>
+    <div class="cta-row how-cta">%(cta)s</div>
   </div>
 </section>
 <section class="sec sec-alt" id="features">
@@ -427,10 +427,10 @@ USECASES={
    page=uc_page("FOR DAF SPONSORS &amp; COMMUNITY FOUNDATIONS","Every grant recommendation, verified before it moves.",
      "Run IRS eligibility, sanctions, state registry, and church checks the moment a donor recommends a grant, then keep watching after it is paid. Built for the compliance and grants teams behind donor-advised funds.",
      SALES_CTA, uc_verify_card(), "DAF sponsors and community foundations", "Designed for DAF sponsors, community foundations, and the platforms that serve them",
-     [("Verify at the point of recommendation","One call checks active status, Pub 78, auto-revocation, state registries, and OFAC on the organization and every officer and director. Eligible grants move on; flagged ones go to review."),
-      ("Route churches through FaithVerify","Religious organizations rarely file a 990. FaithVerify confirms affiliation against denominational registers and IRS group exemptions, so church grants clear as fast as any other."),
-      ("Re-screen the portfolio you already hold","Bulk Verify checks up to 20K EINs at once. The Report API drops a shareable record into the grant file for auditors."),
-      ("Monitor after the grant is paid","Watch tracks every grantee across IRS filings, sanctions lists, and adverse media, and alerts your team the moment something changes.")],
+     [('Verify at recommendation','One call checks active status, Pub 78, auto-revocation, state registries, and OFAC on the organization and its officers. Flagged grants go to review.'),
+      ('Route churches via FaithVerify','Churches rarely file a 990. FaithVerify confirms affiliation against denominational registers and IRS group exemptions, so church grants clear fast.'),
+      ('Re-screen your portfolio','Bulk Verify checks up to 20K EINs in one request, and the Report API drops a shareable verification record into the grant file for auditors.'),
+      ('Monitor after payment','Watch tracks every grantee across IRS filings, sanctions lists, and adverse media, and alerts your team the moment something changes.')],
      "Compliance that runs itself.","The pieces most DAF sponsors and community foundations turn on, in the order they usually turn them on.",
      [("verify","Verify API","Six-step eligibility and sanctions check on any EIN, under 100 ms."),("verify","FaithVerify API","Verification for religious organizations that never file a 990."),("research","Bulk Verify","Screen an entire grantee list, up to 20K EINs, in one request."),("research","Report API","A shareable verification record for every approved grant."),("monitor","Givalgo Watch","Ongoing monitoring across IRS, sanctions, and adverse media."),("research","Discover for advisors","Research and profiles for donor-relations and philanthropic advisors.")],
      "See it on your own grant queue.", two_btn("Book a demo","Talk to Sales"), "30-minute call with a co-founder · No commitment")),
@@ -439,10 +439,10 @@ USECASES={
    page=uc_page("FOR GRANT MANAGEMENT &amp; GIVING PLATFORMS","Nonprofit verification and data, built into your product.",
      "One REST integration for eligibility checks, organization profiles, and on-demand diligence briefs. Refreshed nightly from IRS and sanctions sources, provisioned in less than 24 hours.",
      SALES_CTA, uc_code_card(), "grant management and giving platforms", "Built for grant management software, workplace and payroll giving, and donation rails",
-     [("Verify at onboarding and payout","Gate nonprofit sign-ups, matching, and disbursements on a live eligibility and sanctions check, including every officer and director."),
-      ("Enrich your UI with organization data","Search and profiles from the Data API power lookups, autocomplete, and grantee pages. Data Pro adds 450+ fields per organization when you need depth."),
-      ("Generate diligence briefs inside the grant lifecycle","The Research API returns a citation-backed brief for any organization, so reviewers never leave your product."),
-      ("Stay current without a data team","Nightly refresh from IRS and sanctions sources, webhooks for status changes, and bulk endpoints for backfills.")],
+     [('Verify at onboarding and payout','Gate nonprofit sign-ups, matching, and disbursements on a live eligibility and sanctions check that covers every officer and director.'),
+      ('Enrich your UI with org data','Search and profiles from the Data API power lookups, autocomplete, and grantee pages. Data Pro adds 450+ fields per organization when you need depth.'),
+      ('Generate briefs on demand','The Research API returns a citation-backed brief for any organization inside your workflow, so reviewers never have to leave your product.'),
+      ('Stay current, no data team','Nightly refresh from IRS and sanctions sources, webhooks for status changes, and bulk endpoints for backfills, with no data team required.')],
      "Everything behind Discover, as APIs.","Pick the endpoints you need. Usage-based pricing, scoped to your volume.",
      [("verify","Verify API","Eligibility, revocation, state registries, and OFAC in one call."),("research","Data API","Search, prospecting, and profiles from every 990, 990-EZ, and 990-PF."),("research","Data Pro API","450+ extracted and computed fields on any single organization."),("monitor","Research API","A complete, citation-backed due-diligence brief on demand."),("verify","FaithVerify API","Verification for churches and religious organizations."),("monitor","Webhooks &amp; bulk","Status-change events and batch endpoints up to 20K EINs.")],
      "Get a sandbox key today.", two_btn("Talk to Sales","Book a demo"), "30-minute call with a co-founder · API provisioned in less than 24 hours")),
@@ -451,10 +451,10 @@ USECASES={
    page=uc_page("FOR PRIVATE &amp; CORPORATE FOUNDATIONS","From prospect list to board-ready diligence, in one workspace.",
      "Discover gives program staff research, verification, and monitoring for 1.9M nonprofits, and AI briefs that turn a shortlist into a consistent diligence memo.",
      DEMO_CTA, uc_gif(), "private and corporate foundations", "Used by program officers, grants managers, and corporate giving teams",
-     [("Prospect with Search and Ask","Find organizations by cause, geography, size, financials, and who funds whom, or describe what you want in plain English. Export the shortlist."),
-      ("Vet in one view","Five-year financials, peer benchmarks, governance flags, and Verify Now, all on the organization's profile."),
-      ("Brief the board with AI diligence","Diligence Briefs write the memo with every claim sourced to filings and the open web, in a consistent format across grantees."),
-      ("Keep the portfolio monitored","Watch alerts you when a grantee's IRS status, sanctions exposure, or news coverage changes, so renewals start from current facts.")],
+     [('Prospect with Search and Ask','Find organizations by cause, geography, size, financials, and who funds whom, or describe what you want in plain English. Export the shortlist.'),
+      ('Vet in one view',"Five-year financials, peer benchmarks, governance flags, and Verify Now sit together on the organization's profile, so vetting takes one screen."),
+      ('Brief the board with AI','Diligence Briefs write the memo with every claim sourced to filings and the open web, in the same format for every grantee you review.'),
+      ('Keep the portfolio monitored',"Watch alerts you when a grantee's IRS status, sanctions exposure, or news coverage changes, so renewals always start from current facts.")],
      "Discover, end to end.","What a foundation team uses week to week, plus the APIs for teams with a grants system to feed.",
      [("research","Search &amp; Ask","1.9M nonprofits and 151K funders, filters or plain English."),("research","Organization profiles","Financials, leadership, programs, grants, and governance from every 990."),("monitor","Diligence Briefs","AI-written, citation-backed memos, 5 a month on Pro and more on Advanced."),("research","Peer benchmarking","Compare any organization against its sector and size peers."),("monitor","Givalgo Watch","Portfolio monitoring across IRS, sanctions, and adverse media."),("verify","Research &amp; Data Pro APIs","Feed briefs and 450+ fields straight into your grants system.")],
      "Start with a conversation.", two_btn("Book a demo","Talk to Sales"), "30-minute call with a co-founder · No commitment")),

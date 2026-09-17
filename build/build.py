@@ -379,8 +379,8 @@ def uc_code_card():
             '<div class="code-resp"><div><span>name</span><b>"Vinegar Hill Food Pantry"</b></div><div><span>status</span><b class="c-teal">ELIGIBLE</b></div><div><span>pub78_listed</span><b class="c-teal">true</b></div><div><span>revoked</span><b class="c-teal">false</b></div><div><span>ofac_org_screen</span><b class="c-teal">CLEAR</b></div><div><span>ofac_leadership</span><b class="c-teal">CLEAR</b></div></div></div></div>')
 def uc_gif():
     return '<img class="product-gif" src="/assets/discover-flow.gif" srcset="/assets/discover-flow.gif 1x, /assets/discover-flow@2x.gif 2x" width="560" height="520" loading="lazy" alt="Givalgo Discover: search, profile, verification, report, and monitoring" />'
-SALES_CTA='<button type="button" class="btn btn-primary" onclick="openModal()">Talk to Sales %s</button><a class="link" href="#" onclick="openModal(); return false;">Book a demo</a>' % I['arrow']
-DEMO_CTA='<button type="button" class="btn btn-primary" onclick="openModal()">Book a demo %s</button><a class="link" href="#" onclick="openModal(); return false;">Talk to Sales</a>' % I['arrow']
+DEMO_CTA='<button type="button" class="btn btn-primary" onclick="openModal()">Book a demo %s</button>' % I['arrow']
+SALES_CTA=DEMO_CTA
 UC_TPL='''<main id="main">
 <section class="uc-hero dark" id="top">
   <div class="container">
@@ -420,7 +420,7 @@ def uc_page(eyebrow, h1, sub, cta, visual, audience, trust, steps, feat_title, f
     step_html=''.join('<div class="how-step"><span class="how-n">%d</span><div class="how-body"><h3>%s</h3><p>%s</p></div></div>'%(i,t,d) for i,(t,d) in enumerate(steps,1))
     tile_html=''.join('<div class="uc-tile"><span class="feature-icon">%s</span><h3>%s</h3><p>%s</p></div>'%(I[ic],n,d) for ic,n,d in tiles)
     return UC_TPL % dict(eyebrow=eyebrow,h1=h1,sub=sub,cta=cta,visual=visual,trust=trust,audience=audience,steps=step_html,feat_title=feat_title,feat_sub=feat_sub,tiles=tile_html,close_h2=close_h2,close_cta=close_cta,close_note=close_note)
-def two_btn(a,b): return '<button type="button" class="btn btn-primary" onclick="openModal()">%s</button><button type="button" class="btn btn-outline" onclick="openModal()">%s</button>'%(a,b)
+def two_btn(a,b): return '<button type="button" class="btn btn-primary" onclick="openModal()">Book a demo</button>'
 USECASES={
  'for/daf-sponsors': dict(title='For DAF sponsors and community foundations — Givalgo',
    desc='Verify every grant recommendation before it moves: IRS eligibility, sanctions, state registries, and church verification in one call, with monitoring after the grant is paid.',

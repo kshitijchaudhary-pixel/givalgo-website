@@ -1,7 +1,7 @@
 import os, re
 B=os.path.dirname(os.path.abspath(__file__)); R=os.path.dirname(B)
 rd=lambda n: open(os.path.join(B,n)).read()
-GA=rd('ga.html'); MODAL=rd('modal.html'); PRIVACY=rd('privacy.html'); SCRIPTS=rd('scripts.js'); LEGACY=rd('legacy.css'); ROOT=rd('root.css')
+GA=rd('ga.html'); LOGO=rd('logo.svg').strip(); MODAL=rd('modal.html'); PRIVACY=rd('privacy.html'); SCRIPTS=rd('scripts.js'); LEGACY=rd('legacy.css'); ROOT=rd('root.css')
 
 I={
  'search':'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>',
@@ -57,7 +57,7 @@ def nav(on_pricing=False):
     return '''<a class="skip" href="#main">Skip to content</a>
 <header class="nav" id="siteNav">
   <div class="container nav-inner">
-    <a class="logo" href="/" aria-label="Givalgo home"><span class="logo-mark">G</span><span class="logo-word">Givalgo</span></a>
+    <a class="logo" href="/" aria-label="Givalgo home">@@LOGO@@</a>
     <nav class="nav-links" aria-label="Primary">%s</nav>
     <div class="nav-actions">
       <a class="nav-signin" href="https://discover.givalgo.ai">Sign in</a>
@@ -72,7 +72,7 @@ def nav(on_pricing=False):
 FOOTER='''<footer class="footer" id="footer">
   <div class="container footer-grid">
     <div class="footer-brand">
-      <a class="logo" href="/" aria-label="Givalgo home"><span class="logo-mark">G</span><span class="logo-word">Givalgo</span></a>
+      <a class="logo" href="/" aria-label="Givalgo home">@@LOGO@@</a>
       <p>Nonprofit intelligence for grantmakers. Available as the Discover app or as APIs.</p>
     </div>
     <div><h4>Products</h4><a href="https://discover.givalgo.ai">Discover</a><a href="/#apis">Verify API</a><a href="/#apis">Data API</a><a href="/#apis">FaithVerify API</a><a href="/pricing/">Pricing</a></div>
@@ -313,9 +313,11 @@ index=(head('Givalgo — Research, verify, and monitor the nonprofits you fund',
             'Search 1.9M nonprofits, run compliance checks, and monitor the organizations you fund. Discover for grantmaking teams, plus Verify, Data, and FaithVerify APIs.',
             'https://givalgo.ai/')
        +'<body>\n\n'+MODAL+'\n<!-- ══ MAIN SITE ══ -->\n<div id="main-site">\n'+nav()+LANDING+footer()+'</div><!-- end #main-site -->\n\n<!-- ══ PRIVACY POLICY PAGE ══ -->\n'+PRIVACY+'\n'+scripts(True)+'</body>\n</html>\n')
+index=index.replace('@@LOGO@@',LOGO)
 open(os.path.join(R,'index.html'),'w').write(index)
 os.makedirs(os.path.join(R,'pricing'),exist_ok=True)
 pricing=(head('Pricing — Givalgo','Givalgo Discover is free to start, with Pro at $20 a month billed annually. Verify, Data, and FaithVerify APIs are priced for your volume.','https://givalgo.ai/pricing/')
          +'<body>\n\n'+MODAL+'\n<div id="main-site">\n'+nav(True)+PRICING+footer(True)+'</div>\n'+scripts(False)+'</body>\n</html>\n')
+pricing=pricing.replace('@@LOGO@@',LOGO)
 open(os.path.join(R,'pricing','index.html'),'w').write(pricing)
 print('index.html',len(index),'pricing/index.html',len(pricing),'site.css',os.path.getsize(os.path.join(R,'assets','site.css')))

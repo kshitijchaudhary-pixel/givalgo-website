@@ -38,9 +38,9 @@ h3 { font-size: 18px; font-weight: 700; }
 /* Nav */
 .nav { position: sticky; top: 0; z-index: 100; background: rgba(12,24,48,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--c-border); }
 .nav-inner { height: var(--nav-h); display: flex; align-items: center; gap: 40px; }
-.logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--c-text); }
-.logo-mark { width: 28px; height: 28px; border-radius: 8px; background: var(--c-accent); color: var(--c-on); display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; }
-.logo-word { font-weight: 700; font-size: 20px; letter-spacing: -0.01em; }
+.logo { display: inline-flex; align-items: center; text-decoration: none; }
+.logo svg { height: 34px; width: auto; display: block; }
+.footer .logo svg { height: 28px; }
 .nav-links { display: flex; align-items: center; gap: 4px; flex-grow: 1; }
 .nav-links a { color: var(--c-muted); font-size: 15px; font-weight: 500; text-decoration: none; padding: 8px 14px; border-radius: 8px; }
 .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--c-text); background: rgba(255,255,255,0.05); }

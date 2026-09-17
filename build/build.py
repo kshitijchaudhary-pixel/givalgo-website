@@ -143,9 +143,10 @@ LANDING='''<main id="main">
     <h2>Build nonprofit verification and data into your platform.</h2>
     <p class="lead lead-narrow">The same data behind Discover, delivered as REST APIs. Verify, enrich, and prospect inside your own product, refreshed nightly from IRS and sanctions sources.</p>
     <div class="tiles">
-      <div class="tile"><h3>Verify API</h3><p class="tile-sub">Real-time eligibility and sanctions verification</p><ul>%(verify_li)s</ul></div>
-      <div class="tile"><h3>Data API</h3><p class="tile-sub">Search, prospect, and profile any nonprofit</p><ul>%(data_li)s</ul></div>
-      <div class="tile"><h3>FaithVerify API</h3><p class="tile-sub">Denomination and religious-organization verification</p><ul>%(faith_li)s</ul></div>
+      <div class="tile"><h3>Verify API</h3><p class="tile-sub">Real-time eligibility and sanctions verification</p><ul>%(t0_li)s</ul></div>
+      <div class="tile"><h3>Data API</h3><p class="tile-sub">Search, prospect, and profile any nonprofit</p><ul>%(t1_li)s</ul></div>
+      <div class="tile"><h3>Research API</h3><p class="tile-sub">Autonomous due diligence, delivered as a brief</p><ul>%(t2_li)s</ul></div>
+      <div class="tile"><h3>FaithVerify API</h3><p class="tile-sub">Denomination and religious-organization verification</p><ul>%(t3_li)s</ul></div>
     </div>
     <div class="api-bottom">
       <div class="code">
@@ -186,9 +187,11 @@ LANDING='''<main id="main">
 </section>
 </main>
 ''' % dict(I,
-  verify_li=li(["Active 501(c)(3) status, Pub 78 eligibility, group exemption","IRS auto-revocation plus California FTB and AG registries","OFAC screening of the organization and every officer and director","Bulk Verify up to 20K EINs and a shareable Report API"]),
-  data_li=li(["Search by cause, place, size, financials, or funder, or Ask in plain English","Profiles from every 990, 990-EZ, and 990-PF: financials, leadership, governance","Grants made and received, with funder-to-recipient mapping","Data Pro API: 450+ extracted and computed fields on any single organization"]),
-  faith_li=li(["Status verification for over 90% of American churches","IRS group exemption mapping and hierarchy","Affiliation confirmed against official denominational registers","Built for DAFs, community foundations, and workplace giving"]))
+  t0_li=li(["Active 501(c)(3) status, Pub 78, group exemption", "IRS auto-revocation, California FTB and AG registries", "OFAC screening of the org and every officer and director", "Bulk Verify up to 20K EINs, plus a shareable Report API"]),
+  t1_li=li(["Search by cause, place, size, financials, or funder, or Ask", "Profiles from every 990, 990-EZ, and 990-PF filing", "Grants made and received, funder-to-recipient mapping", "Data Pro API: 450+ fields on any single organization"]),
+  t2_li=li(["A complete, citation-backed diligence brief in one call", "Financials, governance, risk flags, and peer benchmarks", "AI agents research the web, grounded against 990 filings", "Structured JSON with every claim sourced, ready to file"]),
+  t3_li=li(["Status verification for over 90% of American churches", "IRS group exemption mapping and hierarchy", "Affiliation confirmed against denominational registers", "Built for DAFs, community foundations, workplace giving"]),
+)
 
 def tier(name, price, per, who, feats, cta_label, cta_href, primary, note, popular=False, price_id=None, note_id=None):
     return '''<div class="tier%s">
@@ -251,7 +254,7 @@ PRICING='''<main id="main">
   free=tier("FREE","$0","","For occasional lookups.",["10 searches a day","Organization profile snapshot","Current-year financials","IRS status indicator"],"Get started","https://discover.givalgo.ai",False,""),
   pro=tier("PRO","$20","/ mo","For grantmakers and researchers.",["Unlimited searches","Discover Ask (plain-English prospecting)","5-year financial explorer and peer benchmarking","Full grants table","Unlimited Verify Now","Radar Bulk Verify (lists up to 100 EINs)","Givalgo Watch (monitor 3 organizations)","AI due-diligence briefs (5 a month) and AI summaries"],"Start Pro","https://discover.givalgo.ai",True,"Billed annually · 14-day free trial, no card",popular=True,price_id="proPrice",note_id="proNote"),
   adv=tier("ADVANCED","Custom","","For compliance and diligence teams.",["Everything in Pro","Organization accounts: multi-seat, shared workspace","AI due-diligence briefs (50 a month)","Givalgo Radar: bulk verification and daily monitoring","Unlimited data export","Downloadable Verify reports","Priority support"],"Book a demo","#",False,""),
-  api_li=li(["Verify API: IRS status, Pub 78, auto-revocation, state registries, OFAC on the org and its leaders","Data API: search, prospecting, and organization profiles from every 990","Data Pro API: 450+ extracted and computed fields on any single organization","FaithVerify API: denomination and religious-organization verification","Custom configurations and volume, with dedicated support and founder access"]))
+  api_li=li(["Verify API: IRS status, Pub 78, auto-revocation, state registries, OFAC on the org and its leaders","Data API: search, prospecting, and organization profiles from every 990","Data Pro API: 450+ extracted and computed fields on any single organization","Research API: a complete, citation-backed due-diligence brief in one call","FaithVerify API: denomination and religious-organization verification","Custom configurations and volume, with dedicated support and founder access"]))
 PRICING=PRICING.replace('<a class="btn btn-outline" href="#">Book a demo</a>','<a class="btn btn-outline" href="#" onclick="openModal(); return false;">Book a demo</a>')
 
 SITE_JS='''

@@ -101,9 +101,11 @@ h3 { font-size: 18px; font-weight: 700; }
 #apis .container { display: flex; flex-direction: column; gap: 40px; }
 #apis .eyebrow + h2 { margin-top: -26px; }
 #apis h2 + .lead { margin-top: -26px; }
-.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
-.tile { border-radius: 14px; border: 1px solid var(--c-border); background: var(--c-panel); padding: 20px; display: flex; flex-direction: column; gap: 10px; }
-.tile-sub { font-size: 13px; color: var(--c-faint); margin-top: -8px; }
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+.tile { border-radius: 14px; border: 1px solid var(--c-border); background: var(--c-panel); padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+.tile h3 { font-size: 16px; }
+.tile li { font-size: 13px; }
+.tile-sub { font-size: 12px; color: var(--c-faint); margin-top: -8px; }
 .tile ul, .tier ul, .api-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
 .tile li, .tier li, .api-card li { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; line-height: 1.5; color: var(--c-muted); }
 .tick { color: var(--c-teal); margin-top: 4px; flex-shrink: 0; }
@@ -167,7 +169,8 @@ h3 { font-size: 18px; font-weight: 700; }
   .hamburger { display: flex; }
   .two-col, .api-bottom, .api-card { grid-template-columns: 1fr; gap: 32px; }
   .col-media { justify-content: center; }
-  .tiles, .tiers { grid-template-columns: 1fr; }
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tiers { grid-template-columns: 1fr; }
   .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .pricing-head { flex-direction: column; align-items: flex-start; }
@@ -176,6 +179,7 @@ h3 { font-size: 18px; font-weight: 700; }
 }
 @media (max-width: 640px) {
   .container { padding: 0 16px; }
+  .tiles { grid-template-columns: 1fr; }
   h1 { font-size: 38px; } h2 { font-size: 28px; }
   .hero { padding: 48px 0 40px; } .hero .lead { font-size: 17px; }
   .bar { height: 56px; padding-left: 14px; } .bar input { font-size: 15px; }

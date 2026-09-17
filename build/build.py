@@ -50,15 +50,23 @@ def head(title, desc, canonical, extra=''):
 %(x)s</head>
 ''' % dict(t=title, d=desc, c=canonical, ga=GA.rstrip('\n'), x=extra)
 
+CHEV='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>'
 def nav(on_pricing=False):
     p='/' if on_pricing else ''
-    links=[('Discover',p+'#discover'),('APIs',p+'#apis'),('Docs','https://docs.givalgo.ai/'),('Pricing','/pricing/')]
+    products=('<div class="menu" id="productsMenu">'
+              '<button type="button" class="menu-btn" aria-haspopup="true" aria-expanded="false" aria-controls="productsPanel" onclick="toggleMenu(event)">Products '+CHEV+'</button>'
+              '<div class="menu-panel" id="productsPanel" role="menu">'
+              '<a role="menuitem" href="'+p+'#discover"><b>Discover</b><span>The workspace for grantmaking teams</span></a>'
+              '<a role="menuitem" href="'+p+'#apis"><b>APIs</b><span>Verify, Data, Research, and FaithVerify</span></a>'
+              '</div></div>')
+    links=[('Docs','https://docs.givalgo.ai/'),('Pricing','/pricing/')]
     a=''.join('<a href="%s"%s>%s</a>'%(h,' aria-current="page"' if (t=='Pricing' and on_pricing) else '',t) for t,h in links)
+    mobile=''.join('<a onclick="closeMobileNav()" href="%s">%s</a>'%(h,t) for t,h in [('Discover',p+'#discover'),('APIs',p+'#apis'),('Docs','https://docs.givalgo.ai/'),('Pricing','/pricing/')])
     return '''<a class="skip" href="#main">Skip to content</a>
 <header class="nav" id="siteNav">
   <div class="container nav-inner">
     <a class="logo" href="/" aria-label="Givalgo home">@@LOGO@@</a>
-    <nav class="nav-links" aria-label="Primary">%s</nav>
+    <nav class="nav-links" aria-label="Primary">%s%s</nav>
     <div class="nav-actions">
       <a class="nav-signin" href="https://discover.givalgo.ai">Sign in</a>
       <button type="button" class="btn btn-outline btn-sm" onclick="openModal()">Book a demo</button>
@@ -67,7 +75,7 @@ def nav(on_pricing=False):
   </div>
   <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">%s<a href="https://discover.givalgo.ai">Sign in</a><button type="button" class="btn btn-primary" onclick="closeMobileNav(); openModal()">Book a demo</button></nav>
 </header>
-''' % (a, a.replace('<a ','<a onclick="closeMobileNav()" '))
+''' % (products, a, mobile)
 
 FOOTER='''<footer class="footer" id="footer">
   <div class="container footer-grid">
@@ -292,6 +300,19 @@ SITE_JS='''
         note.textContent = annual ? 'Billed annually · 14-day free trial, no card' : 'Billed monthly · 14-day free trial, no card';
       });
     });
+  })();
+
+  /* Products menu: hover opens on desktop (CSS); click toggles for touch and keyboard. */
+  function toggleMenu(e) {
+    var m = document.getElementById('productsMenu'), b = m.querySelector('.menu-btn');
+    var open = m.classList.toggle('open'); b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (e) e.stopPropagation();
+  }
+  (function () {
+    var m = document.getElementById('productsMenu'); if (!m) return;
+    document.addEventListener('click', function (e) { if (!m.contains(e.target)) { m.classList.remove('open'); m.querySelector('.menu-btn').setAttribute('aria-expanded', 'false'); } });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { m.classList.remove('open'); m.querySelector('.menu-btn').setAttribute('aria-expanded', 'false'); } });
+    m.querySelectorAll('.menu-panel a').forEach(function (a) { a.addEventListener('click', function () { m.classList.remove('open'); }); });
   })();
 
   /* Close the demo modal on Escape or on a backdrop click. */

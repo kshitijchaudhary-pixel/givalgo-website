@@ -136,14 +136,14 @@
 <path fill="#00848b" d="M70.01,130.83c-3.61,0-6.95-.74-10-2.23-3.06-1.49-5.7-3.47-7.94-5.96-2.24-2.48-4-5.37-5.29-8.66-1.29-3.29-1.94-6.79-1.94-10.49s.65-7.06,1.94-10.35c1.29-3.29,3.05-6.2,5.29-8.73,2.24-2.53,4.91-4.51,8-5.96,3.1-1.44,6.45-2.17,10.07-2.17.89,0,31.32-.03,32.2.07v-28.5c-.92-.05-31.4,0-32.33,0-7.4,0-14.31,1.47-20.72,4.4-6.41,2.93-12.01,6.95-16.78,12.05-4.78,5.1-8.54,11.01-11.3,17.73-2.76,6.72-4.13,13.87-4.13,21.45s1.38,14.73,4.13,21.45c2.75,6.72,6.52,12.63,11.3,17.73,4.78,5.1,10.37,9.12,16.78,12.05,6.41,2.93,13.32,4.4,20.72,4.4,2.06,0,4.09-.12,6.09-.35v-28.71c-1.96.51-3.98.77-6.09.77Z"/>
 <path fill="#00b4b3" d="M106.34,103.47h-33.05l12.54,21.15c-1.86,1.7-3.9,3.07-6.12,4.1-1.17.55-2.38.99-3.62,1.35v-.02c-1.96.51-3.98.77-6.09.77-3.61,0-6.95-.74-10-2.23-.05-.02-.1-.05-.14-.07v29.61c3.27.65,6.66.98,10.15.98,2.06,0,4.09-.12,6.09-.35v-.03c5.21-.77,9.67-2.52,14.43-4.86,3.27-1.61,6.32-3.57,9.19-5.86l6.63,11.18v-55.72Z"/>
 </svg></a>
-    <nav class="nav-links" aria-label="Primary"><a href="/#discover">Discover</a><a href="/#apis">APIs</a><a href="https://docs.givalgo.ai/">Docs</a><a href="/pricing/" aria-current="page">Pricing</a></nav>
+    <nav class="nav-links" aria-label="Primary"><div class="menu" id="productsMenu"><button type="button" class="menu-btn" aria-haspopup="true" aria-expanded="false" aria-controls="productsPanel" onclick="toggleMenu(event)">Products <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button><div class="menu-panel" id="productsPanel" role="menu"><a role="menuitem" href="/#discover"><b>Discover</b><span>The workspace for grantmaking teams</span></a><a role="menuitem" href="/#apis"><b>APIs</b><span>Verify, Data, Research, and FaithVerify</span></a></div></div><a href="https://docs.givalgo.ai/">Docs</a><a href="/pricing/" aria-current="page">Pricing</a></nav>
     <div class="nav-actions">
       <a class="nav-signin" href="https://discover.givalgo.ai">Sign in</a>
       <button type="button" class="btn btn-outline btn-sm" onclick="openModal()">Book a demo</button>
       <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" aria-controls="mobileNav" aria-expanded="false" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
     </div>
   </div>
-  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile"><a onclick="closeMobileNav()" href="/#discover">Discover</a><a onclick="closeMobileNav()" href="/#apis">APIs</a><a onclick="closeMobileNav()" href="https://docs.givalgo.ai/">Docs</a><a onclick="closeMobileNav()" href="/pricing/" aria-current="page">Pricing</a><a href="https://discover.givalgo.ai">Sign in</a><button type="button" class="btn btn-primary" onclick="closeMobileNav(); openModal()">Book a demo</button></nav>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile"><a onclick="closeMobileNav()" href="/#discover">Discover</a><a onclick="closeMobileNav()" href="/#apis">APIs</a><a onclick="closeMobileNav()" href="https://docs.givalgo.ai/">Docs</a><a onclick="closeMobileNav()" href="/pricing/">Pricing</a><a href="https://discover.givalgo.ai">Sign in</a><button type="button" class="btn btn-primary" onclick="closeMobileNav(); openModal()">Book a demo</button></nav>
 </header>
 <main id="main">
 <section class="hero hero-sm">
@@ -293,6 +293,19 @@
         note.textContent = annual ? 'Billed annually · 14-day free trial, no card' : 'Billed monthly · 14-day free trial, no card';
       });
     });
+  })();
+
+  /* Products menu: hover opens on desktop (CSS); click toggles for touch and keyboard. */
+  function toggleMenu(e) {
+    var m = document.getElementById('productsMenu'), b = m.querySelector('.menu-btn');
+    var open = m.classList.toggle('open'); b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (e) e.stopPropagation();
+  }
+  (function () {
+    var m = document.getElementById('productsMenu'); if (!m) return;
+    document.addEventListener('click', function (e) { if (!m.contains(e.target)) { m.classList.remove('open'); m.querySelector('.menu-btn').setAttribute('aria-expanded', 'false'); } });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { m.classList.remove('open'); m.querySelector('.menu-btn').setAttribute('aria-expanded', 'false'); } });
+    m.querySelectorAll('.menu-panel a').forEach(function (a) { a.addEventListener('click', function () { m.classList.remove('open'); }); });
   })();
 
   /* Close the demo modal on Escape or on a backdrop click. */

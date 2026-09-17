@@ -1,0 +1,288 @@
+<div id="privacy-page">
+  <nav style="background:rgba(4,28,44,0.97);padding:1rem 0;border-bottom:1px solid rgba(255,255,255,0.07);position:sticky;top:36px;z-index:100;">
+    <div style="max-width:1180px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;">
+      <a href="#" onclick="showMain(); return false;" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.7);font-weight:600;font-size:0.875rem;transition:color 0.2s;" onmouseover="this.style.color='#00b4b3'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">← Back to Givalgo.ai</a>
+      <span style="color:rgba(255,255,255,0.35);font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;">Privacy Policy</span>
+    </div>
+  </nav>
+
+  <div class="privacy-hero">
+    <div class="container">
+      <h1>Privacy Policy</h1>
+      <p>Last updated: August 23, 2026 &nbsp;·&nbsp; Effective date: March 30, 2026</p>
+    </div>
+  </div>
+
+  <div class="privacy-layout">
+
+    <!-- Left sticky sidebar nav -->
+    <div class="privacy-sidebar">
+      <div class="privacy-sidebar-title">On This Page</div>
+      <ul class="privacy-nav" id="privacyNav">
+        <li><a href="#pp-1" class="active">About This Policy</a></li>
+        <li><a href="#pp-2">Information We Collect</a></li>
+        <li><a href="#pp-3">How We Use Your Information</a></li>
+        <li><a href="#pp-4">Legal Basis for Processing</a></li>
+        <li><a href="#pp-5">Sharing and Disclosure</a></li>
+        <li><a href="#pp-6">Cookies and Tracking</a></li>
+        <li><a href="#pp-7">Data Security</a></li>
+        <li><a href="#pp-8">Data Retention</a></li>
+        <li><a href="#pp-9">International Transfers</a></li>
+        <li><a href="#pp-10">Children's Privacy</a></li>
+        <li><a href="#pp-11">Your Privacy Rights</a></li>
+        <li><a href="#pp-12">California Rights (CCPA)</a></li>
+        <li><a href="#pp-13">Changes to This Policy</a></li>
+      </ul>
+    </div>
+
+    <!-- Right content area -->
+    <div class="privacy-content-area">
+
+    <div class="privacy-section" id="pp-1">
+      <h2>1. About This Policy</h2>
+      <p>Givalgo, Inc. ("Givalgo," "we," "our," or "us") is committed to protecting the privacy and security of the information entrusted to us. This Privacy Policy describes how we collect, use, process, disclose, and protect your personal information when you:</p>
+      <ul>
+        <li>Visit our website at <strong>givalgo.ai</strong> and related subdomains</li>
+        <li>Access or use our API services at <strong>api.givalgo.ai</strong></li>
+        <li>Review our developer documentation at <strong>docs.givalgo.ai</strong></li>
+        <li>Communicate with us via email, forms, or other channels</li>
+        <li>Book a demo or attend a product presentation</li>
+      </ul>
+      <div class="privacy-highlight">
+        <strong>Important note about our data:</strong> Givalgo's core database is built entirely from publicly available U.S. government sources -IRS nonprofit filings, IRS sanctions data, and OFAC sanctions lists. We do not collect, store, or sell personal data about individual donors, nonprofit beneficiaries, or third-party individuals. All nonprofit and organizational data in our platform is sourced from public government records and processed in accordance with applicable law.
+      </div>
+      <p>This policy applies to all users globally. Where we reference specific legal frameworks (such as GDPR or CCPA), those sections apply only to users in the relevant jurisdiction.</p>
+    </div>
+
+    <div class="privacy-section" id="pp-2">
+      <h2>2. Information We Collect</h2>
+
+      <h3>2.1 Information You Provide Directly</h3>
+      <p>When you create an account, subscribe to a plan, or contact us, we collect:</p>
+      <ul>
+        <li><strong>Account Information:</strong> Full name, work email address, company name, job title, and password (stored as a salted hash -never in plain text)</li>
+        <li><strong>Billing Information:</strong> Payment card details and billing address, processed and stored by our payment processor (Stripe). We do not store full card numbers on our systems.</li>
+        <li><strong>Communication Data:</strong> Any messages, inquiries, or feedback you submit via email, contact forms, or demo requests</li>
+        <li><strong>Demo Booking Data:</strong> Name, email, company, and any notes provided when booking a product demonstration via our scheduling system (Calendly)</li>
+        <li><strong>Survey and Feedback Data:</strong> Responses to optional user research surveys or NPS feedback requests</li>
+      </ul>
+
+      <h3>2.2 Information Collected Automatically</h3>
+      <p>When you interact with our website or API, we automatically collect certain technical data:</p>
+      <table class="privacy-table">
+        <thead>
+          <tr><th>Data Type</th><th>Examples</th><th>Purpose</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Log Data</td><td>IP address, browser type, OS, referrer URL, pages visited, timestamps</td><td>Security monitoring, debugging, analytics</td></tr>
+          <tr><td>API Usage Data</td><td>API key ID, endpoint called, EINs queried, response codes, latency, request volume</td><td>Billing, rate limiting, usage dashboards, audit logs</td></tr>
+          <tr><td>Device Information</td><td>Screen resolution, device type, browser version</td><td>Product improvement, compatibility</td></tr>
+          <tr><td>Session Data</td><td>Login timestamps, session duration, feature interactions</td><td>Security, product analytics</td></tr>
+        </tbody>
+      </table>
+      <p>API usage logs are stored in our <code style="font-size:0.85rem;background:#f0fdfd;padding:2px 6px;border-radius:4px;color:var(--teal-dark)">api_usage_log</code> table in our PostgreSQL database, associated with your API key ID (not your personal email) to provide usage dashboards and enforce plan limits.</p>
+
+      <h3>2.3 Information from Third Parties</h3>
+      <p>We may receive limited information about you from:</p>
+      <ul>
+        <li><strong>Payment Processors (Stripe):</strong> Confirmation of payment success/failure and subscription status</li>
+        <li><strong>Authentication Providers:</strong> If you sign in via SSO or OAuth, we receive your name and email from that provider</li>
+        <li><strong>Referral Partners:</strong> If you were referred to us, we may receive your organization name and contact details from a mutual partner</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section" id="pp-3">
+      <h2>3. How We Use Your Information</h2>
+      <p>We use the information we collect for the following purposes:</p>
+
+      <h3>3.1 Providing and Operating Our Services</h3>
+      <ul>
+        <li>Creating and managing your account and API credentials</li>
+        <li>Processing payments and managing subscription plans</li>
+        <li>Delivering API responses and maintaining service uptime</li>
+        <li>Providing usage dashboards, rate limit enforcement, and billing summaries</li>
+        <li>Responding to support requests and technical inquiries</li>
+      </ul>
+
+      <h3>3.2 Security and Compliance</h3>
+      <ul>
+        <li>Detecting, preventing, and investigating fraudulent or unauthorized use of our API</li>
+        <li>Maintaining audit logs for compliance with financial regulations and AML/KYC obligations applicable to our enterprise customers</li>
+        <li>Protecting the integrity of our infrastructure and preventing abuse</li>
+        <li>Complying with applicable laws, including OFAC, AML, and IRS regulations</li>
+      </ul>
+
+      <h3>3.3 Product Improvement and Analytics</h3>
+      <ul>
+        <li>Analyzing aggregated, anonymized usage patterns to improve API performance and coverage</li>
+        <li>Conducting internal research on which features are most valuable to our users</li>
+        <li>Identifying and fixing bugs, performance bottlenecks, and data quality issues</li>
+      </ul>
+
+      <h3>3.4 Communication</h3>
+      <ul>
+        <li>Sending transactional emails: account confirmations, password resets, billing receipts, API key notifications</li>
+        <li>Sending product update communications and release notes (you may opt out at any time)</li>
+        <li>Scheduling and conducting product demonstrations</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section" id="pp-4">
+      <h2>4. Legal Basis for Processing (GDPR)</h2>
+      <p>If you are located in the European Economic Area (EEA), United Kingdom, or Switzerland, we process your personal data under the following legal bases:</p>
+      <table class="privacy-table">
+        <thead><tr><th>Processing Activity</th><th>Legal Basis</th></tr></thead>
+        <tbody>
+          <tr><td>Providing API services and fulfilling your subscription</td><td>Performance of a contract (Art. 6(1)(b) GDPR)</td></tr>
+          <tr><td>Processing payments</td><td>Performance of a contract</td></tr>
+          <tr><td>Sending transactional emails</td><td>Performance of a contract / Legitimate interests</td></tr>
+          <tr><td>Security monitoring and fraud prevention</td><td>Legitimate interests (Art. 6(1)(f) GDPR)</td></tr>
+          <tr><td>Product analytics (aggregated)</td><td>Legitimate interests</td></tr>
+          <tr><td>Marketing communications</td><td>Consent (Art. 6(1)(a) GDPR) -you may withdraw at any time</td></tr>
+          <tr><td>Compliance with legal obligations</td><td>Legal obligation (Art. 6(1)(c) GDPR)</td></tr>
+        </tbody>
+      </table>
+      <p>Where we rely on legitimate interests, we have assessed that our interests do not override your rights and freedoms as a data subject.</p>
+    </div>
+
+    <div class="privacy-section" id="pp-5">
+      <h2>5. Sharing and Disclosure</h2>
+      <p><strong>We do not sell, rent, or trade your personal information to third parties.</strong> We may share your information in the following limited circumstances:</p>
+
+      <h3>5.1 Service Providers</h3>
+      <p>We share data with carefully vetted service providers who process it on our behalf, subject to strict data processing agreements. Current providers include:</p>
+      <ul>
+        <li><strong>Amazon Web Services (AWS):</strong> Cloud infrastructure, database hosting (RDS PostgreSQL), file storage (S3), serverless compute (Lambda), and API Gateway. Data is stored in <code style="font-size:0.85rem;background:#f0fdfd;padding:2px 6px;border-radius:4px;color:var(--teal-dark)">us-east-2</code> (Ohio, USA).</li>
+        <li><strong>Stripe:</strong> Payment processing and subscription management. Stripe is PCI-DSS Level 1 certified.</li>
+        <li><strong>Calendly:</strong> Demo scheduling. Your name and email are shared when booking a call.</li>
+        <li><strong>Google Analytics:</strong> Aggregate visitor measurement on this marketing website only &mdash; not in the Discover application and not in our APIs. Configured with advertising features, ad personalisation and ad-user-data permanently disabled, so your data is never used for advertising or remarketing.</li>
+      </ul>
+
+      <h3>5.2 Legal and Regulatory Disclosures</h3>
+      <p>We may disclose your information if required to do so by law or in good-faith belief that such action is necessary to: (i) comply with a legal obligation, subpoena, or court order; (ii) protect and defend the rights or property of Givalgo; (iii) prevent or investigate possible wrongdoing in connection with our services; or (iv) protect the personal safety of users or the public.</p>
+
+      <h3>5.3 Business Transfers</h3>
+      <p>In the event of a merger, acquisition, reorganization, bankruptcy, or sale of all or a portion of our assets, your information may be transferred to the acquiring entity. We will notify you via email or a prominent website notice before your personal information becomes subject to a different privacy policy.</p>
+
+      <h3>5.4 With Your Consent</h3>
+      <p>We may share your information for any other purpose with your explicit consent.</p>
+    </div>
+
+    <div class="privacy-section" id="pp-6">
+      <h2>6. Cookies and Tracking Technologies</h2>
+      <p>Our website uses a minimal set of cookies strictly necessary for operation:</p>
+      <table class="privacy-table">
+        <thead><tr><th>Cookie Type</th><th>Purpose</th><th>Duration</th></tr></thead>
+        <tbody>
+          <tr><td>Session Cookie</td><td>Maintains your authenticated session on the docs and dashboard</td><td>Session (deleted on browser close)</td></tr>
+          <tr><td>CSRF Token</td><td>Protects against cross-site request forgery attacks</td><td>Session</td></tr>
+          <tr><td>Preference Cookie</td><td>Remembers your UI preferences (e.g., dark/light mode)</td><td>1 year</td></tr>
+          <tr><td><code style="font-size:0.85rem;background:#f0fdfd;padding:2px 6px;border-radius:4px;color:var(--teal-dark)">_ga</code> / <code style="font-size:0.85rem;background:#f0fdfd;padding:2px 6px;border-radius:4px;color:var(--teal-dark)">_ga_*</code></td><td>Google Analytics 4 &mdash; measures how visitors find and move around this marketing website. Set on <strong>this website only</strong>, never in the Discover application or the APIs.</td><td>13 months</td></tr>
+        </tbody>
+      </table>
+      <div class="privacy-highlight">
+        We do <strong>not</strong> use third-party advertising cookies, behavioral tracking pixels, or cross-site tracking technologies, and we do not use Facebook Pixel or any similar advertising tracker anywhere.
+        <br /><br />
+        <strong>On our platform</strong> &mdash; the Discover application and our APIs, where your account activity lives &mdash; analytics are <strong>entirely first-party</strong>: measured by us, stored in our own database, and never shared with an analytics vendor.
+        <br /><br />
+        <strong>On this marketing website only</strong>, we use Google Analytics 4 to understand how visitors find us. It runs with advertising storage, ad personalisation and ad-user-data denied by default, so it is never used for advertising or remarketing, and Google Analytics 4 truncates IP addresses on collection.
+      </div>
+    </div>
+
+    <div class="privacy-section" id="pp-7">
+      <h2>7. Data Security</h2>
+      <p>We take the security of your data seriously and implement multiple layers of protection:</p>
+      <ul>
+        <li><strong>Encryption in Transit:</strong> All communications between your browser/application and our servers use TLS 1.3</li>
+        <li><strong>Encryption at Rest:</strong> Our RDS PostgreSQL database uses AES-256 encryption at rest via AWS</li>
+        <li><strong>Secrets Management:</strong> API keys, database credentials, and service tokens are stored in AWS Secrets Manager -never in source code or environment variables</li>
+        <li><strong>Network Isolation:</strong> Our database runs in a private VPC subnet with no direct internet access; only our Lambda functions (within the same VPC) can connect</li>
+        <li><strong>API Key Authentication:</strong> Every API request requires a valid API key passed via <code style="font-size:0.85rem;background:#f0fdfd;padding:2px 6px;border-radius:4px;color:var(--teal-dark)">x-api-key</code> header; keys are hashed before storage</li>
+        <li><strong>Rate Limiting:</strong> Per-key rate limits are enforced at the API Gateway layer to prevent abuse</li>
+        <li><strong>Audit Logging:</strong> All API requests are logged with key ID, timestamp, endpoint, and response code for security monitoring</li>
+        <li><strong>SOC 2 Type II:</strong> We are currently working toward SOC 2 Type II certification</li>
+      </ul>
+      <p>While we implement industry-standard safeguards, no security system is impenetrable. We cannot guarantee the absolute security of data transmitted over the internet. In the event of a data breach affecting your personal information, we will notify you in accordance with applicable law.</p>
+    </div>
+
+    <div class="privacy-section" id="pp-8">
+      <h2>8. Data Retention</h2>
+      <p>We retain different categories of data for different periods based on business and legal requirements:</p>
+      <table class="privacy-table">
+        <thead><tr><th>Data Category</th><th>Retention Period</th><th>Reason</th></tr></thead>
+        <tbody>
+          <tr><td>Account information</td><td>Duration of subscription + 3 years after closure</td><td>Legal/tax obligations</td></tr>
+          <tr><td>Payment records</td><td>7 years</td><td>Financial regulations</td></tr>
+          <tr><td>API usage logs</td><td>90 days (rolling)</td><td>Billing, debugging, security</td></tr>
+          <tr><td>Support communications</td><td>3 years</td><td>Service quality, dispute resolution</td></tr>
+          <tr><td>Audit logs (security)</td><td>1 year</td><td>Security monitoring</td></tr>
+          <tr><td>Marketing consent records</td><td>Until withdrawal + 3 years</td><td>Legal compliance (GDPR)</td></tr>
+        </tbody>
+      </table>
+      <p>When your account is closed or data reaches its retention limit, we securely delete or anonymize it. You may request early deletion of your personal data (subject to legal retention obligations) by contacting <a href="mailto:privacy@givalgo.ai" style="color:var(--teal-dark)">privacy@givalgo.ai</a>.</p>
+    </div>
+
+    <div class="privacy-section" id="pp-9">
+      <h2>9. International Data Transfers</h2>
+      <p>Givalgo is incorporated in the United States, and our infrastructure is hosted in the AWS <code style="font-size:0.85rem;background:#f0fdfd;padding:2px 6px;border-radius:4px;color:var(--teal-dark)">us-east-2</code> (Ohio) region. If you are accessing our services from outside the United States, your information will be transferred to and processed in the United States.</p>
+      <p>For users in the European Economic Area (EEA) or United Kingdom, such transfers are made pursuant to Standard Contractual Clauses (SCCs) approved by the European Commission, or other legally recognized transfer mechanisms. By using our services, you consent to these transfers where required.</p>
+    </div>
+
+    <div class="privacy-section" id="pp-10">
+      <h2>10. Children's Privacy</h2>
+      <p>Our services are not directed to individuals under the age of 16. We do not knowingly collect personal information from children under 16. If you are a parent or guardian and believe your child has provided us with personal information, please contact us at <a href="mailto:privacy@givalgo.ai" style="color:var(--teal-dark)">privacy@givalgo.ai</a> and we will promptly delete that information.</p>
+    </div>
+
+    <div class="privacy-section" id="pp-11">
+      <h2>11. Your Privacy Rights</h2>
+      <p>Depending on your location, you may have the following rights regarding your personal data. To exercise any of these rights, contact us at <a href="mailto:privacy@givalgo.ai" style="color:var(--teal-dark)">privacy@givalgo.ai</a>:</p>
+
+      <h3>Rights Available to All Users</h3>
+      <ul>
+        <li><strong>Access:</strong> Request a copy of the personal data we hold about you</li>
+        <li><strong>Correction:</strong> Request correction of inaccurate or incomplete personal data</li>
+        <li><strong>Deletion:</strong> Request deletion of your personal data (subject to legal retention requirements)</li>
+        <li><strong>Portability:</strong> Receive your personal data in a structured, machine-readable format</li>
+        <li><strong>Opt-Out of Marketing:</strong> Unsubscribe from marketing emails at any time by clicking the unsubscribe link or emailing us</li>
+      </ul>
+
+      <h3>Additional Rights for EEA / UK Users (GDPR)</h3>
+      <ul>
+        <li><strong>Restriction of Processing:</strong> Request that we restrict processing of your data in certain circumstances</li>
+        <li><strong>Object to Processing:</strong> Object to processing based on legitimate interests or for direct marketing</li>
+        <li><strong>Withdraw Consent:</strong> Where processing is based on consent, withdraw it at any time without affecting prior processing</li>
+        <li><strong>Lodge a Complaint:</strong> You have the right to lodge a complaint with your local data protection authority (DPA)</li>
+      </ul>
+
+      <p>We will respond to all verifiable requests within 30 days. In complex cases, we may extend this by an additional 60 days with notice. We will not discriminate against you for exercising your privacy rights.</p>
+    </div>
+
+    <div class="privacy-section" id="pp-12">
+      <h2>12. California Privacy Rights (CCPA / CPRA)</h2>
+      <p>If you are a California resident, the California Consumer Privacy Act (CCPA), as amended by the California Privacy Rights Act (CPRA), grants you additional rights:</p>
+      <ul>
+        <li><strong>Right to Know:</strong> Know what personal information we collect, use, disclose, and sell</li>
+        <li><strong>Right to Delete:</strong> Request deletion of your personal information (with certain exceptions)</li>
+        <li><strong>Right to Correct:</strong> Request correction of inaccurate personal information</li>
+        <li><strong>Right to Opt-Out of Sale:</strong> We do not sell personal information. There is nothing to opt out of.</li>
+        <li><strong>Right to Limit Use of Sensitive Personal Information:</strong> We do not use sensitive personal information beyond what is necessary to provide our services</li>
+        <li><strong>Non-Discrimination:</strong> We will not discriminate against you for exercising any of these rights</li>
+      </ul>
+      <p>To submit a CCPA request, email <a href="mailto:privacy@givalgo.ai" style="color:var(--teal-dark)">privacy@givalgo.ai</a> with "CCPA Request" in the subject line. We will verify your identity before processing the request.</p>
+    </div>
+
+    <div class="privacy-section" id="pp-13">
+      <h2>13. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy periodically to reflect changes in our practices, technology, legal requirements, or for other operational reasons. When we make material changes, we will:</p>
+      <ul>
+        <li>Update the "Last updated" date at the top of this policy</li>
+        <li>Send an email notification to registered users at least 14 days before the change takes effect</li>
+        <li>Post a prominent notice on our website for 30 days following the change</li>
+      </ul>
+      <p>Your continued use of our services after the effective date of any updated policy constitutes your acceptance of the revised terms. If you disagree with the changes, you may close your account and request deletion of your data.</p>
+      <p>We maintain an archive of previous versions of this Privacy Policy available upon request.</p>
+    </div>
+
+    </div><!-- end privacy-content-area -->
+  </div><!-- end privacy-layout -->
+</div>

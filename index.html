@@ -3,27 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Givalgo.ai — Compliance Infrastructure for Grantmakers</title>
+  <title>Givalgo — Research, verify, and monitor the nonprofits you fund</title>
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <meta name="description" content="Structured nonprofit data APIs for DAF sponsors, foundations and GMS platforms. Verify IRS status, tax-deductibility, screen leadership, and access IRS 990 data." />
+  <meta name="description" content="Search 1.9M nonprofits, run compliance checks, and monitor the organizations you fund. Discover for grantmaking teams, plus Verify, Data, and FaithVerify APIs." />
+  <meta name="theme-color" content="#0C1830" />
+  <link rel="canonical" href="https://givalgo.ai/" />
 
   <!-- Open Graph / social sharing -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://givalgo.ai/" />
-  <meta property="og:title" content="Givalgo.ai — Compliance Infrastructure for Grantmakers" />
-  <meta property="og:description" content="Structured nonprofit data APIs for DAF sponsors, foundations and GMS platforms. Verify IRS status, tax-deductibility, screen leadership, and access IRS 990 data." />
-  <meta property="og:image" content="https://givalgo.ai/givalgo-logo-v2.png" />
+  <meta property="og:title" content="Givalgo — Research, verify, and monitor the nonprofits you fund" />
+  <meta property="og:description" content="Search 1.9M nonprofits, run compliance checks, and monitor the organizations you fund. Discover for grantmaking teams, plus Verify, Data, and FaithVerify APIs." />
+  <meta property="og:image" content="https://givalgo.ai/givalgo-og.png" />
   <meta property="og:image:width" content="2203" />
   <meta property="og:image:height" content="847" />
-  <meta property="og:image:alt" content="Givalgo — Compliance Infrastructure for Grantmakers" />
+  <meta property="og:image:alt" content="Givalgo — Research, verify, and monitor the nonprofits you fund" />
 
   <!-- Twitter / X card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Givalgo.ai — Compliance Infrastructure for Grantmakers" />
-  <meta name="twitter:description" content="Structured nonprofit data APIs for DAF sponsors, foundations and GMS platforms. Verify IRS status, tax-deductibility, screen leadership, and access IRS 990 data." />
-  <meta name="twitter:image" content="https://givalgo.ai/givalgo-logo-v2.png" />
+  <meta name="twitter:title" content="Givalgo — Research, verify, and monitor the nonprofits you fund" />
+  <meta name="twitter:description" content="Search 1.9M nonprofits, run compliance checks, and monitor the organizations you fund. Discover for grantmaking teams, plus Verify, Data, and FaithVerify APIs." />
+  <meta name="twitter:image" content="https://givalgo.ai/givalgo-og.png" />
 
   <!-- ──────────────────────────────────────────────────────────────────────
        Google Analytics 4 — THIS MARKETING SITE ONLY.
@@ -91,758 +93,12 @@
       document.head.appendChild(gaEl);
     }
   </script>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; color: #1a202c; background: #fff; line-height: 1.6; }
-
-    :root {
-      --teal:        #00b4b3;
-      --teal-dark:   #00848b;
-      --teal-deeper: #006570;
-      --navy:        #041c2c;
-      --navy-mid:    #072840;
-      --navy-light:  #0d3a54;
-      --teal-light:  #e0f8f7;
-      --teal-mid:    #b3eeee;
-      --off-white:   #f8fafb;
-      --border:      #e2e8f0;
-      --text-muted:  #64748b;
-      --text-dark:   #1a202c;
-      --logo-navy:   #072643;
-    }
-
-    /* ── Utility ── */
-    .container { max-width: 1180px; margin: 0 auto; padding: 0 2rem; }
-    .badge {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      background: var(--teal-light); color: var(--teal-deeper);
-      border: 1px solid var(--teal-mid); border-radius: 100px;
-      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em;
-      text-transform: uppercase; padding: 0.3rem 0.85rem;
-    }
-    .badge-dark { background: rgba(0,180,179,0.15); color: var(--teal); border-color: rgba(0,180,179,0.3); }
-    .gradient-text {
-      background: linear-gradient(135deg, #00d4c8 0%, #00b4b3 60%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem; }
-    .section-label-light { color: rgba(0,180,179,0.9); }
-    .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--teal) 0%, var(--teal-dark) 100%); border-radius: 2px; margin: 1rem auto 0; }
-    .divider-left { margin-left: 0; }
-
-    /* ── Draft Banner ── */
-    .draft-banner {
-      display: none !important;
-    }
-    /* Banner hidden — reset nav to top:0 */
-    nav { top: 0 !important; }
-
-    /* ══ DEMO MODAL ══ */
-    .modal-overlay {
-      display: none; position: fixed; inset: 0; z-index: 10000;
-      background: rgba(4,28,44,0.75); backdrop-filter: blur(6px);
-      align-items: center; justify-content: center;
-    }
-    .modal-overlay.open { display: flex; }
-    .modal-box {
-      background: #fff; border-radius: 20px; padding: 2.5rem;
-      max-width: 520px; width: 90%; box-shadow: 0 30px 80px rgba(0,0,0,0.3);
-      position: relative;
-    }
-    .modal-close {
-      position: absolute; top: 1rem; right: 1.25rem;
-      background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text-muted);
-      transition: color 0.2s;
-    }
-    .modal-close:hover { color: var(--text-dark); }
-    .modal-box h3 { font-size: 1.4rem; font-weight: 800; color: var(--navy); margin-bottom: 0.4rem; letter-spacing: -0.02em; }
-    .modal-box p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.75rem; }
-    .modal-founders { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .founder-card {
-      border: 2px solid var(--border); border-radius: 14px; padding: 1.5rem 1.25rem;
-      text-align: center; text-decoration: none; color: inherit;
-      transition: all 0.2s; cursor: pointer;
-    }
-    .founder-card:hover { border-color: var(--teal); box-shadow: 0 6px 20px rgba(0,180,179,0.15); transform: translateY(-2px); }
-    .founder-avatar {
-      width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 0.9rem;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem; font-weight: 800; color: #fff;
-    }
-    .avatar-k { background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%); }
-    .avatar-n { background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-mid) 100%); }
-    .founder-card strong { display: block; font-weight: 700; font-size: 0.95rem; color: var(--text-dark); }
-    .founder-card span { font-size: 0.78rem; color: var(--text-muted); }
-    .modal-note { font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 1.25rem; }
-
-    /* ══ NAV ══ */
-    nav {
-      background: rgba(4,28,44,0.97); backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      padding: 1rem 0; position: sticky; top: 36px; z-index: 100;
-    }
-    .nav-inner {
-      max-width: 1180px; margin: 0 auto; padding: 0 2rem;
-      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-    }
-    .nav-logo { display: flex; align-items: center; text-decoration: none; }
-    .nav-logo svg { height: 34px; width: auto; }
-    /* Make navy text white in nav */
-    .nav-logo svg .nav-text-fix { fill: #ffffff; }
-    .nav-links { display: flex; align-items: center; gap: 0.1rem; }
-    .nav-links a {
-      color: rgba(255,255,255,0.68); text-decoration: none;
-      font-size: 0.875rem; font-weight: 500; padding: 0.4rem 0.85rem; border-radius: 6px;
-      transition: color 0.2s, background 0.2s;
-    }
-    .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.07); }
-    .nav-ctas { display: flex; align-items: center; gap: 0.65rem; flex-shrink: 0; }
-    .btn-nav-ghost {
-      color: rgba(255,255,255,0.75); border: 1px solid rgba(255,255,255,0.18);
-      background: transparent; padding: 0.48rem 1rem; border-radius: 8px;
-      font-size: 0.85rem; font-weight: 600; cursor: pointer;
-      text-decoration: none; transition: all 0.2s;
-    }
-    .btn-nav-ghost:hover { border-color: var(--teal); color: var(--teal); }
-    .btn-nav-primary {
-      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
-      color: #fff; border: none;
-      padding: 0.52rem 1.15rem; border-radius: 8px;
-      font-size: 0.85rem; font-weight: 700; cursor: pointer;
-      text-decoration: none; transition: all 0.2s;
-      box-shadow: 0 2px 12px rgba(0,180,179,0.3);
-    }
-    .btn-nav-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-    /* "NEW" pill inside the Discover nav button. Tiny, high-contrast,
-       pinned to the right of the label so it reads as a status flag
-       rather than another character in the name. */
-    .badge-new {
-      display: inline-block; margin-left: 0.45rem;
-      padding: 0.1rem 0.4rem; border-radius: 999px;
-      background: rgba(255,255,255,0.22); color: #fff;
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.04em;
-      text-transform: uppercase; line-height: 1.2;
-      vertical-align: middle;
-    }
-
-    /* ══ HERO ══ */
-    .hero {
-      background: linear-gradient(155deg, #041c2c 0%, #072840 45%, #0a2d44 100%);
-      padding: 3rem 0 3.5rem; position: relative; overflow: hidden;
-    }
-    .hero::before {
-      content: ''; position: absolute; top: -250px; right: -100px;
-      width: 750px; height: 750px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,180,179,0.1) 0%, transparent 65%);
-      pointer-events: none;
-    }
-    .hero::after {
-      content: ''; position: absolute; bottom: -120px; left: 0;
-      width: 500px; height: 400px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,132,139,0.07) 0%, transparent 65%);
-      pointer-events: none;
-    }
-    .hero-inner {
-      max-width: 1180px; margin: 0 auto; padding: 0 2rem;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: flex-start;
-      position: relative; z-index: 1;
-    }
-    .hero-eyebrow { margin-bottom: 1.4rem; }
-    .hero h1 {
-      font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 900;
-      color: #fff; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1.4rem;
-    }
-    .hero-desc { font-size: 1.08rem; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 2.25rem; max-width: 500px; }
-    .hero-ctas { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
-      color: #fff; padding: 0.875rem 1.9rem; border-radius: 10px;
-      font-size: 0.975rem; font-weight: 700; text-decoration: none;
-      border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 0.45rem;
-      box-shadow: 0 4px 20px rgba(0,180,179,0.35); transition: all 0.2s;
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,180,179,0.45); }
-    .btn-ghost-hero {
-      color: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.22);
-      background: rgba(255,255,255,0.05); padding: 0.875rem 1.65rem; border-radius: 10px;
-      font-size: 0.975rem; font-weight: 600; text-decoration: none; cursor: pointer;
-      display: inline-flex; align-items: center; gap: 0.45rem; transition: all 0.2s;
-    }
-    .btn-ghost-hero:hover { border-color: var(--teal); color: var(--teal); background: rgba(0,180,179,0.06); }
-    .hero-stats-row {
-      display: grid; grid-template-columns: 1fr 1px 1fr 1px 1fr; align-items: center; gap: 1rem; margin-top: 2rem;
-      padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;
-    }
-    .hero-stat-num { font-size: 1.65rem; font-weight: 900; color: var(--teal); letter-spacing: -0.03em; line-height: 1; }
-    .hero-stat-label { font-size: 0.65rem; color: rgba(255,255,255,0.48); font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 0.2rem; }
-    .stat-divider { width: 1px; height: 36px; background: rgba(255,255,255,0.1); flex-shrink: 0; }
-
-    /* Hero right -API card */
-    .api-card {
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 16px; overflow: hidden; backdrop-filter: blur(8px);
-    }
-    .api-card-bar {
-      background: rgba(0,0,0,0.35); padding: 0.7rem 1.2rem;
-      display: flex; align-items: center; gap: 0.4rem; border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .wdot { width: 10px; height: 10px; border-radius: 50%; }
-    .wd-r { background: #ff5f57; } .wd-y { background: #febc2e; } .wd-g { background: #28c840; }
-    .api-card-label { margin-left: auto; font-size: 0.7rem; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
-    .api-card-body { padding: 1.4rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
-    .c-gray { color: rgba(255,255,255,0.28); }
-    .c-method { color: var(--teal); font-weight: 600; }
-    .c-url { color: #79c0ff; }
-    .c-str { color: #a5d6a7; }
-    .c-key { color: rgba(255,255,255,0.55); }
-    .c-val { color: rgba(255,255,255,0.82); }
-    .cline { line-height: 1.85; display: block; }
-    .resp-box {
-      margin-top: 1.2rem; background: rgba(0,180,179,0.07);
-      border: 1px solid rgba(0,180,179,0.2); border-radius: 10px; padding: 1.2rem;
-    }
-    .resp-head { font-size: 0.67rem; font-weight: 700; color: var(--teal); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.8rem; }
-    .resp-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem; font-size: 0.77rem; }
-    .resp-k { color: rgba(255,255,255,0.42); }
-    .resp-v { color: rgba(255,255,255,0.82); font-weight: 500; }
-    .pill { display: inline-block; padding: 0.12rem 0.55rem; border-radius: 100px; font-size: 0.68rem; font-weight: 700; }
-    .pill-g { background: rgba(40,200,100,0.15); color: #4ade80; border: 1px solid rgba(40,200,100,0.25); }
-    .pill-r { background: rgba(255,60,60,0.15); color: #f87171; border: 1px solid rgba(255,60,60,0.25); }
-    .differentiator-tag {
-      margin-top: 1rem; padding: 0.65rem 1rem;
-      background: rgba(0,180,179,0.1); border: 1px solid rgba(0,180,179,0.2); border-radius: 8px;
-      font-size: 0.75rem; color: var(--teal); font-weight: 600; display: flex; align-items: center; gap: 0.5rem;
-    }
-
-    /* Hero carousel — rotating product frames (API → Ask → Profile) */
-    .hero-stage { display: grid; }
-    .hero-slide { grid-area: 1 / 1; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity 0.55s ease, transform 0.55s ease; pointer-events: none; }
-    .hero-slide.active { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
-    .carousel-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.1rem; }
-    .carousel-dot { width: 8px; height: 8px; padding: 0; border: none; border-radius: 100px; cursor: pointer; background: rgba(255,255,255,0.22); transition: all 0.3s; }
-    .carousel-dot.active { background: var(--teal); width: 22px; box-shadow: 0 0 12px rgba(0,180,179,0.6); }
-    .app-body { padding: 1.4rem; }
-    .ask-input { display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(0,180,179,0.3); border-radius: 10px; padding: 0.75rem 0.9rem; font-size: 0.82rem; color: rgba(255,255,255,0.92); }
-    .ask-cursor { width: 2px; height: 15px; background: var(--teal); display: inline-block; animation: blink 1.1s steps(1) infinite; }
-    @keyframes blink { 50% { opacity: 0; } }
-    .ask-meta { font-size: 0.62rem; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.1em; margin: 1.1rem 0 0.5rem; }
-    .ask-result { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; padding: 0.7rem 0.85rem; margin-top: 0.55rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; }
-    .ask-result .arn { font-size: 0.8rem; color: rgba(255,255,255,0.92); font-weight: 600; }
-    .ask-result .arm { font-size: 0.67rem; color: rgba(255,255,255,0.4); margin-top: 0.15rem; }
-    .ask-badge { font-size: 0.62rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 100px; white-space: nowrap; background: rgba(74,211,255,0.12); color: #4ad3ff; border: 1px solid rgba(74,211,255,0.3); }
-    .prof-head { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; margin-bottom: 1.1rem; }
-    .prof-name { font-size: 0.92rem; font-weight: 700; color: #fff; }
-    .prof-sub { font-size: 0.66rem; color: rgba(255,255,255,0.4); margin-top: 0.2rem; }
-    .prof-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-bottom: 1.1rem; }
-    .prof-stat { background: rgba(255,255,255,0.04); border-radius: 8px; padding: 0.65rem 0.4rem; text-align: center; }
-    .prof-stat .v { font-size: 0.95rem; font-weight: 800; color: var(--teal); }
-    .prof-stat .l { font-size: 0.55rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.25rem; }
-    .prof-chart { display: flex; align-items: flex-end; gap: 0.5rem; height: 88px; padding: 0.7rem; background: rgba(0,180,179,0.05); border: 1px solid rgba(0,180,179,0.18); border-radius: 10px; }
-    .prof-bar { flex: 1; background: linear-gradient(180deg, #00d8d6, #00848b); border-radius: 4px 4px 0 0; min-height: 6px; }
-    .prof-cap { font-size: 0.6rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.55rem; }
-
-    /* ══ TRUST BAR ══ */
-    .trust-bar {
-      background: var(--navy); border-bottom: 1px solid rgba(255,255,255,0.07);
-      padding: 2rem 0;
-    }
-    .trust-inner {
-      max-width: 1180px; margin: 0 auto; padding: 0 2rem;
-      display: flex; flex-direction: column; align-items: center; gap: 1.25rem;
-    }
-    .trust-label { font-size: 0.75rem; color: rgba(255,255,255,0.45); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
-    .trust-logos { display: flex; align-items: stretch; gap: 0; border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; overflow: hidden; }
-    .trust-item {
-      padding: 0.75rem 1.75rem;
-      border-right: 1px solid rgba(255,255,255,0.08);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.62);
-      white-space: nowrap; transition: all 0.2s;
-    }
-    .trust-item:last-child { border-right: none; }
-    .trust-item:hover { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.88); }
-
-    /* ══ SECTIONS ══ */
-    .sec { padding: 6rem 0; }
-    .sec-light { background: #fff; }
-    .sec-alt { background: var(--off-white); }
-    .sec-dark { background: var(--navy); }
-    .sec-header { text-align: center; max-width: 660px; margin: 0 auto 4rem; }
-    .sec-title { font-size: clamp(1.75rem, 3vw, 2.6rem); font-weight: 800; color: var(--text-dark); line-height: 1.2; letter-spacing: -0.03em; margin-bottom: 0.9rem; }
-    .sec-title-light { color: #fff; }
-    .sec-sub { font-size: 1.02rem; color: var(--text-muted); line-height: 1.75; margin-top: 0.75rem; }
-    .sec-sub-light { color: rgba(255,255,255,0.6); }
-
-    /* ══ PROBLEM ══ */
-    .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
-    .prob-card {
-      background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 2rem;
-      box-shadow: 0 1px 8px rgba(0,0,0,0.04);
-    }
-    .prob-icon {
-      width: 46px; height: 46px; border-radius: 10px; display: flex;
-      align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1.2rem;
-    }
-    .pi-red { background: #fff0f0; }
-    .pi-amber { background: #fff8ec; }
-    .pi-purple { background: #f5f0ff; }
-    .prob-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-dark); }
-    .prob-card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; }
-
-    /* ══ PRODUCTS ══ */
-    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
-    .prod-card {
-      background: #fff; border: 2px solid var(--border); border-radius: 18px; padding: 2.25rem;
-      position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-    }
-    .prod-card:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,0.1); }
-    .prod-card-hero {
-      border-color: var(--teal);
-      background: linear-gradient(170deg, #fff 0%, #f0fdfd 100%);
-      box-shadow: 0 4px 24px rgba(0,180,179,0.12);
-    }
-    .prod-card-hero::before {
-      content: 'Flagship Product'; position: absolute; top: 1.2rem; right: 1.2rem;
-      background: var(--teal); color: #fff;
-      font-size: 0.66rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 0.2rem 0.6rem; border-radius: 100px;
-    }
-    .prod-icon {
-      width: 54px; height: 54px; border-radius: 14px;
-      background: linear-gradient(135deg, var(--teal-light) 0%, var(--teal-mid) 100%);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem; margin-bottom: 1.4rem;
-    }
-    .prod-card h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.3rem; color: var(--text-dark); letter-spacing: -0.02em; }
-    .prod-card .prod-tag { font-size: 0.82rem; color: var(--teal-dark); font-weight: 600; margin-bottom: 1rem; }
-    .prod-card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.4rem; }
-    .prod-feats { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-    .prod-feats li { display: flex; align-items: flex-start; gap: 0.55rem; font-size: 0.855rem; color: var(--text-dark); }
-    .prod-feats li::before { content: '✓'; color: var(--teal); font-weight: 700; flex-shrink: 0; margin-top: 0.05rem; }
-    .prod-link { display: inline-flex; align-items: center; gap: 0.3rem; color: var(--teal-dark); font-size: 0.855rem; font-weight: 700; text-decoration: none; margin-top: 1.4rem; transition: gap 0.2s; }
-    .prod-link:hover { gap: 0.5rem; }
-    .ai-tag {
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      background: linear-gradient(135deg, rgba(0,180,179,0.1) 0%, rgba(0,132,139,0.08) 100%);
-      border: 1px solid rgba(0,180,179,0.25); border-radius: 8px;
-      padding: 0.5rem 0.85rem; font-size: 0.78rem; font-weight: 600; color: var(--teal-dark);
-      margin-top: 1rem;
-    }
-
-    /* ══ NUMBERS ══ */
-    .numbers-bar {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-      padding: 4.5rem 0;
-    }
-    .numbers-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
-    .num-item { text-align: center; padding: 2rem 1.5rem; border-right: 1px solid rgba(255,255,255,0.07); }
-    .num-item:last-child { border-right: none; }
-    .num-val { font-size: 2.8rem; font-weight: 900; color: var(--teal); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem; }
-    .num-lbl { font-size: 0.78rem; color: rgba(255,255,255,0.5); font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.4; }
-
-    /* ══ HOW IT WORKS ══ */
-    .how-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; position: relative; }
-    .how-steps::before {
-      content: ''; position: absolute; top: 26px; left: 10%; right: 10%;
-      height: 2px; background: linear-gradient(90deg, var(--teal) 0%, var(--teal-dark) 100%);
-    }
-    .how-step { text-align: center; position: relative; }
-    .how-num {
-      width: 52px; height: 52px; border-radius: 50%; margin: 0 auto 1.2rem;
-      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
-      color: #fff; font-size: 1.15rem; font-weight: 800;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 16px rgba(0,180,179,0.38); position: relative; z-index: 1;
-    }
-    .how-step h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-dark); }
-    .how-step p { font-size: 0.845rem; color: var(--text-muted); line-height: 1.6; }
-
-    /* ══ API SECTION ══ */
-    .api-section { background: var(--navy); padding: 6rem 0; }
-    .api-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-    .api-text h2 { font-size: 2.1rem; font-weight: 800; color: #fff; letter-spacing: -0.03em; margin-bottom: 0.9rem; line-height: 1.2; }
-    .api-text p { font-size: 1rem; color: rgba(255,255,255,0.62); line-height: 1.78; margin-bottom: 1.75rem; }
-    .api-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 2rem; }
-    .api-bullets li { display: flex; align-items: center; gap: 0.7rem; color: rgba(255,255,255,0.78); font-size: 0.9rem; }
-    .teal-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
-    .code-win {
-      background: #0d1117; border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 14px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-    }
-    .code-win-bar {
-      background: #161b22; padding: 0.7rem 1.2rem;
-      display: flex; align-items: center; gap: 0.45rem; border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .code-tab { font-size: 0.73rem; color: rgba(255,255,255,0.45); padding: 0.2rem 0.7rem; border-radius: 5px; cursor: pointer; transition: all 0.15s; user-select: none; }
-    .code-tab:hover { color: rgba(255,255,255,0.72); background: rgba(255,255,255,0.05); }
-    .code-tab.active { background: rgba(255,255,255,0.09); color: rgba(255,255,255,0.88); }
-    .code-body { padding: 1.6rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 2; }
-    .hl-p { color: #c792ea; } .hl-b { color: #82aaff; } .hl-g { color: #c3e88d; }
-    .hl-o { color: #f78c6c; } .hl-t { color: #89ddff; } .hl-w { color: rgba(255,255,255,0.9); }
-    .hl-gr { color: rgba(255,255,255,0.28); }
-    .api-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn-teal-sm {
-      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
-      color: #fff; padding: 0.75rem 1.4rem; border-radius: 9px;
-      font-size: 0.875rem; font-weight: 700; text-decoration: none; border: none;
-      cursor: pointer; transition: all 0.2s; box-shadow: 0 3px 12px rgba(0,180,179,0.3);
-    }
-    .btn-teal-sm:hover { transform: translateY(-1px); }
-    .btn-ghost-sm {
-      color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.2);
-      background: rgba(255,255,255,0.05); padding: 0.75rem 1.4rem; border-radius: 9px;
-      font-size: 0.875rem; font-weight: 600; text-decoration: none;
-      cursor: pointer; transition: all 0.2s;
-    }
-    .btn-ghost-sm:hover { border-color: var(--teal); color: var(--teal); }
-
-    /* ══ USE CASES ══ */
-    .usecase-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-    .uc-card {
-      background: #fff; border: 1px solid var(--border); border-radius: 14px;
-      padding: 1.85rem; display: flex; gap: 1.4rem; align-items: flex-start;
-      box-shadow: 0 1px 8px rgba(0,0,0,0.04); transition: box-shadow 0.2s, transform 0.2s;
-    }
-    .uc-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.09); transform: translateY(-2px); }
-    .uc-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
-    .uci-1 { background: #eff6ff; } .uci-2 { background: #f0fdf4; }
-    .uci-3 { background: #fdf4ff; } .uci-4 { background: #fff7ed; }
-    .uc-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--text-dark); }
-    .uc-card p { font-size: 0.865rem; color: var(--text-muted); line-height: 1.65; }
-    .uc-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.85rem; }
-    .uc-tag { font-size: 0.7rem; font-weight: 600; padding: 0.18rem 0.6rem; border-radius: 100px; background: var(--teal-light); color: var(--teal-deeper); border: 1px solid var(--teal-mid); }
-
-    /* ══ TESTIMONIALS ══ */
-    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
-    .testi-card {
-      background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 2rem;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.05); position: relative;
-      display: flex; flex-direction: column;
-    }
-    .testi-author { margin-top: auto; }
-    .testi-card::before {
-      content: '"'; position: absolute; top: 1.2rem; left: 1.8rem;
-      font-size: 4rem; color: var(--teal-mid); font-family: Georgia, serif; line-height: 1;
-    }
-    .testi-quote { font-size: 0.92rem; color: var(--text-dark); line-height: 1.7; margin-bottom: 1.5rem; padding-top: 2rem; font-style: italic; }
-    .testi-author { display: flex; align-items: center; gap: 0.85rem; margin-top: auto; }
-    .testi-avatar {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--teal-light) 0%, var(--teal-mid) 100%);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.9rem; font-weight: 800; color: var(--teal-dark); flex-shrink: 0;
-    }
-    .testi-name { font-size: 0.875rem; font-weight: 700; color: var(--text-dark); }
-    .testi-role { font-size: 0.75rem; color: var(--text-muted); }
-
-    /* ══ ROADMAP ══ */
-    .rm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
-    .rm-card {
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 14px; padding: 1.75rem;
-    }
-    .rm-live { border-color: rgba(0,180,179,0.35); background: rgba(0,180,179,0.05); }
-    .rm-beta { border-color: rgba(251,191,36,0.25); background: rgba(251,191,36,0.04); }
-    .rm-status { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.9rem; }
-    .s-live { color: #4ade80; } .s-beta { color: #fbbf24; } .s-soon { color: rgba(255,255,255,0.38); }
-    .s-dot { width: 6px; height: 6px; border-radius: 50%; }
-    .sd-live { background: #4ade80; animation: blink 2s infinite; }
-    .sd-beta { background: #fbbf24; } .sd-soon { background: rgba(255,255,255,0.28); }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    .rm-card h4 { font-size: 1.02rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
-    .rm-card p { font-size: 0.84rem; color: rgba(255,255,255,0.48); line-height: 1.6; }
-
-    /* ══ PRICING ══ */
-    .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.75rem; align-items: stretch; max-width: 900px; margin: 0 auto; }
-    .price-card {
-      background: #fff; border: 1.5px solid var(--border); border-radius: 18px; padding: 2.25rem;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-      display: flex; flex-direction: column;
-    }
-    .price-card-feat {
-      background: linear-gradient(160deg, var(--navy) 0%, var(--navy-light) 100%);
-      border-color: var(--teal);
-      box-shadow: 0 12px 50px rgba(0,180,179,0.2);
-    }
-    .price-tier { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.7rem; }
-    .price-amount { font-size: 2.4rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1; color: var(--text-dark); }
-    .price-amount-lt { color: #fff; }
-    .price-period { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
-    .price-period-lt { color: rgba(255,255,255,0.5); }
-    .price-desc { font-size: 0.875rem; color: var(--text-muted); margin: 0.9rem 0 1.4rem; line-height: 1.6; }
-    .price-desc-lt { color: rgba(255,255,255,0.55); }
-    .price-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.75rem; flex: 1; }
-    .price-list li { display: flex; align-items: center; gap: 0.55rem; font-size: 0.87rem; }
-    .price-list li.inc { color: var(--text-dark); }
-    .price-list li.inc-lt { color: rgba(255,255,255,0.82); }
-    .price-list li::before { content: '✓'; font-weight: 700; flex-shrink: 0; color: var(--teal); }
-    .btn-price {
-      width: 100%; padding: 0.85rem; border-radius: 10px; font-size: 0.93rem;
-      font-weight: 700; cursor: pointer; text-align: center; text-decoration: none;
-      display: block; transition: all 0.2s; border: none;
-    }
-    .btn-price-outline { background: transparent; border: 2px solid var(--border) !important; color: var(--text-dark); }
-    .btn-price-outline:hover { border-color: var(--teal) !important; color: var(--teal); }
-    .btn-price-teal { background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%); color: #fff; box-shadow: 0 4px 20px rgba(0,180,179,0.3); }
-    .btn-price-teal:hover { transform: translateY(-1px); }
-    .btn-price-ghost { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2) !important; color: #fff; }
-    .btn-price-ghost:hover { background: rgba(255,255,255,0.14); }
-    /* ══ BILLING TOGGLE ══ */
-    .billing-toggle-wrap { display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 2.5rem; }
-    .billing-label { font-size: 0.95rem; font-weight: 600; color: var(--text-dark); }
-    .billing-toggle { position: relative; width: 52px; height: 28px; border-radius: 14px; background: var(--border); border: none; cursor: pointer; padding: 0; transition: background 0.25s; flex-shrink: 0; }
-    .billing-toggle.active { background: var(--teal); }
-    .billing-toggle-thumb { position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: #fff; transition: transform 0.25s; display: block; box-shadow: 0 1px 4px rgba(0,0,0,0.18); }
-    .billing-toggle.active .billing-toggle-thumb { transform: translateX(24px); }
-    .save-badge { background: var(--teal); color: #fff; font-size: 0.68rem; font-weight: 700; padding: 0.12rem 0.45rem; border-radius: 20px; margin-left: 0.35rem; vertical-align: middle; letter-spacing: 0.03em; }
-    .price-annual-note { font-size: 0.72rem; color: var(--text-muted); text-align: left; margin-top: 0.35rem; min-height: 1rem; }
-    .price-annual-note-lt { font-size: 0.72rem; color: rgba(255,255,255,0.38); text-align: left; margin-top: 0.35rem; min-height: 1rem; }
-
-    /* ══ FINAL CTA ══ */
-    .cta-section {
-      background: linear-gradient(140deg, var(--teal-dark) 0%, var(--teal-deeper) 45%, var(--navy-mid) 100%);
-      padding: 7rem 0; text-align: center;
-    }
-    .cta-section h2 { font-size: clamp(1.9rem, 3.5vw, 2.9rem); font-weight: 900; color: #fff; letter-spacing: -0.03em; margin-bottom: 1.1rem; }
-    .cta-section p { font-size: 1.05rem; color: rgba(255,255,255,0.72); margin-bottom: 2.4rem; max-width: 520px; margin-left: auto; margin-right: auto; }
-    .cta-btns { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-    .btn-white { background: #fff; color: var(--teal-dark); padding: 1rem 2.25rem; border-radius: 10px; font-size: 1rem; font-weight: 800; text-decoration: none; border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.2); transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.45rem; }
-    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
-    .btn-outline-white { background: rgba(255,255,255,0.1); color: #fff; border: 2px solid rgba(255,255,255,0.28); padding: 1rem 2rem; border-radius: 10px; font-size: 1rem; font-weight: 700; text-decoration: none; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.45rem; }
-    .btn-outline-white:hover { background: rgba(255,255,255,0.18); }
-    .cta-footnote { margin-top: 1.4rem; font-size: 0.8rem; color: rgba(255,255,255,0.45); }
-
-    /* ══ FOOTER ══ */
-    footer { background: var(--navy); padding: 4rem 0 2rem; }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-    .footer-brand p { font-size: 0.86rem; color: rgba(255,255,255,0.42); line-height: 1.7; margin-top: 0.9rem; max-width: 270px; }
-    .footer-col h5 { font-size: 0.75rem; font-weight: 700; color: rgba(255,255,255,0.45); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.1rem; }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-    .footer-col ul li a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.865rem; transition: color 0.2s; }
-    .footer-col ul li a:hover { color: var(--teal); }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; }
-    .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
-    .footer-badges { display: flex; gap: 0.6rem; }
-    .fbadge { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); border-radius: 6px; padding: 0.22rem 0.65rem; font-size: 0.7rem; color: rgba(255,255,255,0.45); }
-
-    /* ══ PRIVACY PAGE ══ */
-    #privacy-page { display: none; background: #fff; min-height: 100vh; }
-    #privacy-page.show { display: block; }
-
-    /* Hero strip */
-    .privacy-hero { background: var(--navy); padding: 3.5rem 0 3rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .privacy-hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; letter-spacing: -0.03em; margin-bottom: 0.4rem; }
-    .privacy-hero p { color: rgba(255,255,255,0.45); font-size: 0.875rem; }
-
-    /* Two-column layout */
-    .privacy-layout {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: 220px 1fr;
-      gap: 0; align-items: start;
-      padding: 0 2rem;
-    }
-
-    /* Left sticky sidebar */
-    .privacy-sidebar {
-      position: sticky; top: 72px;
-      padding: 2.5rem 0 4rem;
-      border-right: 1px solid var(--border);
-      height: calc(100vh - 72px); overflow-y: auto;
-    }
-    .privacy-sidebar-title {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--text-muted);
-      margin-bottom: 1rem; padding: 0 1.5rem;
-    }
-    .privacy-nav { list-style: none; display: flex; flex-direction: column; }
-    .privacy-nav li a {
-      display: block; padding: 0.42rem 1.5rem;
-      font-size: 0.825rem; color: var(--text-muted); text-decoration: none;
-      border-left: 2px solid transparent;
-      transition: all 0.15s; line-height: 1.4;
-    }
-    .privacy-nav li a:hover { color: var(--teal-dark); border-left-color: var(--teal); background: var(--teal-light); }
-    .privacy-nav li a.active { color: var(--teal-dark); border-left-color: var(--teal); font-weight: 600; background: var(--teal-light); }
-
-    /* Right content */
-    .privacy-content-area { padding: 3rem 0 6rem 3.5rem; }
-
-    /* Individual sections — no box, clean typography */
-    .privacy-section { margin-bottom: 3.5rem; scroll-margin-top: 80px; }
-    .privacy-section h2 {
-      font-size: 1.35rem; font-weight: 800; color: var(--text-dark);
-      letter-spacing: -0.02em; margin-bottom: 1rem;
-      padding-bottom: 0.65rem; border-bottom: 1.5px solid var(--border);
-    }
-    .privacy-section h3 { font-size: 0.97rem; font-weight: 700; color: var(--text-dark); margin: 1.5rem 0 0.5rem; }
-    .privacy-section p { font-size: 0.9rem; color: #374151; line-height: 1.85; margin-bottom: 0.75rem; }
-    .privacy-section ul, .privacy-section ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.45rem; margin: 0.6rem 0 0.85rem; }
-    .privacy-section li { font-size: 0.9rem; color: #374151; line-height: 1.75; }
-    .privacy-section li strong { color: var(--text-dark); }
-    .privacy-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.875rem; }
-    .privacy-table th { background: var(--off-white); padding: 0.65rem 1rem; text-align: left; font-weight: 700; color: var(--text-dark); border: 1px solid var(--border); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    .privacy-table td { padding: 0.65rem 1rem; border: 1px solid var(--border); color: #374151; vertical-align: top; }
-    .privacy-table tr:nth-child(even) td { background: #fafafa; }
-    .privacy-highlight {
-      background: var(--teal-light); border-left: 3px solid var(--teal);
-      border-radius: 0 6px 6px 0; padding: 0.9rem 1.25rem; margin: 1rem 0;
-      font-size: 0.875rem; color: var(--teal-deeper); line-height: 1.75;
-    }
-
-    @media (max-width: 860px) {
-      .privacy-layout { grid-template-columns: 1fr; }
-      .privacy-sidebar { display: none; }
-      .privacy-content-area { padding: 2rem 0 4rem; }
-    }
-
-    /* ══ HAMBURGER ══ */
-    .hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      cursor: pointer; padding: 6px; background: none; border: none;
-      z-index: 200; flex-shrink: 0;
-    }
-    .hamburger span {
-      display: block; width: 22px; height: 2px;
-      background: rgba(255,255,255,0.85); border-radius: 2px; transition: all 0.28s ease;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    .mobile-nav {
-      display: none; flex-direction: column;
-      background: rgba(4,28,44,0.99); border-top: 1px solid rgba(255,255,255,0.08);
-      padding: 1.25rem 1.5rem 1.75rem;
-    }
-    .mobile-nav.open { display: flex; }
-    .mobile-nav a {
-      color: rgba(255,255,255,0.78); text-decoration: none;
-      font-size: 1rem; font-weight: 500; padding: 0.75rem 0.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s;
-    }
-    .mobile-nav a:last-of-type { border-bottom: none; }
-    .mobile-nav a:hover { color: var(--teal); }
-    .mobile-nav-ctas {
-      display: flex; flex-direction: column; gap: 0.65rem; margin-top: 1.25rem;
-    }
-    .mobile-nav-ctas a, .mobile-nav-ctas button {
-      display: block; text-align: center; width: 100%; border-radius: 10px;
-      padding: 0.75rem 1rem; font-size: 0.95rem; font-weight: 700;
-      cursor: pointer; text-decoration: none; transition: all 0.2s;
-      border: none;
-    }
-    .mobile-btn-ghost {
-      color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.2) !important;
-      background: transparent !important;
-    }
-    .mobile-btn-primary {
-      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%) !important;
-      color: #fff !important; box-shadow: 0 4px 16px rgba(0,180,179,0.3);
-    }
-
-    /* ══ TABLET (≤ 900px) ══ */
-    @media (max-width: 900px) {
-      nav { top: 0; position: sticky; }
-      .draft-banner { display: none; }
-      .nav-links, .nav-ctas { display: none; }
-      .hamburger { display: flex; }
-
-      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .hero { padding: 2.5rem 0 3rem; }
-      .hero-desc { max-width: 100%; }
-
-      .problem-grid { grid-template-columns: 1fr; }
-      .products-grid { grid-template-columns: 1fr; }
-      .testi-grid { grid-template-columns: 1fr; }
-      .rm-grid { grid-template-columns: 1fr 1fr; }
-      .numbers-grid { grid-template-columns: repeat(2,1fr); }
-      .how-steps { grid-template-columns: repeat(2,1fr); }
-      .how-steps::before { display: none; }
-      .api-inner { grid-template-columns: 1fr; }
-      .usecase-grid { grid-template-columns: 1fr 1fr; }
-      .pricing-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
-      .price-card-feat { transform: none; }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
-
-      .sec { padding: 4rem 0; }
-      .sec-header { margin-bottom: 2.5rem; }
-      .trust-logos { flex-wrap: wrap; justify-content: center; border-radius: 0; border: none; gap: 0; }
-      .trust-item { border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; margin: 0.25rem; }
-    }
-
-    /* ══ MOBILE (≤ 640px) ══ */
-    @media (max-width: 640px) {
-      .container { padding: 0 1.25rem; }
-      .hero-inner { padding: 0 1.25rem; gap: 2rem; }
-      .hero { padding: 2rem 0 2.5rem; }
-      .hero h1 { font-size: clamp(1.9rem, 8vw, 2.5rem); }
-      .hero-desc { font-size: 0.95rem; }
-      .hero-ctas { flex-direction: column; align-items: stretch; }
-      .hero-ctas .btn-primary, .hero-ctas .btn-ghost-hero { text-align: center; justify-content: center; }
-      .hero-stats-row { gap: 1.25rem; flex-wrap: wrap; }
-
-      .sec { padding: 3rem 0; }
-      .sec-header { margin-bottom: 2rem; }
-      .sec-title { font-size: clamp(1.5rem, 6vw, 2rem); }
-
-      .numbers-grid { grid-template-columns: repeat(2,1fr); gap: 1rem; }
-      .num-val { font-size: 2rem; }
-
-      .how-steps { grid-template-columns: 1fr; gap: 1.25rem; }
-      .step-card { padding: 1.5rem; }
-
-      .rm-grid { grid-template-columns: 1fr; }
-
-      .api-inner { gap: 2rem; }
-      .code-win { font-size: 0.75rem; overflow-x: auto; }
-      .api-card-body { font-size: 0.72rem; padding: 1rem; }
-
-      .usecase-grid { grid-template-columns: 1fr; }
-
-      .pricing-grid { max-width: 100%; }
-      .price-card { padding: 1.75rem; }
-
-      .testi-grid { grid-template-columns: 1fr; }
-      .testi-card { padding: 1.5rem; }
-
-      .footer-grid { grid-template-columns: 1fr; gap: 1.75rem; }
-      .footer-brand { max-width: 100%; }
-      footer { padding: 3rem 0 1.5rem; }
-      .footer-bottom { flex-direction: column; gap: 0.75rem; text-align: center; }
-
-      .trust-logos { border: none; }
-      .trust-item { font-size: 0.75rem; padding: 0.55rem 1rem; }
-
-      .products-grid { grid-template-columns: 1fr; }
-      .prod-card { padding: 1.75rem; }
-
-      .problem-grid { grid-template-columns: 1fr; }
-      .prob-card { padding: 1.5rem; }
-
-      .modal-box { padding: 1.75rem; margin: 1rem; border-radius: 16px; }
-      .modal-founders { grid-template-columns: 1fr; }
-    }
-
-    /* ══ SMALL MOBILE (≤ 420px) ══ */
-    @media (max-width: 420px) {
-      .hero h1 { font-size: 1.75rem; }
-      .numbers-grid { grid-template-columns: 1fr 1fr; }
-      .num-val { font-size: 1.75rem; }
-      .hero-stats-row { gap: 1rem; }
-      .hero-stat-num { font-size: 1.3rem; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css" />
 </head>
 <body>
 
-<!-- ══ DRAFT BANNER removed ══ -->
-
-<!-- ══ DEMO MODAL ══ -->
 <div class="modal-overlay" id="demoModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">✕</button>
@@ -866,652 +122,130 @@
 
 <!-- ══ MAIN SITE ══ -->
 <div id="main-site">
-
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <a href="#top" class="nav-logo">
-      <!-- Full Givalgo V2-06 Logo -text color overridden to white -->
-      <svg viewBox="0 0 528.56 203.29" xmlns="http://www.w3.org/2000/svg" height="34" style="width:auto">
-        <!-- Text paths (navy #072643 → white in nav) -->
-        <path fill="#ffffff" d="M227.9,102.11c.51,11.11-.72,21.55-8.91,29.69-9.89,9.84-21.94,12.55-35.21,8.98-12.96-3.48-21.38-12.19-24.79-25.01-3.41-12.84-2.2-25.34,6.11-36.37,5.01-6.65,11.76-10.69,19.93-12.31,12.12-2.4,23.2-.34,32.69,7.94,4.89,4.26,7.8,9.48,8.68,15.13-4.56,0-9.07.06-13.57-.07-.63-.02-1.47-.78-1.83-1.42-6.63-11.65-25.59-12.81-35.01-.98-7.32,9.2-6.98,28.64,3.89,37.13,11.57,9.04,27.68,4.72,32.74-9.03.29-.79.5-1.61.85-2.74h-18v-10.94h32.41Z"/>
-        <path fill="#ffffff" d="M434.86,131.74c-6.19,7.61-13.99,9.39-22.59,7.01-8.78-2.43-14.65-8.36-16.49-17.43-1.92-9.5-1.38-18.75,5.15-26.71,5.54-6.76,16.54-10.13,24.65-6.91,3.53,1.4,6.47,4.27,9.6,6.42v-6.29h12.8c.09.67.27,1.38.27,2.1.03,15.06.19,30.13.02,45.19-.12,10.8-2.99,20.54-13.59,25.72-12.43,6.07-28.94,4.42-38.74-8.68,3.31-2.38,6.61-4.75,9.98-7.16,5.91,5.79,12.59,9.45,20.77,5.81,7.99-3.56,8.41-11.04,8.18-19.05ZM408.59,112.85c-.53,13.29,10.09,17.26,17.74,14.97,6.82-2.04,10.08-9.17,8.6-18.07-1.77-10.64-12.5-13.77-19.99-9.36-4.91,2.9-6.4,7.6-6.34,12.45Z"/>
-        <path fill="#ffffff" d="M349.88,108.66c.74-5.88-1.54-9.54-6.55-10.8-7.26-1.83-11.91.53-14.58,7.49-2-.09-4.03-.1-6.06-.29-2.03-.19-4.05-.56-6.07-.85,1.23-10.44,8.18-16.78,20.25-17.78,7.42-.62,14.75.03,20.66,5.52,4.1,3.81,5.41,8.89,5.55,14.08.29,11.47.09,22.95.09,34.67h-12.54c-.19-1.91-.39-3.89-.59-5.94-7.03,7.73-20.44,9.39-29.16,3.52-5.44-3.66-6.4-9.24-5.8-15.22.48-4.78,3.11-8.13,7.52-10.12,6.75-3.05,14.02-3.22,21.2-3.88,2.03-.19,4.08-.26,6.07-.39ZM350.13,118.81c-2.54,0-4.61-.15-6.64.03-3.54.33-7.16.53-10.56,1.47-1.64.45-3.46,2.24-4.09,3.85-.84,2.16-.12,4.69,2.31,5.8,5.01,2.29,9.95,1.35,14.6-1.12,4.06-2.16,3.97-6.25,4.38-10.04Z"/>
-        <path fill="#ffffff" d="M509.68,114.79c.77,15.19-12,27.72-27.96,27.46-14.76-.24-27.22-12-26.82-28.46.37-15.45,12.3-27.59,27.77-27.37,17.52.25,27.69,13.7,27.02,28.38ZM468.62,114.15c0,1.08-.06,2.17,0,3.25.35,5.58,4.01,10.27,9.35,12.03,5.16,1.71,11.46.1,14.8-3.93,3.59-4.33,3.84-9.43,3.24-14.74-.98-8.75-9.3-14.25-17.71-11.64-6.48,2.01-9.71,7-9.68,15.01Z"/>
-        <path fill="#ffffff" d="M293.19,140.92c-4.64,0-9.19.07-13.72-.07-.73-.02-1.82-.78-2.08-1.46-6.67-17.03-13.24-34.1-20.06-51.73,4.72,0,8.98-.12,13.21.12.71.04,1.61,1.5,1.97,2.47,4.41,11.79,8.73,23.62,13.09,35.48,4.4-12.61,8.83-25.32,13.25-38.01h14.9c-6.88,17.81-13.69,35.44-20.56,53.21Z"/>
-        <path fill="#ffffff" d="M387.04,140.77h-13.26v-74.53h13.26v74.53Z"/>
-        <path fill="#ffffff" d="M250.38,140.77h-13.27v-52.93h13.27v52.93Z"/>
-        <path fill="#ffffff" d="M243.8,81.74c-5.66.61-8.57-4.27-8.62-7.93-.06-4.59,4.06-8.39,8.88-8.34,4.4.04,8.21,3.84,8.3,8.27.1,4.61-3.55,8.02-8.56,8.01Z"/>
-        <!-- G Icon paths (keep original teal colors) -->
-        <path fill="#00848b" d="M70.01,130.83c-3.61,0-6.95-.74-10-2.23-3.06-1.49-5.7-3.47-7.94-5.96-2.24-2.48-4-5.37-5.29-8.66-1.29-3.29-1.94-6.79-1.94-10.49s.65-7.06,1.94-10.35c1.29-3.29,3.05-6.2,5.29-8.73,2.24-2.53,4.91-4.51,8-5.96,3.1-1.44,6.45-2.17,10.07-2.17.89,0,31.32-.03,32.2.07v-28.5c-.92-.05-31.4,0-32.33,0-7.4,0-14.31,1.47-20.72,4.4-6.41,2.93-12.01,6.95-16.78,12.05-4.78,5.1-8.54,11.01-11.3,17.73-2.76,6.72-4.13,13.87-4.13,21.45s1.38,14.73,4.13,21.45c2.75,6.72,6.52,12.63,11.3,17.73,4.78,5.1,10.37,9.12,16.78,12.05,6.41,2.93,13.32,4.4,20.72,4.4,2.06,0,4.09-.12,6.09-.35v-28.71c-1.96.51-3.98.77-6.09.77Z"/>
-        <path fill="#00b4b3" d="M106.34,103.47h-33.05l12.54,21.15c-1.86,1.7-3.9,3.07-6.12,4.1-1.17.55-2.38.99-3.62,1.35v-.02c-1.96.51-3.98.77-6.09.77-3.61,0-6.95-.74-10-2.23-.05-.02-.1-.05-.14-.07v29.61c3.27.65,6.66.98,10.15.98,2.06,0,4.09-.12,6.09-.35v-.03c5.21-.77,9.67-2.52,14.43-4.86,3.27-1.61,6.32-3.57,9.19-5.86l6.63,11.18v-55.72Z"/>
-      </svg>
-    </a>
-    <div class="nav-links">
-      <a href="#discover">Discover</a>
-      <a href="#solutions">APIs</a>
-      <a href="#use-cases">Use Cases</a>
-      <a href="#roadmap">Roadmap</a>
-      <a href="#pricing">Pricing</a>
-      <a href="https://docs.givalgo.ai/" target="_blank">API Docs</a>
-    </div>
-    <div class="nav-ctas">
-      <a href="https://discover.givalgo.ai" class="btn-nav-primary" target="_blank" rel="noopener">Discover<span class="badge-new">New</span></a>
-      <a href="#pricing" class="btn-nav-ghost">Talk to Sales</a>
-      <button class="btn-nav-primary" onclick="openModal()">Book a Demo →</button>
-    </div>
-    <!-- Hamburger (mobile only) -->
-    <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileNav()">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-  <!-- Mobile nav dropdown -->
-  <div class="mobile-nav" id="mobileNav">
-    <a href="#discover" onclick="closeMobileNav()">Discover</a>
-    <a href="#solutions" onclick="closeMobileNav()">APIs</a>
-    <a href="#use-cases" onclick="closeMobileNav()">Use Cases</a>
-    <a href="#roadmap" onclick="closeMobileNav()">Roadmap</a>
-    <a href="#pricing" onclick="closeMobileNav()">Pricing</a>
-    <a href="https://docs.givalgo.ai/" target="_blank" onclick="closeMobileNav()">API Docs</a>
-    <div class="mobile-nav-ctas">
-      <a href="https://discover.givalgo.ai" class="mobile-btn-primary" target="_blank" rel="noopener" onclick="closeMobileNav()">Discover<span class="badge-new">New</span></a>
-      <a href="#pricing" class="mobile-btn-ghost" onclick="closeMobileNav()">Talk to Sales</a>
-      <button class="mobile-btn-primary" onclick="closeMobileNav(); openModal();">Book a Demo →</button>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav" id="siteNav">
+  <div class="container nav-inner">
+    <a class="logo" href="/" aria-label="Givalgo home"><span class="logo-mark">G</span><span class="logo-word">Givalgo</span></a>
+    <nav class="nav-links" aria-label="Primary"><a href="#discover">Discover</a><a href="#apis">APIs</a><a href="https://docs.givalgo.ai/">Docs</a><a href="/pricing/">Pricing</a></nav>
+    <div class="nav-actions">
+      <a class="nav-signin" href="https://discover.givalgo.ai">Sign in</a>
+      <button type="button" class="btn btn-outline btn-sm" onclick="openModal()">Book a demo</button>
+      <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" aria-controls="mobileNav" aria-expanded="false" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
     </div>
   </div>
-</nav>
-
-<!-- ══ HERO ══ -->
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile"><a onclick="closeMobileNav()" href="#discover">Discover</a><a onclick="closeMobileNav()" href="#apis">APIs</a><a onclick="closeMobileNav()" href="https://docs.givalgo.ai/">Docs</a><a onclick="closeMobileNav()" href="/pricing/">Pricing</a><a href="https://discover.givalgo.ai">Sign in</a><button type="button" class="btn btn-primary" onclick="closeMobileNav(); openModal()">Book a demo</button></nav>
+</header>
+<main id="main">
 <section class="hero" id="top">
-  <div class="hero-inner">
-    <!-- Left -->
-    <div>
-      <h1>
-        Find, vet, and fund<br/>
-        the <span class="gradient-text">right nonprofits.</span>
-      </h1>
-      <p class="hero-desc">
-        The prospecting &amp; due-diligence platform for grantmakers - built on robust, authoritative data sources covering $1.2T+ in grant flows.
-      </p>
-      <div class="hero-ctas">
-        <a href="https://discover.givalgo.ai" class="btn-primary" target="_blank" rel="noopener">Try Discover free →</a>
-        <button class="btn-ghost-hero" onclick="openModal()">📅 &nbsp;Book a Demo</button>
+  <div class="container hero-inner">
+    <div class="pill"><span class="dot"></span>LIVE · 1.9M ORGANIZATIONS INDEXED</div>
+    <h1>Research, verify, and monitor<br><span>the nonprofits you fund.</span></h1>
+    <p class="lead">Search 1.9M organizations, run compliance checks, and get alerted when something changes. Built on IRS and state data, sanctions lists, and the open web. Free to start.</p>
+    <form class="search" id="heroSearch" action="https://discover.givalgo.ai/search" method="get" target="_blank" rel="noopener">
+      <div class="tabs" role="tablist" aria-label="Search mode">
+        <button type="button" class="tab on" role="tab" aria-selected="true" data-mode="search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg> Search</button>
+        <button type="button" class="tab" role="tab" aria-selected="false" data-mode="ask">Ask</button>
       </div>
-      <div class="hero-stats-row">
-        <div>
-          <div class="hero-stat-num">$1.2T+</div>
-          <div class="hero-stat-label">Grant flows tracked</div>
-        </div>
-        <div class="stat-divider"></div>
-        <div>
-          <div class="hero-stat-num">450+</div>
-          <div class="hero-stat-label">Attributes / org</div>
-        </div>
-        <div class="stat-divider"></div>
-        <div>
-          <div class="hero-stat-num">Nightly</div>
-          <div class="hero-stat-label">Data refresh</div>
-        </div>
+      <label class="sr-only" for="q">Search nonprofits</label>
+      <div class="bar">
+        <span class="bar-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg></span>
+        <input id="q" name="q" type="text" autocomplete="off" placeholder="EIN, org name, keywords, or cause and location" />
+        <button type="submit" class="btn btn-primary">Search <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
       </div>
-      <!-- Backed by Blackbaud -->
-      <div style="display:flex; flex-direction:column; align-items:center; gap:0.5rem; margin-top:2rem;">
-        <div style="display:inline-flex; align-items:center; gap:0.9rem; background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:0.55rem 1.3rem; box-shadow:0 6px 24px rgba(0,0,0,0.28);">
-          <span style="font-size:0.64rem; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:#94a3b8; white-space:nowrap;">Backed by</span>
-          <div style="width:1px; height:18px; background:#e2e8f0; flex-shrink:0;"></div>
-          <a href="https://www.blackbaud.com/social-good-startup-program" target="_blank" rel="noopener noreferrer"><img src="blackbaud-logo.png" alt="Blackbaud" style="height:28px; display:block;"/></a>
-        </div>
-        <span style="font-size:0.64rem; color:rgba(255,255,255,0.45); font-weight:500; letter-spacing:0.04em;">Social Good Startup Program</span>
+      <div class="chips"><span>Try:</span>
+        <a href="https://discover.givalgo.ai/search?q=American%20Red%20Cross" target="_blank" rel="noopener">American Red Cross</a>
+        <a href="https://discover.givalgo.ai/search?q=53-0196605" target="_blank" rel="noopener">53-0196605</a>
+        <a href="https://discover.givalgo.ai/search?q=food%20pantry%20Brooklyn" target="_blank" rel="noopener">food pantry Brooklyn</a>
+        <a href="https://discover.givalgo.ai/search?q=after%20school%20Texas" target="_blank" rel="noopener">after school Texas</a>
       </div>
+      <p class="hint" id="searchHint">No account needed. 2 free searches, then sign up free. Opens in Discover.</p>
+    </form>
+  </div>
+</section>
+
+<section class="backed">
+  <div class="container"><span class="eyebrow-xs">BACKED BY</span><a href="https://www.blackbaud.com/social-good-startup-program" target="_blank" rel="noopener">Blackbaud Social Good Startup Program</a></div>
+</section>
+
+<section class="sec" id="discover">
+  <div class="container two-col">
+    <div class="col-text">
+      <div class="eyebrow">GIVALGO DISCOVER</div>
+      <h2>The workspace for grantmaking teams.</h2>
+      <p class="lead">Find the right organizations, vet them in one view, and keep watching them after the grant goes out. All in the browser, no integration needed.</p>
+      <div class="features">
+        <div class="feature"><span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path><path d="M8 11h6M11 8v6"></path></svg></span><div><h3>Research</h3><p>Search 1.9M nonprofits and 151K funders by cause, geography, size, financials, and who funds whom. Ask in plain English and export shortlists.</p></div></div>
+        <div class="feature"><span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"></path><path d="M9 12l2 2 4-4"></path></svg></span><div><h3>Verify</h3><p>IRS eligibility, auto-revocation, OFAC screening of the organization and its leaders, state registries, and governance signals. One view, before money moves.</p></div></div>
+        <div class="feature"><span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0v5l2 3H4l2-3V8z"></path><path d="M10 19a2 2 0 0 0 4 0"></path></svg></span><div><h3>Monitor</h3><p>Givalgo Watch tracks your portfolio across IRS filings, sanctions lists, and adverse media, and alerts you the moment something changes.</p></div></div>
+      </div>
+      <div class="cta-row"><a class="btn btn-primary" href="https://discover.givalgo.ai">Open Discover <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><span class="hint">Free to start · Pro $20/mo · 14-day trial, no card</span></div>
     </div>
-
-    <!-- Right -rotating product carousel (API · Ask · Profile) -->
-    <div class="hero-carousel" id="heroCarousel">
-      <div class="hero-stage">
-
-        <!-- Slide 1: Verify API -->
-        <div class="hero-slide active" data-slide="0">
-          <div class="api-card">
-            <div class="api-card-bar">
-              <div class="wdot wd-r"></div><div class="wdot wd-y"></div><div class="wdot wd-g"></div>
-              <span class="api-card-label">api.givalgo.ai &nbsp;·&nbsp; v1</span>
-            </div>
-            <div class="api-card-body">
-              <span class="cline"><span class="c-gray"># Verify any nonprofit -one API call</span></span>
-              <span class="cline"><span class="c-method">GET</span> <span class="c-url">api.givalgo.ai/v1/verify</span></span>
-              <span class="cline"><span class="c-gray">&nbsp;&nbsp;&nbsp;?ein=</span><span class="c-str">45-3829107</span></span>
-              <span class="cline"><span class="c-key">x-api-key:</span> <span class="c-str">gvlg_live_••••••••</span></span>
-              <div class="resp-box">
-                <div class="resp-head">↳ Response · 87ms</div>
-                <div class="resp-row"><span class="resp-k">name</span><span class="resp-v">"Brightwater Foundation"</span></div>
-                <div class="resp-row"><span class="resp-k">status</span><span class="resp-v"><span class="pill pill-g">ELIGIBLE</span></span></div>
-                <div class="resp-row"><span class="resp-k">pub78_listed</span><span class="resp-v"><span class="pill pill-g">true</span></span></div>
-                <div class="resp-row"><span class="resp-k">revoked</span><span class="resp-v"><span class="pill pill-g">false</span></span></div>
-                <div class="resp-row"><span class="resp-k">ofac_org_screen</span><span class="resp-v"><span class="pill pill-g">CLEAR</span></span></div>
-                <div class="resp-row"><span class="resp-k">ofac_leadership</span><span class="resp-v"><span class="pill pill-g">CLEAR</span></span></div>
-                <div class="resp-row"><span class="resp-k">leaders_screened</span><span class="resp-v">14 officers</span></div>
-              </div>
-              <div class="differentiator-tag">
-                ⚡ The only API that screens charity leadership against sanctions lists
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Slide 2: Discover Ask (prospecting) -->
-        <div class="hero-slide" data-slide="1">
-          <div class="api-card">
-            <div class="api-card-bar">
-              <div class="wdot wd-r"></div><div class="wdot wd-y"></div><div class="wdot wd-g"></div>
-              <span class="api-card-label">discover.givalgo.ai/ask</span>
-            </div>
-            <div class="app-body">
-              <div class="ask-input">🔍&nbsp; Environmental nonprofits in Texas Triangle with at least $1M grants in last 3 years<span class="ask-cursor"></span></div>
-              <div class="ask-meta">42 matches · parsed in 112ms</div>
-              <div class="ask-result"><div><div class="arn">Hill Country Conservation Fund</div><div class="arm">Austin, TX · $4.2M revenue</div></div><span class="ask-badge">$3.1M grants</span></div>
-              <div class="ask-result"><div><div class="arn">Rio Verde Land Trust</div><div class="arm">San Antonio, TX · $2.8M revenue</div></div><span class="ask-badge">$1.8M grants</span></div>
-              <div class="ask-result"><div><div class="arn">Lone Star Rivers Alliance</div><div class="arm">Houston, TX · $1.6M revenue</div></div><span class="ask-badge">$1.2M grants</span></div>
-              <div class="differentiator-tag">🔍 Ask in plain English — search 1.9M nonprofits &amp; their funders</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Slide 3: Org profile (due diligence) -->
-        <div class="hero-slide" data-slide="2">
-          <div class="api-card">
-            <div class="api-card-bar">
-              <div class="wdot wd-r"></div><div class="wdot wd-y"></div><div class="wdot wd-g"></div>
-              <span class="api-card-label">discover.givalgo.ai/org</span>
-            </div>
-            <div class="app-body">
-              <div class="prof-head">
-                <div><div class="prof-name">Hill Country Conservation Fund</div><div class="prof-sub">EIN 45-3829107 · Austin, TX</div></div>
-                <span class="pill pill-g">ELIGIBLE</span>
-              </div>
-              <div class="prof-stats">
-                <div class="prof-stat"><div class="v">$4.2M</div><div class="l">Revenue</div></div>
-                <div class="prof-stat"><div class="v">$9.1M</div><div class="l">Assets</div></div>
-                <div class="prof-stat"><div class="v">A−</div><div class="l">Health</div></div>
-              </div>
-              <div class="prof-chart">
-                <div class="prof-bar" style="height:38%"></div>
-                <div class="prof-bar" style="height:52%"></div>
-                <div class="prof-bar" style="height:60%"></div>
-                <div class="prof-bar" style="height:79%"></div>
-                <div class="prof-bar" style="height:100%"></div>
-              </div>
-              <div class="prof-cap">Revenue · 5-year trend</div>
-              <div class="differentiator-tag">📈 Full financials, governance &amp; grant history in one view</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="carousel-dots">
-        <button class="carousel-dot active" data-dot="0" aria-label="Verify API frame"></button>
-        <button class="carousel-dot" data-dot="1" aria-label="Discover Ask frame"></button>
-        <button class="carousel-dot" data-dot="2" aria-label="Org profile frame"></button>
-      </div>
+    <div class="col-media">
+      <img class="product-gif" src="/assets/discover-flow.gif" srcset="/assets/discover-flow.gif 1x, /assets/discover-flow@2x.gif 2x" width="560" height="520" loading="lazy" alt="Givalgo Discover: searching for organizations in NYC that tackle food insecurity, opening Vinegar Hill Food Pantry, running verification checks, saving the report, and turning on monitoring" />
     </div>
   </div>
 </section>
 
-<!-- ══ TRUST BAR ══ -->
-<section class="trust-bar">
-  <div class="trust-inner">
-    <span class="trust-label">Designed for teams at</span>
-    <div class="trust-logos">
-      <div class="trust-item">DAF Sponsors</div>
-      <div class="trust-item">Community Foundations</div>
-      <div class="trust-item">Private Foundations</div>
-      <div class="trust-item">Grant Management Software</div>
-      <div class="trust-item">Workplace Giving Platforms</div>
-      <div class="trust-item">Retail Fundraising Platforms</div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ PROBLEM ══ -->
-<section class="sec sec-light" id="problem">
+<section class="sec sec-alt" id="apis">
   <div class="container">
-    <div class="sec-header">
-      <div class="section-label">The Problem</div>
-      <h2 class="sec-title">Finding and vetting the right nonprofits is slow and manual</h2>
-      <div class="divider"></div>
-      <p class="sec-sub">Grantmakers lose thousands of hours every year hunting for the right organizations and piecing together the data to vet them - from filings to sanctions lists to the open web. What exists is scattered, archaic, and doesn't surface what matters for a confident funding decision.</p>
+    <div class="eyebrow">GIVALGO API</div>
+    <h2>Build nonprofit verification and data into your platform.</h2>
+    <p class="lead lead-narrow">The same data behind Discover, delivered as REST APIs. Verify, enrich, and prospect inside your own product, refreshed nightly from IRS and sanctions sources.</p>
+    <div class="tiles">
+      <div class="tile"><h3>Verify API</h3><p class="tile-sub">Real-time eligibility and sanctions verification</p><ul><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Active 501(c)(3) status, Pub 78 eligibility, group exemption</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>IRS auto-revocation plus California FTB and AG registries</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>OFAC screening of the organization and every officer and director</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Bulk Verify up to 20K EINs and a shareable Report API</li></ul></div>
+      <div class="tile"><h3>Data API</h3><p class="tile-sub">Search, prospect, and profile any nonprofit</p><ul><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Search by cause, place, size, financials, or funder, or Ask in plain English</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Profiles from every 990, 990-EZ, and 990-PF: financials, leadership, governance</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Grants made and received, with funder-to-recipient mapping</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Data Pro API: 450+ extracted and computed fields on any single organization</li></ul></div>
+      <div class="tile"><h3>FaithVerify API</h3><p class="tile-sub">Denomination and religious-organization verification</p><ul><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Status verification for over 90% of American churches</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>IRS group exemption mapping and hierarchy</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Affiliation confirmed against official denominational registers</li><li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>Built for DAFs, community foundations, and workplace giving</li></ul></div>
     </div>
-    <div class="problem-grid">
-      <div class="prob-card">
-        <div class="prob-icon pi-red">🧩</div>
-        <h3>Data is scattered and unstructured</h3>
-        <p>What you need is spread across IRS filings, sanctions and watchlists, watchdog sites, and the open web - most of it raw and unstructured. Pulling it into one place takes months of manual work or engineering.</p>
-      </div>
-      <div class="prob-card">
-        <div class="prob-icon pi-amber">⏱️</div>
-        <h3>Manual verification across sources takes hours</h3>
-        <p>Checking eligibility, revocation, sanctions, and governance means juggling separate websites and running searches by hand for every organization - and re-doing it all whenever something changes.</p>
-      </div>
-      <div class="prob-card">
-        <div class="prob-icon pi-purple">💸</div>
-        <h3>Existing solutions are archaic and expensive</h3>
-        <p>The legacy providers in this space were built decades ago. Their data is often stale and incomplete, their tools are clunky, and their pricing was designed for legacy institutions - not modern grantmakers and platforms.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ DISCOVER (the app) ══ -->
-<section class="sec sec-alt" id="discover">
-  <div class="container">
-    <div class="sec-header">
-      <div class="section-label">Givalgo Discover</div>
-      <h2 class="sec-title">Comprehensive prospecting &amp; due diligence, made easy</h2>
-      <div class="divider"></div>
-      <p class="sec-sub">The web app for grantmaking teams. Sign up in less than 2 minutes and search 1.9M+ nonprofits and the funders behind them, vet any organization, get a holistic understanding of all their operations, and turn raw data into decisions.</p>
-    </div>
-    <div class="products-grid">
-      <div class="prod-card">
-        <div class="prod-icon">🔍</div>
-        <h3>Find</h3>
-        <p class="prod-tag">Prospecting</p>
-        <p>Search by cause, geography, size, financials, growth, and who-funds-whom. Ask in plain English and build exportable shortlists in seconds.</p>
-      </div>
-      <div class="prod-card">
-        <div class="prod-icon">🛡️</div>
-        <h3>Vet</h3>
-        <p class="prod-tag">Due diligence</p>
-        <p>Check IRS eligibility, revocation, sanctions, governance and risk signals before money moves - the full picture in one view.</p>
-      </div>
-      <div class="prod-card">
-        <div class="prod-icon">📈</div>
-        <h3>Analyze</h3>
-        <p class="prod-tag">Intelligence</p>
-        <p>Turn raw 990 filings into structured insight on finances, leadership, programs and multi-year trends - ready for reports and decisions.</p>
-      </div>
-    </div>
-    <div style="text-align:center; margin-top:2.5rem;">
-      <a href="https://discover.givalgo.ai" class="btn-primary" target="_blank" rel="noopener">Try Discover free →</a>
-      <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.9rem;">Free to start · Pro trial available - no credit card required</p>
-    </div>
-  </div>
-</section>
-
-<!-- ══ SOLUTIONS ══ -->
-<section class="sec sec-light" id="solutions">
-  <div class="container">
-    <div class="sec-header">
-      <div class="section-label">Givalgo API</div>
-      <h2 class="sec-title">Power your product with nonprofit intelligence</h2>
-      <div class="divider"></div>
-      <p class="sec-sub">The same authoritative data behind Discover, delivered as fast, structured APIs - so platforms and teams can verify, enrich, and prospect right inside their own workflows.</p>
-    </div>
-    <div class="products-grid">
-
-      <!-- Verify API -Flagship -->
-      <div class="prod-card prod-card-hero">
-        <div class="prod-icon">🛡️</div>
-        <h3>Verify API</h3>
-        <p class="prod-tag">Real-time eligibility &amp; sanctions verification</p>
-        <p>Instantly verify any nonprofit's standing with a single API call - a 6-step check covering active IRS status, Pub 78 eligibility, group exemption, IRS revocation, org OFAC screening, and leadership screening, all in under 100ms.</p>
-        <ul class="prod-feats">
-          <li>Active 501(c)(3) status &amp; Pub 78 eligibility</li>
-          <li>IRS auto-revocation &amp; group exemption traversal</li>
-          <li>Screen charity officers &amp; directors against OFAC SDN + Consolidated lists</li>
-          <li>Validate against California FTB &amp; AG charity registries</li>
-          <li><span><strong>Bulk Verify</strong> - up to 20K verifications for batch screening</span></li>
-          <li><span><strong>Report API</strong> - generate a shareable due-diligence report</span></li>
-        </ul>
-        <div class="ai-tag">⚡ The only API that screens charity leadership, not just the org name</div>
-        <a href="https://docs.givalgo.ai/" class="prod-link" target="_blank">View API docs →</a>
-      </div>
-
-      <!-- Data Pro API -->
-      <div class="prod-card">
-        <div class="prod-icon">📊</div>
-        <h3>Data Pro API</h3>
-        <p class="prod-tag">450+ extracted &amp; computed attributes per organization</p>
-        <p>We parse every IRS Form 990, 990-EZ, and 990-PF filing - transforming raw XML into clean, structured JSON. Query 450+ extracted and computed attributes per nonprofit by EIN, spanning tens of thousands of underlying data points across filing years.</p>
-        <ul class="prod-feats">
-          <li>Revenue, expenses, assets &amp; computed financial ratios</li>
-          <li>Officer compensation &amp; board composition</li>
-          <li>Grants made &amp; received, with funder-recipient mapping</li>
-          <li>Programs, mission, governance &amp; policy signals</li>
-          <li>Multi-year history with growth &amp; trend indicators</li>
-        </ul>
-        <div class="ai-tag">📊 450+ attributes spanning tens of thousands of data points per org</div>
-        <a href="#" class="prod-link" onclick="openModal(); return false;">Talk to sales →</a>
-      </div>
-
-      <!-- FaithVerify API -->
-      <div class="prod-card">
-        <div class="prod-icon">⛪</div>
-        <h3>FaithVerify API</h3>
-        <p class="prod-tag">Denomination &amp; religious organization verification</p>
-        <p>The only structured database of religious organizations that can accept tax-deductible donations. AI agents scan denominational databases and official websites to confirm legitimacy and affiliation.</p>
-        <ul class="prod-feats">
-          <li>Instant status verification of over 90% American churches</li>
-          <li>IRS group exemption mapping &amp; hierarchy data</li>
-          <li>AI agents verify against official denominational registers</li>
-          <li>Active congregation status &amp; affiliation confirmation</li>
-          <li>Built for DAFs, community foundations, and workplace giving platforms</li>
-        </ul>
-        <div class="ai-tag">🤖 AI agents scan denominational directories and church websites to verify 501(c)(3) equivalency.</div>
-        <a href="#" class="prod-link" onclick="openModal(); return false;">Talk to sales →</a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ══ NUMBERS ══ -->
-<section class="numbers-bar">
-  <div class="container">
-    <div class="numbers-grid">
-      <div class="num-item">
-        <div class="num-val">1.9M+</div>
-        <div class="num-lbl">Nonprofits Verified</div>
-      </div>
-      <div class="num-item">
-        <div class="num-val">3.6M+</div>
-        <div class="num-lbl">Grants Mapped</div>
-      </div>
-      <div class="num-item">
-        <div class="num-val">1.3B+</div>
-        <div class="num-lbl">Structured Data Points</div>
-      </div>
-      <div class="num-item">
-        <div class="num-val">&lt;100ms</div>
-        <div class="num-lbl">Avg. API Response Time</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ HOW IT WORKS ══ -->
-<section class="sec sec-light" id="how-it-works">
-  <div class="container">
-    <div class="sec-header">
-      <div class="section-label">How It Works</div>
-      <h2 class="sec-title">From EIN to full verification in seconds</h2>
-      <div class="divider"></div>
-    </div>
-    <div class="how-steps">
-      <div class="how-step">
-        <div class="how-num">1</div>
-        <h4>Get your API key</h4>
-        <p>Tell us about your use case and we'll provision your credentials. Integrate in minutes with our REST API.</p>
-      </div>
-      <div class="how-step">
-        <div class="how-num">2</div>
-        <h4>Send an EIN query</h4>
-        <p><code style="font-size:0.8rem;background:#f0fdfd;padding:2px 6px;border-radius:4px;color:var(--teal-dark)">GET /v1/verify?ein=</code><br/>Pass any nonprofit's EIN. Batch queries and webhooks supported.</p>
-      </div>
-      <div class="how-step">
-        <div class="how-num">3</div>
-        <h4>Get structured intelligence</h4>
-        <p>Receive a verified status, financial ratios, governance flags, and OFAC screening results -including all charity leaders -in one response.</p>
-      </div>
-      <div class="how-step">
-        <div class="how-num">4</div>
-        <h4>Stay current automatically</h4>
-        <p>Our pipeline refreshes nightly from 6 IRS sources via Lambda. Subscribe to webhooks for real-time change alerts.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ USE CASES ══ -->
-<section class="sec sec-alt" id="use-cases">
-  <div class="container">
-    <div class="sec-header">
-      <div class="section-label">Use Cases</div>
-      <h2 class="sec-title">Built for the teams that move money for good</h2>
-      <div class="divider"></div>
-    </div>
-    <div class="usecase-grid">
-      <div class="uc-card">
-        <div class="uc-icon uci-1">🏦</div>
-        <div>
-          <h3>DAFs &amp; Community Foundations</h3>
-          <p>Automate charity vetting at the point of grant recommendation. Verify active status, Pub 78 deductibility, Revocation Lists and OFAC clearance - without manual research. Scale grant processing from days to seconds.</p>
-          <div class="uc-tags"><span class="uc-tag">EIN Verification</span><span class="uc-tag">Pub 78 Eligibility</span><span class="uc-tag">OFAC Screening</span></div>
-        </div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-icon uci-2">🏗️</div>
-        <div>
-          <h3>Grant Management SaaS &amp; Workplace Giving</h3>
-          <p>Embed Givalgo into your grant lifecycle and employee giving programs. Surface financial ratios, governance flags, and real-time compliance status directly in your platform UI -with zero manual research required.</p>
-          <div class="uc-tags"><span class="uc-tag">Financial Ratios</span><span class="uc-tag">Governance Flags</span><span class="uc-tag">Payroll Giving</span></div>
-        </div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-icon uci-3">🏛️</div>
-        <div>
-          <h3>Private &amp; Corporate Foundations</h3>
-          <p>Surface multi-year financial trends, program expense ratios, board composition and risk-flags for every grantee. Conduct thorough due-diligence with structured data on potential grantees instead of manually going through docs.</p>
-          <div class="uc-tags"><span class="uc-tag">Multi-year Trends</span><span class="uc-tag">Board Data</span><span class="uc-tag">Program Ratios</span></div>
-        </div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-icon uci-4">💳</div>
-        <div>
-          <h3>Fintech &amp; Retail Fundraising Platforms</h3>
-          <p>Power donation rails, matching engines, and retail giving flows with verified nonprofit data. Prevent fraud, ensure tax compliance, and pass audits confidently -all from a single API integration.</p>
-          <div class="uc-tags"><span class="uc-tag">Fraud Prevention</span><span class="uc-tag">AML/KYC</span><span class="uc-tag">Matching Engines</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ TESTIMONIALS ══ -->
-<section class="sec sec-light" id="testimonials">
-  <div class="container">
-    <div class="sec-header">
-      <div class="section-label">What Teams Are Saying</div>
-      <h2 class="sec-title">Trusted by grantmaking and platform teams</h2>
-      <div class="divider"></div>
-    </div>
-    <div class="testi-grid">
-      <div class="testi-card">
-        <p class="testi-quote">Givalgo cut our nonprofit vetting process from several hours a day down to zero minutes. It's fully automated. The OFAC leadership screening and church verification are something we couldn't find anywhere else -it's exactly what our compliance team required.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">HI</div>
-          <div>
-            <div class="testi-name">Head of Innovation</div>
-            <div class="testi-role">National Donor-Advised Fund</div>
+    <div class="api-bottom">
+      <div class="code">
+        <div class="code-head"><span>API.GIVALGO.AI · V1</span><span>&lt;100 MS</span></div>
+        <div class="code-body">
+          <div class="c-muted">// Verify any nonprofit in one call</div>
+          <div><span class="c-teal">GET</span> /v1/verify?ein=87-3179766</div>
+          <div class="c-dim">x-api-key: gvlg_live_••••••••</div>
+          <div class="code-resp">
+            <div><span>name</span><b>"Vinegar Hill Food Pantry"</b></div>
+            <div><span>status</span><b class="c-teal">ELIGIBLE</b></div>
+            <div><span>pub78_listed</span><b class="c-teal">true</b></div>
+            <div><span>revoked</span><b class="c-teal">false</b></div>
+            <div><span>ofac_org_screen</span><b class="c-teal">CLEAR</b></div>
+            <div><span>ofac_leadership</span><b class="c-teal">CLEAR</b></div>
           </div>
         </div>
       </div>
-      <div class="testi-card">
-        <p class="testi-quote">We evaluated several data providers before landing on Givalgo. The depth of the API, low price, and scalability is exactly what a modern grant management platform needs. Integration was seamless.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">VP</div>
-          <div>
-            <div class="testi-name">VP of Product</div>
-            <div class="testi-role">Grant Management Platform</div>
-          </div>
+      <div class="api-side">
+        <div class="stats">
+          <div><b>1.9M+</b><span>NONPROFITS VERIFIED</span></div>
+          <div><b>3.6M+</b><span>GRANTS MAPPED</span></div>
+          <div><b>1.3B+</b><span>STRUCTURED DATA POINTS</span></div>
+          <div><b>&lt;100ms</b><span>AVG. API RESPONSE</span></div>
         </div>
-      </div>
-      <div class="testi-card">
-        <p class="testi-quote">Before Givalgo, our compliance and ops team was responsible for regularly ingesting IRS and OFAC data and screening incoming grant requests - Candid was too expensive. Now the donor request is immediately approved and passed on to finance for disbursement.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">HC</div>
-          <div>
-            <div class="testi-name">Head of Compliance</div>
-            <div class="testi-role">Workplace Giving &amp; Payroll Platform</div>
-          </div>
-        </div>
+        <div class="cta-row"><a class="btn btn-primary" href="https://docs.givalgo.ai/">Read the API docs <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a class="link" href="#" onclick="openModal(); return false;">Talk to sales</a></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══ ROADMAP ══ -->
-<section class="sec sec-dark" id="roadmap">
+<section class="sec close" id="get-started">
   <div class="container">
-    <div class="sec-header">
-      <div class="section-label section-label-light">Our Roadmap</div>
-      <h2 class="sec-title sec-title-light">Building the definitive prospecting &amp; due-diligence platform for a $600B+ sector</h2>
-      <div class="divider"></div>
-      <p class="sec-sub sec-sub-light" style="margin-top:1rem;">We're starting where the data problems are most acute. Our roadmap leads to a full-stack intelligence platform for grantmakers -eventually the trusted backbone for every philanthropic dollar that moves in America.</p>
-    </div>
-    <div class="rm-grid">
-      <div class="rm-card rm-live">
-        <div class="rm-status s-live"><span class="s-dot sd-live"></span> Live</div>
-        <h4>Verify API</h4>
-        <p>6-step real-time verification: active 501(c)(3) status, Pub 78 eligibility, group exemption traversal, IRS auto-revocation check, OFAC sanction checks, and leadership screening - including every charity officer and director -across 1.9M+ organizations. Includes Bulk Verify and the Report API.</p>
-      </div>
-      <div class="rm-card rm-live">
-        <div class="rm-status s-live"><span class="s-dot sd-live"></span> Live</div>
-        <h4>FaithVerify API</h4>
-        <p>AI agents continuously scan 40+ denominational databases and official websites to verify religious organization legitimacy, IRS group exemption status, and congregation-level affiliation -the only structured database of its kind.</p>
-      </div>
-      <div class="rm-card rm-live">
-        <div class="rm-status s-live"><span class="s-dot sd-live"></span> Live</div>
-        <h4>Data Pro API</h4>
-        <p>450+ extracted and computed attributes from every IRS 990 filing -revenue, expenses, leadership compensation, grants made and received, governance, and computed ratios. Automated Lambda + EventBridge pipeline, backed by 1.3B+ structured data points.</p>
-      </div>
-      <div class="rm-card rm-live">
-        <div class="rm-status s-live"><span class="s-dot sd-live"></span> Live</div>
-        <h4>Givalgo Discover</h4>
-        <p>The web app for grantmaking teams -prospect, vet, and analyze 1.9M+ nonprofits and the funders behind them in plain English. Natural-language search, full due-diligence, financials, grants, and peer benchmarks, all in the browser.</p>
-      </div>
-      <div class="rm-card rm-beta">
-        <div class="rm-status s-beta"><span class="s-dot sd-beta"></span> Coming soon</div>
-        <h4>Givalgo Watch</h4>
-        <p>Real-time monitoring of your portfolio of nonprofits -track every organization you care about across IRS filings, sanctions lists, and the news, and get alerted the moment something changes.</p>
-      </div>
-      <div class="rm-card" style="border-color: rgba(0,180,179,0.2); background: linear-gradient(160deg, rgba(0,180,179,0.06) 0%, rgba(7,40,64,0.8) 100%);">
-        <div class="rm-status s-soon"><span class="s-dot sd-soon"></span> Q3 2026</div>
-        <h4>Givalgo AI — Autonomous Due Diligence</h4>
-        <p>Point Givalgo AI at any organization and get a complete, citation-backed due-diligence brief in seconds -financials, governance, risk flags, and live web research, synthesized for you. Then ask follow-up questions in plain English.</p>
-      </div>
-    </div>
+    <h2>Start with Discover,<br>or build with the API.</h2>
+    <div class="cta-row center"><a class="btn btn-primary" href="https://discover.givalgo.ai">Open Discover <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><button type="button" class="btn btn-outline" onclick="openModal()">Talk to Sales</button></div>
+    <p class="hint">Discover is free to start, no card required · API provisioned in less than 24 hours</p>
   </div>
 </section>
-
-<!-- ══ PRICING ══ -->
-<section class="sec sec-light" id="pricing">
-  <div class="container">
-    <div class="sec-header">
-      <div class="section-label">Pricing</div>
-      <h2 class="sec-title">Start free. Scale when you're ready.</h2>
-      <div class="divider"></div>
-      <p class="sec-sub">Use Discover free, or talk to us about API access for your platform. Either way, you get a direct line to the founding team.</p>
+</main>
+<footer class="footer" id="footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="logo" href="/" aria-label="Givalgo home"><span class="logo-mark">G</span><span class="logo-word">Givalgo</span></a>
+      <p>Nonprofit intelligence for grantmakers. Available as the Discover app or as APIs.</p>
     </div>
-
-    <div class="pricing-grid">
-
-      <!-- Discover (the app) -->
-      <div class="price-card price-card-feat">
-        <div class="price-tier">Discover</div>
-        <div>
-          <span class="price-amount price-amount-lt">Free</span>
-          <span class="price-period price-period-lt"> to start</span>
-        </div>
-        <p class="price-annual-note-lt">Pro (worth $20 / mo) - 14-day trial, no credit card</p>
-        <p class="price-desc price-desc-lt">The web app for grantmaking teams. Prospect, vet, and analyze nonprofits right in your browser.</p>
-        <ul class="price-list">
-          <li class="inc-lt">Search 1.9M+ nonprofits &amp; their funders</li>
-          <li class="inc-lt">Ask - natural-language prospecting</li>
-          <li class="inc-lt">Full verification &amp; due-diligence</li>
-          <li class="inc-lt">5-year financials, grants &amp; benchmarks</li>
-          <li class="inc-lt">Pro free for 14 days, then $20 / mo</li>
-        </ul>
-        <a href="https://discover.givalgo.ai" class="btn-price btn-price-teal" target="_blank" rel="noopener">Try Discover free →</a>
-        <p style="font-size:0.73rem;color:rgba(255,255,255,0.38);text-align:center;margin-top:0.7rem;">No credit card required</p>
-      </div>
-
-      <!-- API (sales-led) -->
-      <div class="price-card">
-        <div class="price-tier">Givalgo API</div>
-        <div><span class="price-amount">Custom</span></div>
-        <p class="price-desc">For platforms &amp; teams embedding Givalgo data. Usage-based plans, scoped to your needs.</p>
-        <ul class="price-list">
-          <li class="inc"><span><strong>Verify API</strong> - IRS, State AG &amp; Sanctions</span></li>
-          <li class="inc"><span><strong>Data Pro API</strong> - 450+ attributes per organization</span></li>
-          <li class="inc"><span><strong>FaithVerify API</strong> - religious-org verification</span></li>
-          <li class="inc">Custom configurations &amp; volume</li>
-          <li class="inc">Dedicated support &amp; founder access</li>
-        </ul>
-        <button class="btn-price btn-price-outline" onclick="openModal()">Book a call →</button>
-      </div>
-
-    </div>
+    <div><h4>Products</h4><a href="https://discover.givalgo.ai">Discover</a><a href="/#apis">Verify API</a><a href="/#apis">Data API</a><a href="/#apis">FaithVerify API</a><a href="/pricing/">Pricing</a></div>
+    <div><h4>Developers</h4><a href="https://docs.givalgo.ai/">API documentation</a><a href="https://docs.givalgo.ai/">Getting started</a><a href="#" onclick="openModal(); return false;">Book a demo</a></div>
+    <div><h4>Company</h4><a href="#" onclick="openModal(); return false;">Contact us</a><a href="/?page=privacy" onclick="showPrivacy(); return false;">Privacy policy</a><a href="https://www.linkedin.com/company/givalgo" target="_blank" rel="noopener">LinkedIn</a></div>
   </div>
-</section>
-
-<!-- ══ FINAL CTA ══ -->
-<section class="cta-section">
-  <div class="container">
-    <span class="badge" style="margin-bottom:1.4rem; display:inline-flex; background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.25); color:#fff;">Find, vet, and fund - faster</span>
-    <h2>Start with Discover free,<br/>or build with our APIs.</h2>
-    <p>Join the grantmakers and platforms that trust Givalgo to find the right nonprofits, vet them with confidence, and power their giving.</p>
-    <div class="cta-btns">
-      <a href="https://discover.givalgo.ai" class="btn-white" target="_blank" rel="noopener">Try Discover free →</a>
-      <button class="btn-outline-white" onclick="openModal()">📅 &nbsp;Book a Demo</button>
-    </div>
-    <p class="cta-footnote">No commitment required &nbsp;·&nbsp; Response within 1 business day &nbsp;·&nbsp; 14-day Discover trial, no card</p>
-  </div>
-</section>
-
-<!-- ══ FOOTER ══ -->
-<footer id="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <svg viewBox="0 0 528.56 203.29" xmlns="http://www.w3.org/2000/svg" height="28" style="width:auto">
-          <path fill="#ffffff" d="M227.9,102.11c.51,11.11-.72,21.55-8.91,29.69-9.89,9.84-21.94,12.55-35.21,8.98-12.96-3.48-21.38-12.19-24.79-25.01-3.41-12.84-2.2-25.34,6.11-36.37,5.01-6.65,11.76-10.69,19.93-12.31,12.12-2.4,23.2-.34,32.69,7.94,4.89,4.26,7.8,9.48,8.68,15.13-4.56,0-9.07.06-13.57-.07-.63-.02-1.47-.78-1.83-1.42-6.63-11.65-25.59-12.81-35.01-.98-7.32,9.2-6.98,28.64,3.89,37.13,11.57,9.04,27.68,4.72,32.74-9.03.29-.79.5-1.61.85-2.74h-18v-10.94h32.41Z"/>
-          <path fill="#ffffff" d="M434.86,131.74c-6.19,7.61-13.99,9.39-22.59,7.01-8.78-2.43-14.65-8.36-16.49-17.43-1.92-9.5-1.38-18.75,5.15-26.71,5.54-6.76,16.54-10.13,24.65-6.91,3.53,1.4,6.47,4.27,9.6,6.42v-6.29h12.8c.09.67.27,1.38.27,2.1.03,15.06.19,30.13.02,45.19-.12,10.8-2.99,20.54-13.59,25.72-12.43,6.07-28.94,4.42-38.74-8.68,3.31-2.38,6.61-4.75,9.98-7.16,5.91,5.79,12.59,9.45,20.77,5.81,7.99-3.56,8.41-11.04,8.18-19.05ZM408.59,112.85c-.53,13.29,10.09,17.26,17.74,14.97,6.82-2.04,10.08-9.17,8.6-18.07-1.77-10.64-12.5-13.77-19.99-9.36-4.91,2.9-6.4,7.6-6.34,12.45Z"/>
-          <path fill="#ffffff" d="M349.88,108.66c.74-5.88-1.54-9.54-6.55-10.8-7.26-1.83-11.91.53-14.58,7.49-2-.09-4.03-.1-6.06-.29-2.03-.19-4.05-.56-6.07-.85,1.23-10.44,8.18-16.78,20.25-17.78,7.42-.62,14.75.03,20.66,5.52,4.1,3.81,5.41,8.89,5.55,14.08.29,11.47.09,22.95.09,34.67h-12.54c-.19-1.91-.39-3.89-.59-5.94-7.03,7.73-20.44,9.39-29.16,3.52-5.44-3.66-6.4-9.24-5.8-15.22.48-4.78,3.11-8.13,7.52-10.12,6.75-3.05,14.02-3.22,21.2-3.88,2.03-.19,4.08-.26,6.07-.39ZM350.13,118.81c-2.54,0-4.61-.15-6.64.03-3.54.33-7.16.53-10.56,1.47-1.64.45-3.46,2.24-4.09,3.85-.84,2.16-.12,4.69,2.31,5.8,5.01,2.29,9.95,1.35,14.6-1.12,4.06-2.16,3.97-6.25,4.38-10.04Z"/>
-          <path fill="#ffffff" d="M509.68,114.79c.77,15.19-12,27.72-27.96,27.46-14.76-.24-27.22-12-26.82-28.46.37-15.45,12.3-27.59,27.77-27.37,17.52.25,27.69,13.7,27.02,28.38ZM468.62,114.15c0,1.08-.06,2.17,0,3.25.35,5.58,4.01,10.27,9.35,12.03,5.16,1.71,11.46.1,14.8-3.93,3.59-4.33,3.84-9.43,3.24-14.74-.98-8.75-9.3-14.25-17.71-11.64-6.48,2.01-9.71,7-9.68,15.01Z"/>
-          <path fill="#ffffff" d="M293.19,140.92c-4.64,0-9.19.07-13.72-.07-.73-.02-1.82-.78-2.08-1.46-6.67-17.03-13.24-34.1-20.06-51.73,4.72,0,8.98-.12,13.21.12.71.04,1.61,1.5,1.97,2.47,4.41,11.79,8.73,23.62,13.09,35.48,4.4-12.61,8.83-25.32,13.25-38.01h14.9c-6.88,17.81-13.69,35.44-20.56,53.21Z"/>
-          <path fill="#ffffff" d="M387.04,140.77h-13.26v-74.53h13.26v74.53Z"/>
-          <path fill="#ffffff" d="M250.38,140.77h-13.27v-52.93h13.27v52.93Z"/>
-          <path fill="#ffffff" d="M243.8,81.74c-5.66.61-8.57-4.27-8.62-7.93-.06-4.59,4.06-8.39,8.88-8.34,4.4.04,8.21,3.84,8.3,8.27.1,4.61-3.55,8.02-8.56,8.01Z"/>
-          <path fill="#00848b" d="M70.01,130.83c-3.61,0-6.95-.74-10-2.23-3.06-1.49-5.7-3.47-7.94-5.96-2.24-2.48-4-5.37-5.29-8.66-1.29-3.29-1.94-6.79-1.94-10.49s.65-7.06,1.94-10.35c1.29-3.29,3.05-6.2,5.29-8.73,2.24-2.53,4.91-4.51,8-5.96,3.1-1.44,6.45-2.17,10.07-2.17.89,0,31.32-.03,32.2.07v-28.5c-.92-.05-31.4,0-32.33,0-7.4,0-14.31,1.47-20.72,4.4-6.41,2.93-12.01,6.95-16.78,12.05-4.78,5.1-8.54,11.01-11.3,17.73-2.76,6.72-4.13,13.87-4.13,21.45s1.38,14.73,4.13,21.45c2.75,6.72,6.52,12.63,11.3,17.73,4.78,5.1,10.37,9.12,16.78,12.05,6.41,2.93,13.32,4.4,20.72,4.4,2.06,0,4.09-.12,6.09-.35v-28.71c-1.96.51-3.98.77-6.09.77Z"/>
-          <path fill="#00b4b3" d="M106.34,103.47h-33.05l12.54,21.15c-1.86,1.7-3.9,3.07-6.12,4.1-1.17.55-2.38.99-3.62,1.35v-.02c-1.96.51-3.98.77-6.09.77-3.61,0-6.95-.74-10-2.23-.05-.02-.1-.05-.14-.07v29.61c3.27.65,6.66.98,10.15.98,2.06,0,4.09-.12,6.09-.35v-.03c5.21-.77,9.67-2.52,14.43-4.86,3.27-1.61,6.32-3.57,9.19-5.86l6.63,11.18v-55.72Z"/>
-        </svg>
-        <p>The prospecting and due-diligence platform for grantmakers - available as the Discover app or enterprise APIs.</p>
-      </div>
-      <div class="footer-col">
-        <h5>Products</h5>
-        <ul>
-          <li><a href="https://discover.givalgo.ai" target="_blank" rel="noopener">Discover</a></li>
-          <li><a href="#solutions">Verify API</a></li>
-          <li><a href="#solutions">Data Pro API</a></li>
-          <li><a href="#solutions">FaithVerify API</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Developers</h5>
-        <ul>
-          <li><a href="https://docs.givalgo.ai/" target="_blank">API Documentation</a></li>
-          <li><a href="https://docs.givalgo.ai/" target="_blank">Getting Started</a></li>
-          <li><a href="https://docs.givalgo.ai/" target="_blank">API Reference</a></li>
-          <li><a href="#" onclick="openModal(); return false;">Talk to Sales</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Company</h5>
-        <ul>
-          <li><a href="#" onclick="openModal(); return false;">Contact Us</a></li>
-          <li><a href="/privacy">Privacy Policy</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2026 Givalgo, Inc. All rights reserved.</p>
-      <a href="https://www.linkedin.com/company/givalgo" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.82rem;transition:color 0.2s;" onmouseover="this.style.color='#00b4b3'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        Follow us on LinkedIn
-      </a>
-    </div>
-  </div>
+  <div class="container footer-bottom">© 2026 Givalgo, Inc. All rights reserved. Data sourced from IRS public records.</div>
 </footer>
-
 </div><!-- end #main-site -->
 
 <!-- ══ PRIVACY POLICY PAGE ══ -->
@@ -1805,26 +539,6 @@
 </div>
 
 <script>
-  // ── Hero carousel ───────────────────────────────────────────
-  (function(){
-    var car = document.getElementById('heroCarousel');
-    if (!car) return;
-    var slides = car.querySelectorAll('.hero-slide');
-    var dots = car.querySelectorAll('.carousel-dot');
-    var i = 0, timer = null;
-    function go(n){
-      i = (n + slides.length) % slides.length;
-      slides.forEach(function(s, k){ s.classList.toggle('active', k === i); });
-      dots.forEach(function(d, k){ d.classList.toggle('active', k === i); });
-    }
-    function start(){ timer = setInterval(function(){ go(i + 1); }, 4200); }
-    function stop(){ if (timer) { clearInterval(timer); timer = null; } }
-    dots.forEach(function(d, k){ d.addEventListener('click', function(){ go(k); stop(); start(); }); });
-    car.addEventListener('mouseenter', stop);
-    car.addEventListener('mouseleave', start);
-    start();
-  })();
-
   function openModal() {
     document.getElementById('demoModal').classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -1855,12 +569,6 @@
     document.getElementById('main-site').style.display = 'none';
     document.getElementById('privacy-page').classList.add('show');
     window.scrollTo(0, 0);
-  }
-  function switchTab(lang) {
-    document.querySelectorAll('#apiCodeWin .code-body').forEach(el => el.style.display = 'none');
-    document.querySelectorAll('#apiCodeWin .code-tab').forEach(el => el.classList.remove('active'));
-    document.getElementById('code-' + lang).style.display = 'block';
-    document.getElementById('tab-' + lang).classList.add('active');
   }
 
   function showMain() {
@@ -1897,6 +605,49 @@
     if (params.get('page') === 'privacy') {
       showPrivacy();
     }
+  })();
+
+  /* Hero search: Search vs Ask hands off to the matching Discover route. */
+  (function () {
+    var form = document.getElementById('heroSearch'); if (!form) return;
+    var input = document.getElementById('q'), hint = document.getElementById('searchHint');
+    var modes = {
+      search: { action: 'https://discover.givalgo.ai/search', ph: 'EIN, org name, keywords, or cause and location', hint: 'No account needed. 2 free searches, then sign up free. Opens in Discover.' },
+      ask:    { action: 'https://discover.givalgo.ai/ask',    ph: 'Ask in plain English: food banks in Chicago that got over $1M in grants', hint: 'Ask is part of Discover Pro. Opens Discover, where you can sign in or start a free trial.' }
+    };
+    form.querySelectorAll('.tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var m = modes[tab.getAttribute('data-mode')];
+        form.querySelectorAll('.tab').forEach(function (t) { t.classList.toggle('on', t === tab); t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
+        form.action = m.action; input.placeholder = m.ph; hint.textContent = m.hint; input.focus();
+      });
+    });
+    form.addEventListener('submit', function () {
+      if (window.GA_ENABLED && typeof gtag === 'function') {
+        gtag('event', 'to_discover', { link_url: form.action, link_text: 'hero search: ' + (input.value || '').trim().slice(0, 80) });
+      }
+    });
+  })();
+
+  /* Pricing: Monthly / Annual toggle for Discover Pro. */
+  (function () {
+    var tabs = document.querySelectorAll('.billing .tab'); if (!tabs.length) return;
+    var price = document.getElementById('proPrice'), note = document.getElementById('proNote');
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var annual = tab.getAttribute('data-billing') === 'annual';
+        tabs.forEach(function (t) { t.classList.toggle('on', t === tab); t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
+        price.textContent = annual ? '$20' : '$25';
+        note.textContent = annual ? 'Billed annually · 14-day free trial, no card' : 'Billed monthly · 14-day free trial, no card';
+      });
+    });
+  })();
+
+  /* Close the demo modal on Escape or on a backdrop click. */
+  (function () {
+    var overlay = document.getElementById('demoModal'); if (!overlay) return;
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
   })();
 </script>
 </body>

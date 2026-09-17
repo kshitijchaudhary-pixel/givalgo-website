@@ -4,8 +4,26 @@
     {
       "name": "Givalgo Wireframe",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "4200", "--directory", "/Users/kshitijchaudhary/Givalgo Website - Claude"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4200",
+        "--directory",
+        "/Users/kshitijchaudhary/Givalgo Website - Claude"
+      ],
       "port": 4200
+    },
+    {
+      "name": "Givalgo Site",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4300",
+        "--directory",
+        "/Users/nishantsapru/givalgo-website"
+      ],
+      "port": 4300
     }
   ]
 }

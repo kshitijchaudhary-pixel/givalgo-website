@@ -1,0 +1,15 @@
+:root {
+      --teal:        #00b4b3;
+      --teal-dark:   #00848b;
+      --teal-deeper: #006570;
+      --navy:        #041c2c;
+      --navy-mid:    #072840;
+      --navy-light:  #0d3a54;
+      --teal-light:  #e0f8f7;
+      --teal-mid:    #b3eeee;
+      --off-white:   #f8fafb;
+      --border:      #e2e8f0;
+      --text-muted:  #64748b;
+      --text-dark:   #1a202c;
+      --logo-navy:   #072643;
+    }

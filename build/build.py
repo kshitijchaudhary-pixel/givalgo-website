@@ -125,6 +125,57 @@ def footer(on_pricing=False):
     priv='<a href="/?page=privacy">Privacy policy</a>' if on_pricing else '<a href="/?page=privacy" onclick="showPrivacy(); return false;">Privacy policy</a>'
     return FOOTER % priv
 
+
+# ---------------- Chapter demos (pure CSS loops; keyframes in site.css) ----------------
+def _frame(label, inner):
+    return ('<div class="demo" aria-hidden="true"><div class="demo-head"><span>%s</span><span class="demo-live">LIVE DEMO · LOOPS</span></div><div class="demo-body">%s</div></div>' % (label, inner))
+def research_demo():
+    rows=[("Northside Community Kitchen","Chicago, IL · $10M–$50M · 3 grants over $1M","Strong fit","r1"),
+          ("Harborlight Food Collective","Chicago, IL · $5M–$10M · growing 3 yrs","Strong fit","r2"),
+          ("Prairie Table Pantry","Chicago, IL · $1M–$5M · 2 grants over $1M","Good fit","r3")]
+    rr=''.join('<div class="demo-row %s"><div class="min0"><div class="demo-name">%s</div><div class="demo-meta">%s</div></div><span class="demo-fit">%s</span></div>'%(c,a,b,f) for a,b,f,c in rows)
+    inner=('<div class="demo-search">%s<span class="demo-q"><span class="q-type">food banks in Chicago that got over $1M in grants</span><span class="q-caret"></span></span><span class="demo-tag">ASK</span></div>'
+           '<div class="demo-thinking mono">Reading 1.9M profiles and 3.6M grants…</div>'
+           '<div class="demo-rows">%s</div>'
+           '<div class="demo-foot mono"><span>3 of 27 shown · judged for fit</span><span>Export CSV →</span></div>') % (I['search'], rr)
+    return _frame("ASK · PLAIN-ENGLISH SEARCH", inner)
+def verify_demo():
+    checks=[("IRS status","Active"),("Pub 78","Listed"),("Revocation","Not revoked"),("State registries","Clear"),("OFAC · organization","Clear"),("OFAC · leadership","Clear · 3 officers")]
+    rows=''.join('<div class="demo-chk"><b>%s</b><span class="v%d">%s%s</span></div>'%(k,i+1,I['check'],v) for i,(k,v) in enumerate(checks))
+    inner=('<div class="demo-org"><div><div class="demo-name lg">Riverbend Family Pantry</div><div class="demo-meta">EIN 12-3456789 · Brooklyn, NY</div></div><span class="demo-tag">VERIFY NOW</span></div>'
+           '<div class="demo-chks"><div class="scan"></div>%s</div>'
+           '<div class="demo-foot mono"><span>6 checks · under 100 ms · report saved to the grant file</span><span class="stamp">%sELIGIBLE</span></div>') % (rows, I['verify'])
+    return _frame("VERIFY · SIX-STEP CHECK", inner)
+def monitor_demo():
+    orgs=[("Riverbend Family Pantry","Brooklyn, NY",("a1","Adverse media · 2 articles","red")),
+          ("Harborlight Food Collective","Chicago, IL",("a2","New Form 990 filed · FY2025","teal")),
+          ("Maple Street Youth Alliance","Austin, TX",("a3","Leadership change on latest 990","teal")),
+          ("Open Door Housing Trust","Denver, CO",None)]
+    rows=''
+    for n,c,al in orgs:
+        badge=('<span class="demo-alert %s %s">%s</span>'%(al[0],al[2],al[1])) if al else '<span class="demo-meta">No change</span>'
+        rows+='<div class="demo-watch"><div class="min0 flex"><span class="pulse"></span><span class="demo-name sm">%s</span><span class="demo-meta city">%s</span></div>%s</div>'%(n,c,badge)
+    inner=('<div class="demo-org"><div class="flex teal">%s<span class="demo-name lg">Watch · 4 organizations</span></div><span class="demo-tag hide-sm">IRS · SANCTIONS · ADVERSE MEDIA</span></div>'
+           '<div class="demo-chks">%s</div>'
+           '<div class="demo-foot mono"><span>Checked nightly · alerts by email the moment something changes</span></div>') % (I['monitor'].replace('width="22" height="22"','width="20" height="20" class="bell"'), rows)
+    return _frame("WATCH · PORTFOLIO MONITORING", inner)
+CHAPTERS=[
+ ("01","RESEARCH","Find the right organizations, fast.",["Search 1.9M nonprofits and 151K funders by cause, place, size, and financials.","Ask in plain English and get a judged shortlist with a fit rating for every match.","See who funds whom across 3.6M mapped grants, then export the shortlist."],research_demo),
+ ("02","VERIFY","Every check, before money moves.",["IRS status, Pub 78, revocation, state registries, and OFAC screening for the organization and its leadership, in one click.","A shareable verification report, saved to the grant file.","Bulk verification: check up to 1,000 organizations in one go."],verify_demo),
+ ("03","MONITOR","Know the moment something changes.",["Watch tracks your grantees across IRS filings, sanctions lists, and adverse media.","Alerts by email when status, sanctions exposure, or news coverage changes.","Radar re-screens whole lists at once, so renewals start from current facts."],monitor_demo),
+]
+def chapter(n, name, title, points, demo, flip, alt):
+    li=''.join('<li><span class="mono num">%s.%d</span><span>%s</span></li>'%(n.lstrip('0'),i+1,p) for i,p in enumerate(points))
+    text=('<div class="ch-text"><div class="ch-stamp"><span class="stamp-n">%s</span><span class="mono ch-name">%s</span></div><h3>%s</h3><ul class="ch-points">%s</ul></div>'%(n,name,title,li))
+    return ('<section class="sec chapter%s%s" id="%s"><div class="container ch-grid%s">%s<div class="ch-demo">%s</div></div></section>'
+            % (' sec-alt' if alt else '', '', name.lower(), ' flip' if flip else '', text, demo()))
+def chapters_html():
+    intro=('<section class="sec ch-intro" id="discover"><div class="container"><div class="eyebrow">GIVALGO DISCOVER</div>'
+           '<h2>Research, verify, and monitor <em>every</em> grantee.</h2>'
+           '<p class="lead lead-narrow">Every claim on Discover is grounded in the filings nonprofits submit to the IRS. We structure them, check them against sanctions and state registries, and keep watching after you fund.</p>'
+           '<div class="cta-row"><a class="btn btn-primary" href="https://discover.givalgo.ai">Open Discover %s</a><span class="hint">Free to start · Pro $20/mo · 14-day trial, no card</span></div></div></section>' % I['arrow'])
+    return intro + ''.join(chapter(n,name,t,pts,d, flip=(i%2==1), alt=(i%2==1)) for i,(n,name,t,pts,d) in enumerate(CHAPTERS))
+
 LANDING='''<main id="main">
 <section class="hero" id="top">
   <div class="container hero-inner">
@@ -156,28 +207,11 @@ LANDING='''<main id="main">
   <div class="container"><span class="eyebrow-xs">BACKED BY</span><a href="https://www.blackbaud.com/social-good-startup-program" target="_blank" rel="noopener">Blackbaud Social Good Startup Program</a></div>
 </section>
 
-<section class="sec" id="discover">
-  <div class="container two-col">
-    <div class="col-text">
-      <div class="eyebrow">GIVALGO DISCOVER</div>
-      <h2>The workspace for grantmaking teams.</h2>
-      <p class="lead">Find the right organizations, vet them in one view, and keep watching them after the grant goes out. All in the browser, no integration needed.</p>
-      <div class="features">
-        <div class="feature"><span class="feature-icon">%(research)s</span><div><h3>Research</h3><p>Search 1.9M nonprofits and 151K funders by cause, geography, size, financials, and who funds whom. Ask in plain English and export shortlists.</p></div></div>
-        <div class="feature"><span class="feature-icon">%(verify)s</span><div><h3>Verify</h3><p>IRS eligibility, auto-revocation, OFAC screening of the organization and its leaders, state registries, and governance signals. One view, before money moves.</p></div></div>
-        <div class="feature"><span class="feature-icon">%(monitor)s</span><div><h3>Monitor</h3><p>Givalgo Watch tracks your portfolio across IRS filings, sanctions lists, and adverse media, and alerts you the moment something changes.</p></div></div>
-      </div>
-      <div class="cta-row"><a class="btn btn-primary" href="https://discover.givalgo.ai">Open Discover %(arrow)s</a><span class="hint">Free to start · Pro $20/mo · 14-day trial, no card</span></div>
-    </div>
-    <div class="col-media">
-      <img class="product-gif" src="/assets/discover-flow.gif" srcset="/assets/discover-flow.gif 1x, /assets/discover-flow@2x.gif 2x" width="560" height="520" loading="lazy" alt="Givalgo Discover: searching for organizations in NYC that tackle food insecurity, opening Vinegar Hill Food Pantry, running verification checks, saving the report, and turning on monitoring" />
-    </div>
-  </div>
-</section>
+%(chapters)s
 
-<section class="sec sec-alt" id="apis">
+<section class="sec" id="apis">
   <div class="container">
-    <div class="eyebrow">GIVALGO API</div>
+    <div class="ch-stamp"><span class="stamp-n">04</span><span class="mono ch-name">GIVALGO API</span></div>
     <h2>Build nonprofit verification and data into your platform.</h2>
     <p class="lead lead-narrow">The same data behind Discover, delivered as REST APIs. Verify, enrich, and prospect inside your own product, refreshed nightly from IRS and sanctions sources.</p>
     <div class="tiles">
@@ -191,10 +225,10 @@ LANDING='''<main id="main">
         <div class="code-head"><span>API.GIVALGO.AI · V1</span><span>&lt;100 MS</span></div>
         <div class="code-body">
           <div class="c-muted">// Verify any nonprofit in one call</div>
-          <div><span class="c-teal">GET</span> /v1/verify?ein=87-3179766</div>
+          <div><span class="c-teal">GET</span> /v1/verify?ein=12-3456789</div>
           <div class="c-dim">x-api-key: gvlg_live_••••••••</div>
           <div class="code-resp">
-            <div><span>name</span><b>"Vinegar Hill Food Pantry"</b></div>
+            <div><span>name</span><b>"Riverbend Family Pantry"</b></div>
             <div><span>status</span><b class="c-teal">ELIGIBLE</b></div>
             <div><span>pub78_listed</span><b class="c-teal">true</b></div>
             <div><span>revoked</span><b class="c-teal">false</b></div>
@@ -224,7 +258,7 @@ LANDING='''<main id="main">
   </div>
 </section>
 </main>
-''' % dict(I,
+''' % dict(I, chapters=chapters_html(),
   t0_li=li(["Active 501(c)(3) status, Pub 78, group exemption", "IRS auto-revocation, California FTB and AG registries", "OFAC screening of the org and every officer and director", "Bulk Verify up to 20K EINs, plus a shareable Report API"]),
   t1_li=li(["Search by cause, place, size, financials, or funder, or Ask", "Profiles from every 990, 990-EZ, and 990-PF filing", "Grants made and received, funder-to-recipient mapping", "Data Pro API: 450+ fields on any single organization"]),
   t2_li=li(["A complete, citation-backed diligence brief in one call", "Financials, governance, risk flags, and peer benchmarks", "AI agents research the web, grounded against 990 filings", "Structured JSON with every claim sourced, ready to file"]),
@@ -390,13 +424,13 @@ print('index.html',len(index),'pricing/index.html',len(pricing),'site.css',os.pa
 def uc_verify_card():
     rows=[("IRS status","Active"),("Pub 78","Listed"),("Auto-revocation","Not revoked"),("CA AG registry","Clear"),("OFAC · organization","Clear"),("OFAC · leadership","Clear · officers screened")]
     chk=''.join('<div class="chk"><b>%s</b><span>%s%s</span></div>'%(k,I['check'],v) for k,v in rows)
-    return ('<div class="verify-card dark"><div class="code-head"><span>VERIFY · EIN 87-3179766</span><span>&lt;100 MS</span></div>'
-            '<div class="verify-body"><div class="org">Vinegar Hill Food Pantry <span>· Brooklyn, NY</span></div>'+chk+
+    return ('<div class="verify-card dark"><div class="code-head"><span>VERIFY · EIN 12-3456789</span><span>&lt;100 MS</span></div>'
+            '<div class="verify-body"><div class="org">Riverbend Family Pantry <span>· Brooklyn, NY</span></div>'+chk+
             '<div class="chk all">'+I['verify']+'Eligible · Report saved to the grant file</div></div></div>')
 def uc_code_card():
     return ('<div class="code"><div class="code-head"><span>API.GIVALGO.AI · V1</span><span>&lt;100 MS</span></div><div class="code-body">'
-            '<div class="c-muted">// Verify any nonprofit in one call</div><div><span class="c-teal">GET</span> /v1/verify?ein=87-3179766</div><div class="c-dim">x-api-key: gvlg_live_••••••••</div>'
-            '<div class="code-resp"><div><span>name</span><b>"Vinegar Hill Food Pantry"</b></div><div><span>status</span><b class="c-teal">ELIGIBLE</b></div><div><span>pub78_listed</span><b class="c-teal">true</b></div><div><span>revoked</span><b class="c-teal">false</b></div><div><span>ofac_org_screen</span><b class="c-teal">CLEAR</b></div><div><span>ofac_leadership</span><b class="c-teal">CLEAR</b></div></div></div></div>')
+            '<div class="c-muted">// Verify any nonprofit in one call</div><div><span class="c-teal">GET</span> /v1/verify?ein=12-3456789</div><div class="c-dim">x-api-key: gvlg_live_••••••••</div>'
+            '<div class="code-resp"><div><span>name</span><b>"Riverbend Family Pantry"</b></div><div><span>status</span><b class="c-teal">ELIGIBLE</b></div><div><span>pub78_listed</span><b class="c-teal">true</b></div><div><span>revoked</span><b class="c-teal">false</b></div><div><span>ofac_org_screen</span><b class="c-teal">CLEAR</b></div><div><span>ofac_leadership</span><b class="c-teal">CLEAR</b></div></div></div></div>')
 def uc_gif():
     return '<img class="product-gif" src="/assets/discover-flow.gif" srcset="/assets/discover-flow.gif 1x, /assets/discover-flow@2x.gif 2x" width="560" height="520" loading="lazy" alt="Givalgo Discover: search, profile, verification, report, and monitoring" />'
 DEMO_CTA='<button type="button" class="btn btn-primary" onclick="openModal()">Book a demo %s</button>' % I['arrow']

@@ -190,6 +190,9 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
 .uc-tile h3 { font-size: 16px; }
 .uc-tile p { font-size: 14px; line-height: 1.55; color: var(--c-muted); }
 .sec .eyebrow + h2 { margin-top: 8px; }
+#features .eyebrow + h2 { margin-top: 14px; }
+#features h2 + .lead { margin-top: 18px; }
+#features .lead + .uc-grid { margin-top: 20px; }
 
 /* Chapters (Research / Verify / Monitor) */
 .ch-intro .container { display: flex; flex-direction: column; gap: 14px; }

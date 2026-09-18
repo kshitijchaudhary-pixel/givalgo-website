@@ -160,9 +160,9 @@ def monitor_demo():
            '<div class="demo-foot mono"><span>Checked nightly · alerts by email the moment something changes</span></div>') % (I['monitor'].replace('width="22" height="22"','width="20" height="20" class="bell"'), rows)
     return _frame("WATCH · PORTFOLIO MONITORING", inner)
 CHAPTERS=[
- ("01","RESEARCH","Find the right organizations, fast.",["Search 1.9M nonprofits and 151K funders by cause, place, size, and financials.","Ask in plain English and get a judged shortlist with a fit rating for every match.","See who funds whom across 3.6M mapped grants, then export the shortlist."],research_demo),
+ ("01","RESEARCH","Find the right organizations, fast.",["Search 1.9M nonprofits and 151K funders by cause, place, size, and financials, or ask in plain English for a judged shortlist.","See who funds whom across 3.6M mapped grants, then export the shortlist.","AI Diligence Briefs: a cited memo on any organization, shaped around the questions that matter most to you."],research_demo),
  ("02","VERIFY","Every check, before money moves.",["IRS status, Pub 78, revocation, state registries, and OFAC screening for the organization and its leadership, in one click.","A shareable verification report, saved to the grant file.","Bulk verification: check up to 1,000 organizations in one go."],verify_demo),
- ("03","MONITOR","Know the moment something changes.",["Watch tracks your grantees across IRS filings, sanctions lists, and adverse media.","Alerts by email when status, sanctions exposure, or news coverage changes.","Radar re-screens whole lists at once, so renewals start from current facts."],monitor_demo),
+ ("03","MONITOR","Know the moment something changes.",["Watch tracks your grantees across IRS filings, sanctions lists, and adverse media.","Alerts by email when status, sanctions exposure, or news coverage changes.","Human-in-the-loop review on every alert, so you get the signal and none of the noise."],monitor_demo),
 ]
 def chapter(n, name, title, points, demo, flip, alt):
     li=''.join('<li><span class="mono num">%s.%d</span><span>%s</span></li>'%(n.lstrip('0'),i+1,p) for i,p in enumerate(points))
@@ -287,6 +287,7 @@ LANDING='''<main id="main">
       <div><b>1.3B+</b><span>STRUCTURED DATA POINTS</span></div>
       <div><b>&lt;100ms</b><span>AVG. API RESPONSE</span></div>
     </div>
+    <div class="cta-row center api-cta"><button type="button" class="btn btn-primary" onclick="openModal()">Talk to Sales %(arrow)s</button><span class="hint">API provisioned in less than 24 hours</span></div>
   </div>
 </section>
 %(api_body)s

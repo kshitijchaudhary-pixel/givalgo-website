@@ -134,6 +134,7 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
 
 #apis .container { display: flex; flex-direction: column; gap: 14px; }
 .stats-center { margin-top: 26px; text-align: center; }
+.api-cta { margin-top: 22px; flex-direction: column; gap: 12px; }
 .stats-center div { align-items: center; }
 #api-products .tiles { margin-top: 0; }
 .tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
@@ -315,17 +316,17 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
 .f1 { animation: fld1 10s infinite; } .f2 { animation: fld2 10s infinite; } .f3 { animation: fld3 10s infinite; } .f4 { animation: fld4 10s infinite; } .f5 { animation: fld5 10s infinite; } .f6 { animation: fld6 10s infinite; } .f7 { animation: fld7 10s infinite; } .f8 { animation: fld8 10s infinite; } .f9 { animation: fld9 10s infinite; } .f10 { animation: fld10 10s infinite; } .fld.more { animation: fld11 10s infinite; }
 @keyframes fld1 { 0%, 40% { opacity: 0; } 43%, 96% { opacity: 1; } 100% { opacity: 0; } } @keyframes fld2 { 0%, 43% { opacity: 0; } 46%, 96% { opacity: 1; } 100% { opacity: 0; } } @keyframes fld3 { 0%, 46% { opacity: 0; } 49%, 96% { opacity: 1; } 100% { opacity: 0; } } @keyframes fld4 { 0%, 49% { opacity: 0; } 52%, 96% { opacity: 1; } 100% { opacity: 0; } } @keyframes fld5 { 0%, 52% { opacity: 0; } 55%, 96% { opacity: 1; } 100% { opacity: 0; } } @keyframes fld6 { 0%, 55% { opacity: 0; } 58%, 96% { opacity: 1; } 100% { opacity: 0; } } @keyframes fld7 { 0%, 58% { opacity: 0; } 61%, 96% { opacity: 1; } 100% { opacity: 0; } } @keyframes fld8 { 0%, 61% { opacity: 0; } 64%, 96% { opacity: 1; } 100% { opacity: 0; } } @keyframes fld9 { 0%, 64% { opacity: 0; } 67%, 96% { opacity: 1; } 100% { opacity: 0; } } @keyframes fld10 { 0%, 67% { opacity: 0; } 70%, 96% { opacity: 1; } 100% { opacity: 0; } } @keyframes fld11 { 0%, 72% { opacity: 0; } 75%, 96% { opacity: 1; } 100% { opacity: 0; } }
 .counter { animation: fld11 10s infinite; }
-.s1 .tick, .s2 .tick, .s3 .tick, .s4 .tick { animation: tickOn 12s infinite; background: transparent; }
+.s1 .tick, .s2 .tick, .s3 .tick, .s4 .tick { animation: tickOn 9s infinite; background: transparent; }
 .s1 .tick { animation-name: tick1b; } .s2 .tick { animation-name: tick2b; } .s3 .tick { animation-name: tick3b; } .s4 .tick { animation-name: tick4b; }
 @keyframes tick1b { 0%, 12% { background: transparent; } 16%, 96% { background: #5EEAD4; border-color: #5EEAD4; } 100% { background: transparent; } }
 @keyframes tick2b { 0%, 26% { background: transparent; } 30%, 96% { background: #5EEAD4; border-color: #5EEAD4; } 100% { background: transparent; } }
 @keyframes tick3b { 0%, 40% { background: transparent; } 44%, 96% { background: #5EEAD4; border-color: #5EEAD4; } 100% { background: transparent; } }
 @keyframes tick4b { 0%, 54% { background: transparent; } 58%, 96% { background: #5EEAD4; border-color: #5EEAD4; } 100% { background: transparent; } }
-.b1 { animation: brief1 12s infinite; } .b2 { animation: brief2 12s infinite; } .b3 { animation: brief3 12s infinite; }
+.b1 { animation: brief1 9s infinite; } .b2 { animation: brief2 9s infinite; } .b3 { animation: brief3 9s infinite; }
 @keyframes brief1 { 0%, 62% { opacity: 0; transform: translateY(6px); } 66%, 96% { opacity: 1; transform: none; } 100% { opacity: 0; } }
 @keyframes brief2 { 0%, 68% { opacity: 0; transform: translateY(6px); } 72%, 96% { opacity: 1; transform: none; } 100% { opacity: 0; } }
 @keyframes brief3 { 0%, 74% { opacity: 0; transform: translateY(6px); } 78%, 96% { opacity: 1; transform: none; } 100% { opacity: 0; } }
-.badge-in2 { animation: badgeIn2 12s infinite; } @keyframes badgeIn2 { 0%, 80% { opacity: 0; transform: scale(1.3); } 85%, 96% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+.badge-in2 { animation: badgeIn2 9s infinite; } @keyframes badgeIn2 { 0%, 80% { opacity: 0; transform: scale(1.3); } 85%, 96% { opacity: 1; transform: none; } 100% { opacity: 0; } }
 .c1 .tick { animation: ctick1 9s infinite; } .c2 .tick { animation: ctick2 9s infinite; } .c3 .tick { animation: ctick3 9s infinite; } .c4 .tick { animation: ctick4 9s infinite; }
 @keyframes ctick1 { 0%, 14% { background: transparent; } 18%, 96% { background: #5EEAD4; border-color: #5EEAD4; } 100% { background: transparent; } }
 @keyframes ctick2 { 0%, 28% { background: transparent; } 32%, 96% { background: #5EEAD4; border-color: #5EEAD4; } 100% { background: transparent; } }

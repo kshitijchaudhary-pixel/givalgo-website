@@ -100,7 +100,7 @@ def nav(on_pricing=False, current=None):
     <nav class="nav-links" aria-label="Primary">%s%s%s</nav>
     <div class="nav-actions">
       <a class="nav-signin" href="https://discover.givalgo.ai">Sign in</a>
-      <button type="button" class="btn btn-outline btn-sm" onclick="openModal()">Book a demo</button>
+      <button type="button" class="btn btn-primary btn-sm" onclick="openModal()">Book a demo</button>
       <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" aria-controls="mobileNav" aria-expanded="false" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
     </div>
   </div>

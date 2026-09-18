@@ -287,7 +287,7 @@ LANDING='''<main id="main">
       <div><b>1.3B+</b><span>STRUCTURED DATA POINTS</span></div>
       <div><b>&lt;100ms</b><span>AVG. API RESPONSE</span></div>
     </div>
-    <div class="cta-row center api-cta"><button type="button" class="btn btn-primary" onclick="openModal()">Talk to Sales %(arrow)s</button><span class="hint">API provisioned in less than 24 hours</span></div>
+    <div class="cta-row api-cta"><button type="button" class="btn btn-primary" onclick="openModal()">Talk to Sales %(arrow)s</button><span class="hint">API provisioned in less than 24 hours</span></div>
   </div>
 </section>
 %(api_body)s

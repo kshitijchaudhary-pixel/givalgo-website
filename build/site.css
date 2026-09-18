@@ -134,7 +134,7 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
 
 #apis .container { display: flex; flex-direction: column; gap: 14px; }
 .stats-center { margin-top: 26px; text-align: center; }
-.api-cta { margin-top: 22px; flex-direction: column; gap: 12px; }
+.api-cta { margin-top: 22px; }
 .stats-center div { align-items: center; }
 #api-products .tiles { margin-top: 0; }
 .tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: stretch; }

@@ -166,7 +166,7 @@ CHAPTERS=[
 ]
 def chapter(n, name, title, points, demo, flip, alt):
     li=''.join('<li><span class="mono num">%s.%d</span><span>%s</span></li>'%(n.lstrip('0'),i+1,p) for i,p in enumerate(points))
-    text=('<div class="ch-text"><div class="ch-stamp"><span class="stamp-n">%s</span><span class="mono ch-name">%s</span></div><h3>%s</h3><ul class="ch-points">%s</ul></div>'%(n,name,title,li))
+    text=('<div class="ch-text"><div class="ch-stamp"><span class="mono ch-name">%s</span></div><h3>%s</h3><ul class="ch-points">%s</ul></div>'%(name,title,li))
     return ('<section class="sec chapter%s%s" id="%s"><div class="container ch-grid%s">%s<div class="ch-demo">%s</div></div></section>'
             % (' sec-alt' if alt else '', '', name.lower(), ' flip' if flip else '', text, demo()))
 API_TILES='''<section class="sec" id="api-products">

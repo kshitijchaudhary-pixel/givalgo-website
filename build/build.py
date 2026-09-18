@@ -483,9 +483,6 @@ UC_TPL='''<main id="main">
     <div class="uc-visual">%(visual)s</div>
   </div>
 </section>
-<section class="backed">
-  <div class="container"><span class="eyebrow-xs">BACKED BY</span><a href="https://www.blackbaud.com/social-good-startup-program" target="_blank" rel="noopener">Blackbaud Social Good Startup Program</a><span class="hint">· %(trust)s</span></div>
-</section>
 <section class="sec" id="how">
   <div class="container">
     <div class="eyebrow">HOW IT WORKS</div>

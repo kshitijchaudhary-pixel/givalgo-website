@@ -182,8 +182,8 @@ API_TILES='''<section class="sec" id="api-products">
 '''
 def chapters_html():
     intro=('<section class="sec ch-intro" id="discover"><div class="container"><div class="eyebrow">GIVALGO DISCOVER</div>'
-           '<h2>Research, verify, and monitor <em>every</em> grantee.</h2>'
-           '<p class="lead lead-wide">Every claim on Discover is grounded in IRS, state registry, sanctions, and web data. We structure it, let you verify in real time, and keep watching after you fund.</p>'
+           '<h2>One place to find, check, and follow <em>every</em> grantee.</h2>'
+           '<p class="lead lead-wide">Every claim on Discover is grounded in IRS, state registry, sanctions, and web data. We structure it, let you check it in real time, and keep watching after the money moves.</p>'
            '<div class="cta-row"><a class="btn btn-primary" href="https://discover.givalgo.ai">Open Discover %s</a><span class="hint">Free to start · Pro $20/mo · 14-day trial, no card</span></div></div></section>' % I['arrow'])
     return intro + ''.join(chapter(n,name,t,pts,d, flip=(i%2==1), alt=(i%2==1)) for i,(n,name,t,pts,d) in enumerate(CHAPTERS))
 
@@ -230,9 +230,9 @@ def faith_api_demo():
     return _dframe("FAITHVERIFY API · RELIGIOUS ORGANIZATIONS", inner)
 API_CHAPTERS=[
  ("VERIFY API","Eligibility and sanctions, in one call.",["Active 501(c)(3) status, Pub 78, group exemption","IRS auto-revocation, California FTB and AG registries","OFAC screening of the org and every officer and director","Bulk Verify up to 20K EINs, plus a shareable Report API"],verify_api_demo),
- ("DATA API","Search, prospect, and profile any nonprofit.",["Search by cause, place, size, financials, or funder, or Ask","Profiles from every 990, 990-EZ, and 990-PF filing","Grants made and received, funder-to-recipient mapping","Data Pro API: 450+ fields on any single organization"],data_api_demo),
- ("RESEARCH API","A complete diligence brief, on demand.",["A complete, citation-backed diligence brief in one call","Financials, governance, risk flags, and peer benchmarks","AI agents research the web, grounded against 990 filings","Structured JSON with every claim sourced, ready to file"],research_api_demo),
- ("FAITHVERIFY API","Verification for organizations that never file a 990.",["Status verification for over 90% of American churches","IRS group exemption mapping and hierarchy","Affiliation confirmed against denominational registers","Built for DAFs, community foundations, workplace giving"],faith_api_demo),
+ ("DATA API","Search, prospect, and profile any nonprofit.",["Filter searches by cause, geography, or financials","Plain-English searches matched to the right nonprofits","More than six years of rich data on every nonprofit","450+ extracted and computed attributes"],data_api_demo),
+ ("RESEARCH API","A complete diligence brief, on demand.",["A complete, citation-backed diligence brief in one call","Financials, governance, risk flags, and peer benchmarks","AI agents research the web, grounded against 990 filings","Every attribute cited to its source, grounded, ethical AI"],research_api_demo),
+ ("FAITHVERIFY API","Verify organizations that never file a 990.",["Status verification for over 90% of American churches","IRS group exemption mapping and hierarchy","Affiliation confirmed against denominational registers","Built for DAFs, community foundations, workplace giving"],faith_api_demo),
 ]
 def api_chapters_html():
     out=''
@@ -302,7 +302,7 @@ LANDING='''<main id="main">
 ''' % dict(I, chapters=chapters_html(), api_body=api_chapters_html(),
   t0_li=li(["Active 501(c)(3) status, Pub 78, group exemption", "IRS auto-revocation, California FTB and AG registries", "OFAC screening of the org and every officer and director", "Bulk Verify up to 20K EINs, plus a shareable Report API"]),
   t1_li=li(["Search by cause, place, size, financials, or funder, or Ask", "Profiles from every 990, 990-EZ, and 990-PF filing", "Grants made and received, funder-to-recipient mapping", "Data Pro API: 450+ fields on any single organization"]),
-  t2_li=li(["A complete, citation-backed diligence brief in one call", "Financials, governance, risk flags, and peer benchmarks", "AI agents research the web, grounded against 990 filings", "Structured JSON with every claim sourced, ready to file"]),
+  t2_li=li(["A complete, citation-backed diligence brief in one call", "Financials, governance, risk flags, and peer benchmarks", "AI agents research the web, grounded against 990 filings", "Every attribute cited to its source, grounded, ethical AI"]),
   t3_li=li(["Status verification for over 90% of American churches", "IRS group exemption mapping and hierarchy", "Affiliation confirmed against denominational registers", "Built for DAFs, community foundations, workplace giving"]),
 )
 

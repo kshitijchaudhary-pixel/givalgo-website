@@ -1,5 +1,5 @@
 import os, re
-B=os.path.dirname(os.path.abspath(__file__)); R=os.path.dirname(B)
+B=os.path.dirname(os.path.abspath(__file__)); R=os.environ.get('OUT_DIR') or os.path.dirname(B)
 rd=lambda n: open(os.path.join(B,n)).read()
 CSS=open(os.path.join(B,'site.css')).read()
 GA=rd('ga.html'); LOGO=rd('logo.svg').strip(); MODAL=rd('modal.html'); PRIVACY=rd('privacy.html'); SCRIPTS=rd('scripts.js'); LEGACY=rd('legacy.css'); ROOT=rd('root.css')
@@ -128,7 +128,7 @@ def footer(on_pricing=False):
 
 # ---------------- Chapter demos (pure CSS loops; keyframes in site.css) ----------------
 def _frame(label, inner):
-    return ('<div class="demo" aria-hidden="true"><div class="demo-head"><span>%s</span><span class="demo-live">LIVE DEMO · LOOPS</span></div><div class="demo-body">%s</div></div>' % (label, inner))
+    return ('<div class="demo" aria-hidden="true"><div class="demo-head"><span>%s</span></div><div class="demo-body">%s</div></div>' % (label, inner))
 def research_demo():
     rows=[("Northside Community Kitchen","Chicago, IL · $10M–$50M · 3 grants over $1M","Strong fit","r1"),
           ("Harborlight Food Collective","Chicago, IL · $5M–$10M · growing 3 yrs","Strong fit","r2"),
@@ -169,12 +169,79 @@ def chapter(n, name, title, points, demo, flip, alt):
     text=('<div class="ch-text"><div class="ch-stamp"><span class="stamp-n">%s</span><span class="mono ch-name">%s</span></div><h3>%s</h3><ul class="ch-points">%s</ul></div>'%(n,name,title,li))
     return ('<section class="sec chapter%s%s" id="%s"><div class="container ch-grid%s">%s<div class="ch-demo">%s</div></div></section>'
             % (' sec-alt' if alt else '', '', name.lower(), ' flip' if flip else '', text, demo()))
+API_TILES='''<section class="sec" id="api-products">
+  <div class="container">
+    <div class="tiles">
+      <div class="tile"><h3>Verify API</h3><p class="tile-sub">Real-time eligibility and sanctions verification</p><ul>%(t0_li)s</ul></div>
+      <div class="tile"><h3>Data API</h3><p class="tile-sub">Search, prospect, and profile any nonprofit</p><ul>%(t1_li)s</ul></div>
+      <div class="tile"><h3>Research API</h3><p class="tile-sub">Autonomous due diligence, delivered as a brief</p><ul>%(t2_li)s</ul></div>
+      <div class="tile"><h3>FaithVerify API</h3><p class="tile-sub">Denomination and religious-organization verification</p><ul>%(t3_li)s</ul></div>
+    </div>
+  </div>
+</section>
+'''
 def chapters_html():
     intro=('<section class="sec ch-intro" id="discover"><div class="container"><div class="eyebrow">GIVALGO DISCOVER</div>'
            '<h2>Research, verify, and monitor <em>every</em> grantee.</h2>'
-           '<p class="lead lead-narrow">Every claim on Discover is grounded in the filings nonprofits submit to the IRS. We structure them, check them against sanctions and state registries, and keep watching after you fund.</p>'
+           '<p class="lead lead-wide">Every claim on Discover is grounded in IRS, state registry, sanctions, and web data. We structure it, let you verify in real time, and keep watching after you fund.</p>'
            '<div class="cta-row"><a class="btn btn-primary" href="https://discover.givalgo.ai">Open Discover %s</a><span class="hint">Free to start · Pro $20/mo · 14-day trial, no card</span></div></div></section>' % I['arrow'])
     return intro + ''.join(chapter(n,name,t,pts,d, flip=(i%2==1), alt=(i%2==1)) for i,(n,name,t,pts,d) in enumerate(CHAPTERS))
+
+# ---------------- API chapters (dark terminal demos) ----------------
+def _dframe(label, inner):
+    return '<div class="demo demo-dark" aria-hidden="true"><div class="demo-head"><span>%s</span></div><div class="demo-body term">%s</div></div>' % (label, inner)
+def verify_api_demo():
+    lines=[('"status"','"ELIGIBLE"'),('"pub78_listed"','true'),('"revoked"','false'),('"state_registries"','"CLEAR"'),('"ofac_organization"','"CLEAR"'),('"ofac_leadership"','"CLEAR · 3 officers screened"'),('"report_url"','"…/reports/12-3456789.pdf"')]
+    resp=''.join('<div class="tl j%d"><span class="k">%s</span>: <span class="val">%s</span>%s</div>'%(i+1,k,v,',' if i<len(lines)-1 else '') for i,(k,v) in enumerate(lines))
+    inner=('<div class="tl"><span class="m">POST</span> /v1/verify <span class="dim">·</span> <span class="q-type2">{"ein": "12-3456789"}</span><span class="q-caret light"></span></div>'
+           '<div class="tl ok-line"><span class="ok">→ 200 OK</span> <span class="dim">· 87 ms</span></div>'
+           '<div class="tl dim resp-open">{</div>%s<div class="tl dim resp-close">}</div>'
+           '<div class="term-foot"><span class="dim">Bulk Verify: up to 20K EINs per request</span><span class="badge-ok badge-in">ELIGIBLE</span></div>') % resp
+    return _dframe("VERIFY API · ONE CALL", inner)
+def data_api_demo():
+    hits=[("Northside Community Kitchen","12-3456789"),("Harborlight Food Collective","98-7654321"),("Prairie Table Pantry","11-2233445")]
+    hl=''.join('<div class="tl h%d">  {"name": <span class="val">"%s"</span>, "ein": <span class="val">"%s"</span>, "revenue_band": <span class="val">"$1M–$50M"</span>},</div>'%(i+1,n,e) for i,(n,e) in enumerate(hits))
+    fields=['revenue_total','expenses_total','net_assets','program_ratio','officers[3].compensation','grants_received[]','grants_made[]','board_independent_pct','fundraising_efficiency','filing_years[5]']
+    fl=''.join('<span class="fld f%d">%s</span>'%(i+1,f) for i,f in enumerate(fields))
+    inner=('<div class="tl"><span class="m">GET</span> /v1/orgs/search?q=<span class="val">food+bank</span>&amp;state=<span class="val">IL</span></div>'
+           '<div class="tl dim">→ 3 of 128 results</div>%s'
+           '<div class="tl sep"><span class="m">GET</span> /v1/orgs/12-3456789?fields=<span class="val">pro</span> <span class="dim">· Data Pro API</span></div>'
+           '<div class="fields">%s<span class="fld more">… 450+ fields</span></div>'
+           '<div class="term-foot"><span class="dim">Every 990, 990-EZ, and 990-PF · nightly refresh</span><span class="counter">450+</span></div>') % (hl, fl)
+    return _dframe("DATA API · SEARCH, PROFILE, DATA PRO", inner)
+def research_api_demo():
+    steps=[("Reading 990s · FY2021–2024","s1"),("Screening sanctions and state registries","s2"),("Researching website and news","s3"),("Writing the brief","s4")]
+    sl=''.join('<div class="tl step %s"><span class="tick">%s</span>%s</div>'%(c,I['check'],t) for t,c in steps)
+    brief=[("Summary","Small, volunteer-run pantry; consistent filings; no governance flags."),("Financial health","Reserves 8.7 months; program ratio 97.8%. <span class=\"cite\">[1][2]</span>"),("Risk flags","Adverse media: 2 articles, both resolved. <span class=\"cite\">[3]</span>")]
+    bl=''.join('<div class="brief-row b%d"><b>%s</b><span>%s</span></div>'%(i+1,h,t) for i,(h,t) in enumerate(brief))
+    inner=('<div class="tl"><span class="m">POST</span> /v1/research/brief <span class="dim">·</span> {"ein": <span class="val">"12-3456789"</span>}</div>'
+           '<div class="steps">%s</div>'
+           '<div class="brief">%s</div>'
+           '<div class="term-foot"><span class="dim">Every claim cited · 14 sources</span><span class="badge-ok badge-in2">BRIEF READY</span></div>') % (sl, bl)
+    return _dframe("RESEARCH API · DUE-DILIGENCE BRIEF", inner)
+def faith_api_demo():
+    checks=[("Listed in the denominational directory","c1"),("Active congregation confirmed","c2"),("IRS group ruling matched","c3"),("501(c)(3) equivalent · gifts deductible","c4")]
+    cl=''.join('<div class="tl step %s"><span class="tick">%s</span>%s</div>'%(c,I['check'],t) for t,c in checks)
+    inner=('<div class="tl"><span class="m">GET</span> /v1/faithverify?ein=<span class="val">33-4455667</span></div>'
+           '<div class="tl"><span class="val">"Grace Chapel of Maple Street"</span> <span class="dim">· Austin, TX · no 990 on file</span></div>'
+           '<div class="tl dim">denomination: <span class="val">"Methodist"</span> · directory: <span class="val">"listed"</span></div>'
+           '<div class="steps">%s</div>'
+           '<div class="term-foot"><span class="dim">Covers 90%%+ of American churches</span><span class="badge-ok badge-in3">VERIFIED</span></div>') % cl
+    return _dframe("FAITHVERIFY API · RELIGIOUS ORGANIZATIONS", inner)
+API_CHAPTERS=[
+ ("VERIFY API","Eligibility and sanctions, in one call.",["Active 501(c)(3) status, Pub 78, group exemption","IRS auto-revocation, California FTB and AG registries","OFAC screening of the org and every officer and director","Bulk Verify up to 20K EINs, plus a shareable Report API"],verify_api_demo),
+ ("DATA API","Search, prospect, and profile any nonprofit.",["Search by cause, place, size, financials, or funder, or Ask","Profiles from every 990, 990-EZ, and 990-PF filing","Grants made and received, funder-to-recipient mapping","Data Pro API: 450+ fields on any single organization"],data_api_demo),
+ ("RESEARCH API","A complete diligence brief, on demand.",["A complete, citation-backed diligence brief in one call","Financials, governance, risk flags, and peer benchmarks","AI agents research the web, grounded against 990 filings","Structured JSON with every claim sourced, ready to file"],research_api_demo),
+ ("FAITHVERIFY API","Verification for organizations that never file a 990.",["Status verification for over 90% of American churches","IRS group exemption mapping and hierarchy","Affiliation confirmed against denominational registers","Built for DAFs, community foundations, workplace giving"],faith_api_demo),
+]
+def api_chapters_html():
+    out=''
+    for i,(name,title,pts,demo) in enumerate(API_CHAPTERS):
+        flip=(i%2==1); alt=(i%2==0)   # the API intro is off-white, so the first chapter is white
+        li=''.join('<li><span class="mono num">%d.%d</span><span>%s</span></li>'%(i+1,j+1,p) for j,p in enumerate(pts))
+        text='<div class="ch-text"><div class="ch-stamp"><span class="mono ch-name">%s</span></div><h3>%s</h3><ul class="ch-points">%s</ul></div>'%(name,title,li)
+        out+='<section class="sec chapter%s" id="%s"><div class="container ch-grid%s">%s<div class="ch-demo">%s</div></div></section>'%(' sec-alt' if not alt else '', name.lower().replace(' ','-'), ' flip' if flip else '', text, demo())
+    return out
 
 LANDING='''<main id="main">
 <section class="hero" id="top">
@@ -209,46 +276,20 @@ LANDING='''<main id="main">
 
 %(chapters)s
 
-<section class="sec" id="apis">
-  <div class="container">
-    <div class="ch-stamp"><span class="stamp-n">04</span><span class="mono ch-name">GIVALGO API</span></div>
+<section class="sec sec-alt" id="apis">
+  <div class="container api-intro">
+    <div class="eyebrow">GIVALGO API</div>
     <h2>Build nonprofit verification and data into your platform.</h2>
-    <p class="lead lead-narrow">The same data behind Discover, delivered as REST APIs. Verify, enrich, and prospect inside your own product, refreshed nightly from IRS and sanctions sources.</p>
-    <div class="tiles">
-      <div class="tile"><h3>Verify API</h3><p class="tile-sub">Real-time eligibility and sanctions verification</p><ul>%(t0_li)s</ul></div>
-      <div class="tile"><h3>Data API</h3><p class="tile-sub">Search, prospect, and profile any nonprofit</p><ul>%(t1_li)s</ul></div>
-      <div class="tile"><h3>Research API</h3><p class="tile-sub">Autonomous due diligence, delivered as a brief</p><ul>%(t2_li)s</ul></div>
-      <div class="tile"><h3>FaithVerify API</h3><p class="tile-sub">Denomination and religious-organization verification</p><ul>%(t3_li)s</ul></div>
-    </div>
-    <div class="api-bottom">
-      <div class="code">
-        <div class="code-head"><span>API.GIVALGO.AI · V1</span><span>&lt;100 MS</span></div>
-        <div class="code-body">
-          <div class="c-muted">// Verify any nonprofit in one call</div>
-          <div><span class="c-teal">GET</span> /v1/verify?ein=12-3456789</div>
-          <div class="c-dim">x-api-key: gvlg_live_••••••••</div>
-          <div class="code-resp">
-            <div><span>name</span><b>"Riverbend Family Pantry"</b></div>
-            <div><span>status</span><b class="c-teal">ELIGIBLE</b></div>
-            <div><span>pub78_listed</span><b class="c-teal">true</b></div>
-            <div><span>revoked</span><b class="c-teal">false</b></div>
-            <div><span>ofac_org_screen</span><b class="c-teal">CLEAR</b></div>
-            <div><span>ofac_leadership</span><b class="c-teal">CLEAR</b></div>
-          </div>
-        </div>
-      </div>
-      <div class="api-side">
-        <div class="stats">
-          <div><b>1.9M+</b><span>NONPROFITS VERIFIED</span></div>
-          <div><b>3.6M+</b><span>GRANTS MAPPED</span></div>
-          <div><b>1.3B+</b><span>STRUCTURED DATA POINTS</span></div>
-          <div><b>&lt;100ms</b><span>AVG. API RESPONSE</span></div>
-        </div>
-        <div class="cta-row"><a class="btn btn-primary" href="https://docs.givalgo.ai/">Read the API docs %(arrow)s</a><a class="link" href="#" onclick="openModal(); return false;">Talk to sales</a></div>
-      </div>
+    <p class="lead lead-wide">The same data behind Discover, delivered as APIs. Verify, enrich, and prospect inside your own product, refreshed daily from multiple sources.</p>
+    <div class="stats stats-center">
+      <div><b>1.9M+</b><span>NONPROFITS VERIFIED</span></div>
+      <div><b>3.6M+</b><span>GRANTS MAPPED</span></div>
+      <div><b>1.3B+</b><span>STRUCTURED DATA POINTS</span></div>
+      <div><b>&lt;100ms</b><span>AVG. API RESPONSE</span></div>
     </div>
   </div>
 </section>
+%(api_body)s
 
 <section class="sec close" id="get-started">
   <div class="container">
@@ -258,7 +299,7 @@ LANDING='''<main id="main">
   </div>
 </section>
 </main>
-''' % dict(I, chapters=chapters_html(),
+''' % dict(I, chapters=chapters_html(), api_body=api_chapters_html(),
   t0_li=li(["Active 501(c)(3) status, Pub 78, group exemption", "IRS auto-revocation, California FTB and AG registries", "OFAC screening of the org and every officer and director", "Bulk Verify up to 20K EINs, plus a shareable Report API"]),
   t1_li=li(["Search by cause, place, size, financials, or funder, or Ask", "Profiles from every 990, 990-EZ, and 990-PF filing", "Grants made and received, funder-to-recipient mapping", "Data Pro API: 450+ fields on any single organization"]),
   t2_li=li(["A complete, citation-backed diligence brief in one call", "Financials, governance, risk flags, and peer benchmarks", "AI agents research the web, grounded against 990 filings", "Structured JSON with every claim sourced, ready to file"]),

@@ -49,6 +49,7 @@ HEAD_TPL='''<!DOCTYPE html>
   <link rel="canonical" href="%(c)s" />
 
   <!-- Open Graph / social sharing -->
+  <meta property="og:site_name" content="Givalgo" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="%(c)s" />
   <meta property="og:title" content="%(t)s" />
@@ -68,6 +69,7 @@ HEAD_TPL='''<!DOCTYPE html>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/site.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://givalgo.ai/#org","name":"Givalgo","url":"https://givalgo.ai/","logo":"https://givalgo.ai/apple-touch-icon.png","sameAs":["https://www.linkedin.com/company/givalgo"]},{"@type":"WebSite","@id":"https://givalgo.ai/#site","url":"https://givalgo.ai/","name":"Givalgo","description":"Research, verify, and monitor grantees.","publisher":{"@id":"https://givalgo.ai/#org"}}]}</script>
 %(x)s</head>
 '''
 
@@ -372,14 +374,14 @@ def scripts(with_privacy):
     return '<script>\n'+js.rstrip('\n')+'\n'+SITE_JS+'</script>\n'
 
 import hashlib
-index=(head('Givalgo — Research, verify, and monitor the nonprofits you fund',
-            'Search 1.9M nonprofits, run compliance checks, and monitor the organizations you fund. Discover for grantmaking teams, plus Verify, Data, and FaithVerify APIs.',
+index=(head('Givalgo | Research, Verify and Monitor Grantees',
+            'Research 1.9M nonprofits, verify IRS eligibility and sanctions in one call, and monitor grantees after the grant is paid. Built for grantmakers. Free to start.',
             'https://givalgo.ai/')
        +'<body>\n\n'+MODAL+'\n<!-- ══ MAIN SITE ══ -->\n<div id="main-site">\n'+nav()+LANDING+footer()+'</div><!-- end #main-site -->\n\n<!-- ══ PRIVACY POLICY PAGE ══ -->\n'+PRIVACY+'\n'+scripts(True)+'</body>\n</html>\n')
 index=index.replace('@@LOGO@@',LOGO)
 open(os.path.join(R,'index.html'),'w').write(index)
 os.makedirs(os.path.join(R,'pricing'),exist_ok=True)
-pricing=(head('Pricing — Givalgo','Givalgo Discover is free to start, with Pro at $20 a month billed annually. Verify, Data, and FaithVerify APIs are priced for your volume.','https://givalgo.ai/pricing/')
+pricing=(head('Pricing | Givalgo','Givalgo Discover is free to start, with Pro at $20 a month billed annually. Verify, Data, and FaithVerify APIs are priced for your volume.','https://givalgo.ai/pricing/')
          +'<body>\n\n'+MODAL+'\n<div id="main-site">\n'+nav(True)+PRICING+footer(True)+'</div>\n'+scripts(False)+'</body>\n</html>\n')
 pricing=pricing.replace('@@LOGO@@',LOGO)
 open(os.path.join(R,'pricing','index.html'),'w').write(pricing)
@@ -441,7 +443,7 @@ def uc_page(eyebrow, h1, sub, cta, visual, audience, trust, steps, feat_title, f
     return UC_TPL % dict(eyebrow=eyebrow,h1=h1,sub=sub,cta=cta,visual=visual,trust=trust,audience=audience,steps=step_html,feat_title=feat_title,feat_sub=feat_sub,tiles=tile_html,close_h2=close_h2,close_cta=close_cta,close_note=close_note)
 def two_btn(a,b): return '<button type="button" class="btn btn-primary" onclick="openModal()">Book a demo</button>'
 USECASES={
- 'for/daf-sponsors': dict(title='For DAF sponsors and community foundations — Givalgo',
+ 'for/daf-sponsors': dict(title='For DAF Sponsors and Community Foundations | Givalgo',
    desc='Verify every grant recommendation before it moves: IRS eligibility, sanctions, state registries, and church verification in one call, with monitoring after the grant is paid.',
    page=uc_page("FOR DAF SPONSORS &amp; COMMUNITY FOUNDATIONS","Every grant recommendation, verified before it moves.",
      "Run IRS eligibility, sanctions, state registry, and church checks the moment a donor recommends a grant, then keep watching after it is paid. Built for the compliance and grants teams behind donor-advised funds.",
@@ -453,7 +455,7 @@ USECASES={
      "Compliance that runs itself.","The pieces most DAF sponsors and community foundations turn on, in the order they usually turn them on.",
      [("verify","Verify API","Six-step eligibility and sanctions check on any EIN, under 100 ms."),("verify","FaithVerify API","Verification for religious organizations that never file a 990."),("research","Bulk Verify","Screen an entire grantee list, up to 20K EINs, in one request."),("research","Report API","A shareable verification record for every approved grant."),("monitor","Givalgo Watch","Ongoing monitoring across IRS, sanctions, and adverse media."),("research","Discover for advisors","Research and profiles for donor-relations and philanthropic advisors.")],
      "See it on your own grant queue.", two_btn("Book a demo","Talk to Sales"), "30-minute call with a co-founder · No commitment")),
- 'for/platforms': dict(title='For grant management and giving platforms — Givalgo',
+ 'for/platforms': dict(title='For Grant Management and Giving Platforms | Givalgo',
    desc='Nonprofit verification, organization data, and on-demand diligence briefs built into your product with one REST integration.',
    page=uc_page("FOR GRANT MANAGEMENT &amp; GIVING PLATFORMS","Nonprofit verification and data, built into your product.",
      "One REST integration for eligibility checks, organization profiles, and on-demand diligence briefs. Refreshed nightly from IRS and sanctions sources, provisioned in less than 24 hours.",
@@ -465,7 +467,7 @@ USECASES={
      "Everything behind Discover, as APIs.","Pick the endpoints you need. Usage-based pricing, scoped to your volume.",
      [("verify","Verify API","Eligibility, revocation, state registries, and OFAC in one call."),("research","Data API","Search, prospecting, and profiles from every 990, 990-EZ, and 990-PF."),("research","Data Pro API","450+ extracted and computed fields on any single organization."),("monitor","Research API","A complete, citation-backed due-diligence brief on demand."),("verify","FaithVerify API","Verification for churches and religious organizations."),("monitor","Webhooks &amp; bulk","Status-change events and batch endpoints up to 20K EINs.")],
      "Get a sandbox key today.", two_btn("Talk to Sales","Book a demo"), "30-minute call with a co-founder · API provisioned in less than 24 hours")),
- 'for/foundations': dict(title='For private and corporate foundations — Givalgo',
+ 'for/foundations': dict(title='For Private and Corporate Foundations | Givalgo',
    desc='Research, verification, and monitoring for 1.9M nonprofits in one workspace, with AI diligence briefs that turn a shortlist into a board-ready memo.',
    page=uc_page("FOR PRIVATE &amp; CORPORATE FOUNDATIONS","From prospect list to board-ready diligence, in one workspace.",
      "Discover gives program staff research, verification, and monitoring for 1.9M nonprofits, and AI briefs that turn a shortlist into a consistent diligence memo.",

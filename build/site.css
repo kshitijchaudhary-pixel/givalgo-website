@@ -260,11 +260,11 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
 @keyframes scan { 0% { transform: translateY(0); opacity: 1; } 8% { transform: translateY(0); } 18% { transform: translateY(36px); } 28% { transform: translateY(72px); } 38% { transform: translateY(108px); } 48% { transform: translateY(144px); } 58% { transform: translateY(180px); } 66% { transform: translateY(180px); opacity: 1; } 70%, 100% { opacity: 0; transform: translateY(180px); } }
 .stamp { animation: stampIn 9s infinite; transform-origin: center; }
 @keyframes stampIn { 0%, 72% { opacity: 0; transform: rotate(-8deg) scale(1.4); } 78%, 92% { opacity: 1; transform: rotate(-6deg) scale(1); } 100% { opacity: 0; } }
-.a1 { animation: alert1 8s infinite; } .a2 { animation: alert2 8s infinite; } .a3 { animation: alert3 8s infinite; }
+.a1 { animation: alert1 6s infinite; } .a2 { animation: alert2 6s infinite; } .a3 { animation: alert3 6s infinite; }
 @keyframes alert1 { 0%, 8% { opacity: 0; transform: translateX(12px); } 13%, 94% { opacity: 1; transform: none; } 100% { opacity: 0; } }
 @keyframes alert2 { 0%, 35% { opacity: 0; transform: translateX(12px); } 40%, 94% { opacity: 1; transform: none; } 100% { opacity: 0; } }
 @keyframes alert3 { 0%, 62% { opacity: 0; transform: translateX(12px); } 67%, 94% { opacity: 1; transform: none; } 100% { opacity: 0; } }
-.bell { transform-origin: top center; animation: ring 8s infinite; }
+.bell { transform-origin: top center; animation: ring 6s infinite; }
 @keyframes ring { 0%, 7% { transform: rotate(0); } 9% { transform: rotate(14deg); } 11% { transform: rotate(-12deg); } 13% { transform: rotate(8deg); } 15%, 34% { transform: rotate(0); } 36% { transform: rotate(14deg); } 38% { transform: rotate(-12deg); } 40% { transform: rotate(8deg); } 42%, 61% { transform: rotate(0); } 63% { transform: rotate(14deg); } 65% { transform: rotate(-12deg); } 67% { transform: rotate(8deg); } 69%, 100% { transform: rotate(0); } }
 .pulse { animation: pulse 2s infinite; }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0,180,179,0.35); } 100% { box-shadow: 0 0 0 10px rgba(0,180,179,0); } }

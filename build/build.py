@@ -1,7 +1,24 @@
 import os, re
 B=os.path.dirname(os.path.abspath(__file__)); R=os.path.dirname(B)
 rd=lambda n: open(os.path.join(B,n)).read()
+CSS=open(os.path.join(B,'site.css')).read()
 GA=rd('ga.html'); LOGO=rd('logo.svg').strip(); MODAL=rd('modal.html'); PRIVACY=rd('privacy.html'); SCRIPTS=rd('scripts.js'); LEGACY=rd('legacy.css'); ROOT=rd('root.css')
+import hashlib
+PHONE_FIX='''
+/* ── Phone fixes for the legacy privacy page and modal (must come after the legacy rules) ── */
+@media (max-width: 860px) {
+  .privacy-layout { grid-template-columns: minmax(0, 1fr); padding: 0 1rem; }
+  .privacy-sidebar { display: none; }
+  .privacy-content-area { padding: 2rem 0 4rem; min-width: 0; }
+  .privacy-section { overflow-wrap: anywhere; }
+  .privacy-table { display: block; overflow-x: auto; max-width: 100%; }
+  .privacy-hero .container { padding: 0 1rem; }
+  .modal-box { width: calc(100% - 32px); max-width: 100%; }
+}
+
+'''
+CSS_OUT=CSS+'\n/* ── Legacy: demo modal + privacy policy page (unchanged from the previous site) ── */\n'+ROOT+LEGACY+PHONE_FIX
+open(os.path.join(R,'assets','site.css'),'w').write(CSS_OUT)
 
 I={
  'search':'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>',
@@ -14,7 +31,11 @@ I={
 def li(items): return ''.join('<li><span class="tick">%s</span>%s</li>'%(I['check'],t) for t in items)
 
 def head(title, desc, canonical, extra=''):
-    return '''<!DOCTYPE html>
+    ver=hashlib.sha1(CSS_OUT.encode('utf-8')).hexdigest()[:8]
+    html=HEAD_TPL % dict(t=title, d=desc, c=canonical, ga=GA.rstrip('\n'), x=extra)
+    return html.replace('/assets/site.css"', '/assets/site.css?v='+ver+'"')
+
+HEAD_TPL='''<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -48,7 +69,7 @@ def head(title, desc, canonical, extra=''):
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/site.css" />
 %(x)s</head>
-''' % dict(t=title, d=desc, c=canonical, ga=GA.rstrip('\n'), x=extra)
+'''
 
 CHEV='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>'
 USECASE_LINKS=[('/for/daf-sponsors/','DAF sponsors &amp; community foundations','Verify every recommendation before it moves'),
@@ -350,9 +371,7 @@ def scripts(with_privacy):
         js=js[:js.index('  function showPrivacy')]
     return '<script>\n'+js.rstrip('\n')+'\n'+SITE_JS+'</script>\n'
 
-CSS=open(os.path.join(B,'site.css')).read()
-open(os.path.join(R,'assets','site.css'),'w').write(CSS+'\n/* ── Legacy: demo modal + privacy policy page (unchanged from the previous site) ── */\n'+ROOT+LEGACY)
-
+import hashlib
 index=(head('Givalgo — Research, verify, and monitor the nonprofits you fund',
             'Search 1.9M nonprofits, run compliance checks, and monitor the organizations you fund. Discover for grantmaking teams, plus Verify, Data, and FaithVerify APIs.',
             'https://givalgo.ai/')

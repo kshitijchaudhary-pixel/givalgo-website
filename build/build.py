@@ -92,7 +92,11 @@ def nav(on_pricing=False, current=None):
               '</div></div>')
     links=[('Docs','https://docs.givalgo.ai/'),('Pricing','/pricing/')]
     a=''.join('<a href="%s"%s>%s</a>'%(h,' aria-current="page"' if (t=='Pricing' and on_pricing) else '',t) for t,h in links)
-    mobile=''.join('<a onclick="closeMobileNav()" href="%s">%s</a>'%(h,t) for t,h in [('Discover',p+'#discover'),('APIs',p+'#apis')]+[(t,h) for h,t,d in USECASE_LINKS]+[('Docs','https://docs.givalgo.ai/'),('Pricing','/pricing/')])
+    def m_link(t,h): return '<a onclick="closeMobileNav()" href="%s">%s</a>'%(h,t)
+    def m_group(label, links): return '<details class="m-group"><summary>%s %s</summary><div class="m-sub">%s</div></details>'%(label, CHEV, ''.join(m_link(t,h) for t,h in links))
+    mobile=(m_group('Products',[('Discover',p+'#discover'),('APIs',p+'#apis')])
+            +m_group('Use Cases',[(t,h) for h,t,d in USECASE_LINKS])
+            +m_link('Docs','https://docs.givalgo.ai/')+m_link('Pricing','/pricing/'))
     return '''<a class="skip" href="#main">Skip to content</a>
 <header class="nav" id="siteNav">
   <div class="container nav-inner">
@@ -114,7 +118,7 @@ FOOTER='''<footer class="footer" id="footer">
       <a class="logo" href="/" aria-label="Givalgo home">@@LOGO@@</a>
       <p>Nonprofit intelligence for grantmakers. Available as the Discover app or as APIs.</p>
     </div>
-    <div><h4>Products</h4><a href="https://discover.givalgo.ai">Discover</a><a href="/#apis">Verify API</a><a href="/#apis">Data API</a><a href="/#apis">FaithVerify API</a><a href="/pricing/">Pricing</a></div>
+    <div><h4>Products</h4><a href="https://discover.givalgo.ai">Discover</a><a href="/#apis">APIs</a><a href="/pricing/">Pricing</a></div>
     <div><h4>Developers</h4><a href="https://docs.givalgo.ai/">API documentation</a><a href="https://docs.givalgo.ai/">Getting started</a><a href="#" onclick="openModal(); return false;">Book a demo</a></div>
     <div><h4>Company</h4><a href="#" onclick="openModal(); return false;">Contact us</a>%s<a href="https://www.linkedin.com/company/givalgo" target="_blank" rel="noopener">LinkedIn</a></div>
   </div>

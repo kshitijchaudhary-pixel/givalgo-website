@@ -99,12 +99,12 @@ def nav(on_pricing=False, current=None):
     <a class="logo" href="/" aria-label="Givalgo home">@@LOGO@@</a>
     <nav class="nav-links" aria-label="Primary">%s%s%s</nav>
     <div class="nav-actions">
-      <a class="nav-signin" href="https://discover.givalgo.ai">Sign in</a>
+      <a class="nav-signin" href="https://discover.givalgo.ai/?signin=1">Sign in</a>
       <button type="button" class="btn btn-primary btn-sm" onclick="openModal()">Book a demo</button>
       <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" aria-controls="mobileNav" aria-expanded="false" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
     </div>
   </div>
-  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">%s<a href="https://discover.givalgo.ai">Sign in</a><button type="button" class="btn btn-primary" onclick="closeMobileNav(); openModal()">Book a demo</button></nav>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">%s<a href="https://discover.givalgo.ai/?signin=1">Sign in</a><button type="button" class="btn btn-primary" onclick="closeMobileNav(); openModal()">Book a demo</button></nav>
 </header>
 ''' % (products, usecases, a, mobile)
 

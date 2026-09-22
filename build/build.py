@@ -369,9 +369,9 @@ PRICING='''<main id="main">
 </section>
 </main>
 ''' % dict(arrow=I['arrow'],
-  free=tier("FREE","$0","","For occasional lookups.",["10 searches a day","3 plain-English Asks a day","Organization profile snapshot","Current-year financials","IRS status indicator"],"Get started","https://discover.givalgo.ai/?signup=1",False,""),
-  pro=tier("PRO","$20","/ mo","For grantmakers and researchers.",["Unlimited searches","Discover Ask (plain-English prospecting)","5-year financial explorer and peer benchmarking","Full grants table","Unlimited Verify Now","Radar Bulk Verify (lists up to 100 EINs)","Givalgo Watch (monitor 3 organizations)","AI due-diligence briefs (5 a month) and AI summaries"],"Start Pro","https://discover.givalgo.ai/?signup=1",True,"Billed annually · 14-day free trial, no card",popular=True,price_id="proPrice",note_id="proNote"),
-  adv=tier("ADVANCED","Custom","","For compliance and diligence teams.",["Everything in Pro","Organization accounts: multi-seat, shared workspace","AI due-diligence briefs at the volume you need","Givalgo Radar, sized to your portfolio: bulk verification and daily monitoring","Unlimited data export","Downloadable Verify reports","Priority support"],"Book a demo","#",False,""),
+  free=tier("FREE","$0","","For occasional lookups.",["10 searches a day","3 plain-English Asks a day","5 judged Ask answers a month","Organization profile snapshot","Current-year financials","IRS status indicator"],"Get started","https://discover.givalgo.ai/?signup=1",False,""),
+  pro=tier("PRO","$20","/ mo","For grantmakers and researchers.",["Unlimited searches","Unlimited plain-English Asks","50 judged Ask answers a month (up to 10 a day)","5-year financial explorer and peer benchmarking","Full grants table","Unlimited Verify Now","Radar Bulk Verify (lists up to 100 EINs)","Givalgo Watch (monitor 3 organizations)","AI due-diligence briefs (5 a month) and AI summaries"],"Start Pro","https://discover.givalgo.ai/?signup=1",True,"Billed annually · 14-day free trial, no card",popular=True,price_id="proPrice",note_id="proNote"),
+  adv=tier("ADVANCED","Custom","","For compliance and diligence teams.",["Everything in Pro","200 judged Ask answers a month, no daily cap","Organization accounts: multi-seat, shared workspace","AI due-diligence briefs at the volume you need","Givalgo Radar, sized to your portfolio: bulk verification and daily monitoring","Unlimited data export","Downloadable Verify reports","Priority support"],"Book a demo","#",False,""),
   api_li=li(["Verify API: IRS status, Pub 78, auto-revocation, state registries, OFAC on the org and its leaders","Data API: search, prospecting, and organization profiles from every 990","Data Pro API: 450+ extracted and computed fields on any single organization","Research API: a complete, citation-backed due-diligence brief in one call","FaithVerify API: denomination and religious-organization verification","Custom configurations and volume, with dedicated support and founder access"]))
 PRICING=PRICING.replace('<a class="btn btn-outline" href="#">Book a demo</a>','<a class="btn btn-outline" href="#" onclick="openModal(); return false;">Book a demo</a>')
 
@@ -382,7 +382,7 @@ SITE_JS='''
     var input = document.getElementById('q'), hint = document.getElementById('searchHint');
     var modes = {
       search: { action: 'https://discover.givalgo.ai/search', ph: 'EIN, org name, keywords, or cause and location', hint: 'No account needed. 2 free searches, then sign up free. Opens in Discover.' },
-      ask:    { action: 'https://discover.givalgo.ai/ask',    ph: 'Ask in plain English: food banks in Chicago that got over $1M in grants', hint: 'Ask is part of Discover Pro. Opens Discover, where you can sign in or start a free trial.' }
+      ask:    { action: 'https://discover.givalgo.ai/ask',    ph: 'Ask in plain English: food banks in Chicago that got over $1M in grants', hint: 'Three free Asks a day, no account needed. Opens Discover, where a free account or Pro trial adds more.' }
     };
     form.querySelectorAll('.tab').forEach(function (tab) {
       tab.addEventListener('click', function () {

@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-"""Generate the bbcon lucky-draw QR code.
+"""Generate a printable bbcon lucky-draw QR code (banners, table tents, slides).
 
-Writes the code three ways, all pointing at the entry form (givalgo.ai/bbcon):
+The booth screen (givalgo.ai/bbcon/booth/#<key>) draws its own QR code in the
+browser; this is only for print. The code carries the entry key, so it is
+written to build/bbcon/out/, which is git-ignored. Never commit it: the
+website repo is public. Get the key from the leads sheet (bbcon → Show booth
+link, the part after #). If you open entries again, the key changes and any
+print made with the old key stops working.
 
-  bbcon/qr.svg            vector, for print (banners, table tents)
-  bbcon/qr.png            raster, for slides and social
-  bbcon/booth/index.html  the booth display page, which carries the SVG inline
-                          so it still renders on a laptop with no network
+  build/bbcon/out/qr.svg   vector, for print
+  build/bbcon/out/qr.png   raster, for slides
 
 Error correction is H (~30% recoverable) so the Givalgo "G" in the middle can
 sit on top of modules without breaking the scan. The script decodes its own
@@ -14,8 +17,7 @@ PNG before writing anything, so a logo that grew too big fails here and not at
 the booth.
 
     pip install segno pillow opencv-python-headless
-    python3 build/bbcon/make_qr.py                      # default form URL
-    python3 build/bbcon/make_qr.py https://example.org/form
+    python3 build/bbcon/make_qr.py <entry key>
 """
 
 import io
@@ -26,10 +28,10 @@ from pathlib import Path
 import segno
 from PIL import Image, ImageDraw
 
-FORM_URL = "https://givalgo.ai/bbcon"
+FORM_URL = "https://givalgo.ai/bbcon/#"
 
 HERE = Path(__file__).resolve().parent
-OUT = HERE.parents[1] / "bbcon"
+OUT = HERE / "out"
 NAVY = "#0c1830"
 TEAL = "#00b4b3"
 TEAL_DEEP = "#00848b"
@@ -119,29 +121,21 @@ def decodes_to(img, url):
 
 
 def main():
-    url = sys.argv[1] if len(sys.argv) > 1 else FORM_URL
-    label = re.sub(r"^https?://", "", url)
+    if len(sys.argv) != 2 or not re.fullmatch(r"[a-z0-9]{6,40}", sys.argv[1], re.I):
+        sys.exit(__doc__.split("\n\n")[-1].strip())
+    url = FORM_URL + sys.argv[1].lower()
+    label = "the bbcon entry form"
     qr, matrix, n, plate, lo = build(url)
     raster = png(matrix, n, plate, lo)
     if not decodes_to(raster, url):
         sys.exit(1)
 
-    vector = svg(matrix, n, plate, lo, label)
-    (OUT / "qr.svg").write_text(vector + "\n")
+    OUT.mkdir(exist_ok=True)
+    (OUT / "qr.svg").write_text(svg(matrix, n, plate, lo, label) + "\n")
     buf = io.BytesIO()
     raster.save(buf, "PNG", optimize=True)
     (OUT / "qr.png").write_bytes(buf.getvalue())
-
-    booth = OUT / "booth" / "index.html"
-    html = booth.read_text()
-    html, k1 = re.subn(r"<!-- qr:begin -->.*?<!-- qr:end -->",
-                       lambda _: f"<!-- qr:begin -->{vector}<!-- qr:end -->", html, flags=re.S)
-    html, k2 = re.subn(r'(<a class="qr-card" href=")[^"]*(")', lambda m: m.group(1) + url + m.group(2), html)
-    html, k3 = re.subn(r'(<p class="url">)[^<]*(</p>)', lambda m: m.group(1) + label + m.group(2), html)
-    if (k1, k2, k3) != (1, 1, 1):
-        sys.exit(f"❌  {booth}: expected one qr block, qr-card link and url line; found {(k1, k2, k3)}")
-    booth.write_text(html)
-    print(f"✅  version {qr.version}-{qr.error.upper()}, {n}x{n} modules, logo plate {plate}x{plate} → {url}")
+    print(f"✅  version {qr.version}-{qr.error.upper()}, {n}x{n} modules, logo plate {plate}x{plate} → {OUT}/qr.svg, qr.png")
 
 
 if __name__ == "__main__":

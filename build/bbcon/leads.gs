@@ -6,9 +6,16 @@
  * form-encoded; this appends a row to the "Leads" tab and answers
  * {"ok": true}. Setup and deploy steps: build/bbcon/README.md.
  *
- * The sheet also gets a "bbcon" menu:
- *   Draw 2 winners            the main draw
- *   Draw 1 replacement winner for a winner who never replies
+ * Only people who scanned the booth QR code can enter. The code carries an
+ * entry key (givalgo.ai/bbcon/#<key>); entries without the current key are
+ * refused. The key is kept in this script's properties, never in the website
+ * repo (which is public). The sheet gets a "bbcon" menu:
+ *   Open entries / new booth link  makes a new key and shows the booth link
+ *                                  (any older QR code stops working)
+ *   Show booth link                shows the current link again
+ *   Close entries                  refuses every entry until reopened
+ *   Draw 2 winners                 the main draw
+ *   Draw 1 replacement winner      for a winner who never replies
  * Each email gets one chance however many times it was submitted, anyone
  * already drawn is left out, and @givalgo.ai addresses (staff, and our own
  * test entries) never win. Every pick is recorded on the "Draw log" tab.
@@ -20,6 +27,8 @@ const HEADERS = ['Submitted at', 'Full name', 'Email', 'Organization', 'Source',
 const DRAW_HEADERS = ['Drawn at', 'Drawn by', 'Draw', 'Eligible entrants', 'Name', 'Email', 'Organization'];
 const WINNERS = 2;
 const INELIGIBLE_DOMAINS = ['givalgo.ai'];
+const BOOTH_URL = 'https://givalgo.ai/bbcon/booth/';
+const KEY_PROP = 'ENTRY_KEY';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 function doPost(e) {
@@ -27,6 +36,12 @@ function doPost(e) {
   // Honeypot: the form hides a "website" field that only bots fill in. Say
   // yes so they move on, and write nothing.
   if (p.website) return json_({ ok: true });
+
+  // No key means entries are closed (or not opened yet). A wrong key is an
+  // old QR code or someone who never scanned one.
+  const key = entryKey_();
+  if (!key) return json_({ ok: false, error: 'closed' });
+  if (String(p.k || '').toLowerCase() !== key) return json_({ ok: false, error: 'key' });
 
   const name = clip_(p.full_name, 120);
   const email = clip_(p.email, 254).toLowerCase();
@@ -50,15 +65,57 @@ function doPost(e) {
 
 // Opening the /exec URL in a browser is a quick "is it deployed?" check.
 function doGet() {
-  return json_({ ok: true, service: 'bbcon-leads' });
+  return json_({ ok: true, service: 'bbcon-leads', entries_open: !!entryKey_() });
 }
 
 function onOpen() {
   SpreadsheetApp.getUi()
     .createMenu('bbcon')
+    .addItem('Open entries / new booth link', 'openEntries')
+    .addItem('Show booth link', 'showBoothLink')
+    .addItem('Close entries', 'closeEntries')
+    .addSeparator()
     .addItem('Draw ' + WINNERS + ' winners', 'drawWinners')
     .addItem('Draw 1 replacement winner', 'drawReplacement')
     .addToUi();
+}
+
+function openEntries() {
+  const ui = SpreadsheetApp.getUi();
+  if (entryKey_()) {
+    const ok = ui.alert('Replace the entry key?',
+      'Entries are already open. A new key means the QR code on the booth screen (and any printed ' +
+      'copy) stops working until you open the new booth link. Continue?', ui.ButtonSet.YES_NO);
+    if (ok !== ui.Button.YES) return;
+  }
+  // 8 hex characters from a random UUID: about 4 billion possibilities, far
+  // beyond what anyone could try against this script during the event. Kept
+  // short so the QR code stays small and quick to scan.
+  const key = Utilities.getUuid().replace(/-/g, '').slice(0, 8);
+  PropertiesService.getScriptProperties().setProperty(KEY_PROP, key);
+  showBoothLink();
+}
+
+function showBoothLink() {
+  const ui = SpreadsheetApp.getUi();
+  const key = entryKey_();
+  if (!key) {
+    ui.alert('Entries are closed', 'Use bbcon → Open entries / new booth link first.', ui.ButtonSet.OK);
+    return;
+  }
+  ui.alert('Booth link',
+    'Open this on the booth screen, full screen:\n\n' + BOOTH_URL + '#' + key +
+    '\n\nIts QR code carries the entry key. Only share it with people staffing the booth.',
+    ui.ButtonSet.OK);
+}
+
+function closeEntries() {
+  const ui = SpreadsheetApp.getUi();
+  const ok = ui.alert('Close entries?',
+    'Every entry is refused until you open entries again, which makes a new QR code.', ui.ButtonSet.YES_NO);
+  if (ok !== ui.Button.YES) return;
+  PropertiesService.getScriptProperties().deleteProperty(KEY_PROP);
+  ui.alert('Entries closed', 'The form now tells visitors the draw isn\'t taking entries.', ui.ButtonSet.OK);
 }
 
 function drawWinners() {
@@ -108,6 +165,10 @@ function draw_(count, kind) {
 }
 
 // ── helpers ──
+
+function entryKey_() {
+  return (PropertiesService.getScriptProperties().getProperty(KEY_PROP) || '').toLowerCase();
+}
 
 // Everyone who entered, one per email (their first entry).
 function entrants_() {

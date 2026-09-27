@@ -12,3 +12,5 @@ python3 build/build.py
 - `modal.html`, `privacy.html`, `scripts.js`, `legacy.css`, `root.css` — the demo modal and the privacy policy page, carried over unchanged
 
 The Discover flow GIFs in `assets/` are rendered mock-ups of the Discover UI (not screen recordings).
+
+`bbcon/` (the bbcon lucky-draw form and booth page) is hand-written, not generated — see `build/bbcon/README.md`.

@@ -23,7 +23,7 @@
 
 const LEADS_TAB = 'Leads';
 const DRAW_TAB = 'Draw log';
-const HEADERS = ['Submitted at', 'Full name', 'Email', 'Organization', 'Source', 'Repeat entry'];
+const HEADERS = ['Submitted at', 'Full name', 'Email', 'Organization', 'Source', 'Repeat entry', 'Discover use'];
 const DRAW_HEADERS = ['Drawn at', 'Drawn by', 'Draw', 'Eligible entrants', 'Name', 'Email', 'Organization'];
 const WINNERS = 2;
 const INELIGIBLE_DOMAINS = ['givalgo.ai'];
@@ -47,6 +47,9 @@ function doPost(e) {
   const email = clip_(p.email, 254).toLowerCase();
   const org = clip_(p.organization, 160);
   const source = clip_(p.source, 40) || 'bbcon';
+  // "; "-separated answers to "What would you use Discover for?". Not
+  // required here, so an older copy of the form can still submit.
+  const uses = clip_(p.uses, 300);
   if (name.length < 2 || org.length < 2 || !EMAIL_RE.test(email)) {
     return json_({ ok: false, error: 'invalid' });
   }
@@ -56,7 +59,7 @@ function doPost(e) {
   try {
     const sheet = tab_(LEADS_TAB, HEADERS);
     const repeat = column_(sheet, 3).has(email);
-    sheet.appendRow([new Date(), cell_(name), cell_(email), cell_(org), cell_(source), repeat ? 'yes' : '']);
+    sheet.appendRow([new Date(), cell_(name), cell_(email), cell_(org), cell_(source), repeat ? 'yes' : '', cell_(uses)]);
   } finally {
     lock.releaseLock();
   }
@@ -194,6 +197,10 @@ function tab_(name, headers) {
     sheet.appendRow(headers);
     sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold');
     sheet.setFrozenRows(1);
+  } else if (sheet.getLastColumn() < headers.length) {
+    // A column was added after this tab was made (like "Discover use"):
+    // extend the header row so the new values land under a name.
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight('bold');
   }
   return sheet;
 }

@@ -1,8 +1,9 @@
 # bbcon lucky draw
 
 Visitors at the bbcon demo station scan a QR code and land on a short
-Givalgo-branded form asking for full name, work email and organization. That
-enters them in a draw for **two winners**. **Each** winner gets a **$50 Uber
+Givalgo-branded form with four questions: full name, work email,
+organization, and what they'd use Discover for (multi-select). That enters
+them in a draw for **two winners**. **Each** winner gets a **$50 Uber
 Eats gift card** and **12 months of Discover Pro**. Every entry lands in a
 Google Sheet so we can follow up.
 
@@ -106,7 +107,9 @@ at the start of each day. Each email still gets only one chance in the draw.
 | Draw 1 replacement winner | For a winner who doesn't reply within the 14 days in the rules. It never picks anyone already drawn. |
 
 The **Leads** tab has one row per submission: *Submitted at, Full name, Email,
-Organization, Source, Repeat entry*. When an email submits again, the new row
+Organization, Source, Repeat entry, Discover use*. *Discover use* holds the
+ticked options, separated by "; ". Rows from before the question was added
+leave it blank. When an email submits again, the new row
 is kept (it may correct a name or organization) and marked **yes**. Every pick
 goes on the **Draw log** tab: when, who ran it, which draw, how many people were
 eligible, and the winner's name, email and organization.
@@ -118,8 +121,11 @@ eligible, and the winner's name, email and organization.
 - **Adding a question:** add a `<div class="field">` to `bbcon/index.html`,
   add its check to `fields`, and add it to the `URLSearchParams` body. In
   `leads.gs`, add a column at the end of `HEADERS` and the value to
-  `appendRow`. Then deploy a new version of the script (see the note above).
+  `appendRow`. The header row extends itself on the next entry. Then deploy a
+  new version of the script (see the note above). The options for "What would
+  you use Discover for?" are only in `bbcon/index.html`; the sheet stores
+  whatever labels the form sends.
 - **Rules and copy:** the official rules are at the bottom of
-  `bbcon/index.html`, under **Official rules**. The 14-day reply window, the
-  18+ age limit and the exclusion of employees are defaults, not decisions
-  anyone has made yet, so have the rules reviewed before the event.
+  `bbcon/index.html`, under **Official rules**. The 14-day reply window and
+  the exclusion of employees are defaults, not decisions anyone has made yet,
+  so have the rules reviewed before the event.

@@ -214,14 +214,14 @@ def data_api_demo():
            '<div class="term-foot"><span class="dim">Every 990, 990-EZ, and 990-PF · nightly refresh</span><span class="counter">450+</span></div>') % (hl, fl)
     return _dframe("DATA API · SEARCH, PROFILE, DATA PRO", inner)
 def research_api_demo():
-    steps=[("Reading 990s · FY2021–2024","s1"),("Screening sanctions and state registries","s2"),("Researching website and news","s3"),("Writing the brief","s4")]
+    steps=[("Reading 990s · FY2021–2024","s1"),("Screening IRS, OFAC and California registries","s2"),("Checking the website against the 990","s3"),("Writing the brief","s4")]
     sl=''.join('<div class="tl step %s"><span class="tick">%s</span>%s</div>'%(c,I['check'],t) for t,c in steps)
-    brief=[("Summary","Small, volunteer-run pantry; consistent filings; no governance flags."),("Financial health","Reserves 8.7 months; program ratio 97.8%. <span class=\"cite\">[1][2]</span>"),("Risk flags","Adverse media: 2 articles, both resolved. <span class=\"cite\">[3]</span>")]
+    brief=[("Summary","Small, volunteer-run pantry; consistent filings; no governance flags."),("Financial health","8.7 months of cash; 97.8% of spending on programs. <span class=\"cite\">IRS 990</span>"),("Questions to ask","How is the new warehouse lease funded? <span class=\"cite\">AI-written</span>")]
     bl=''.join('<div class="brief-row b%d"><b>%s</b><span>%s</span></div>'%(i+1,h,t) for i,(h,t) in enumerate(brief))
     inner=('<div class="tl"><span class="m">POST</span> /v1/research/brief <span class="dim">·</span> {"ein": <span class="val">"12-3456789"</span>}</div>'
            '<div class="steps">%s</div>'
            '<div class="brief">%s</div>'
-           '<div class="term-foot"><span class="dim">Every claim cited · 14 sources</span><span class="badge-ok badge-in2">BRIEF READY</span></div>') % (sl, bl)
+           '<div class="term-foot"><span class="dim">Every section sourced · written with AI</span><span class="badge-ok badge-in2">BRIEF READY</span></div>') % (sl, bl)
     return _dframe("RESEARCH API · DUE-DILIGENCE BRIEF", inner)
 def faith_api_demo():
     checks=[("Listed in the denominational directory","c1"),("Active congregation confirmed","c2"),("IRS group ruling matched","c3"),("501(c)(3) equivalent · gifts deductible","c4")]
@@ -235,7 +235,7 @@ def faith_api_demo():
 API_CHAPTERS=[
  ("VERIFY API","Eligibility and sanctions, in one call.",["Active 501(c)(3) status, Pub 78, group exemption","IRS auto-revocation, California FTB and AG registries","OFAC screening of the org and every officer and director","Bulk Verify up to 20K EINs, plus a shareable Report API"],verify_api_demo),
  ("DATA API","Search, prospect, and profile any nonprofit.",["Filter searches by cause, geography, or financials","Plain-English searches matched to the right nonprofits","More than six years of rich data on every nonprofit","450+ extracted and computed attributes"],data_api_demo),
- ("RESEARCH API","A complete diligence brief, on demand.",["A complete, citation-backed diligence brief in one call","Financials, governance, risk flags, and peer benchmarks","AI agents research the web, grounded against 990 filings","Every attribute cited to its source, grounded, ethical AI"],research_api_demo),
+ ("RESEARCH API","A complete diligence brief, on demand.",["A complete diligence brief for any EIN, in one call","Financials, governance, risk flags, and peer benchmarks","AI reads the organization's website and checks it against its 990s","Every section labeled: IRS and state records, the website, or AI"],research_api_demo),
  ("FAITHVERIFY API","Verify organizations that never file a 990.",["Status verification for over 90% of American churches","IRS group exemption mapping and hierarchy","Affiliation confirmed against denominational registers","Built for DAFs, community foundations, workplace giving"],faith_api_demo),
 ]
 def api_chapters_html():
@@ -307,7 +307,7 @@ LANDING='''<main id="main">
 ''' % dict(I, chapters=chapters_html(), api_body=api_chapters_html(),
   t0_li=li(["Active 501(c)(3) status, Pub 78, group exemption", "IRS auto-revocation, California FTB and AG registries", "OFAC screening of the org and every officer and director", "Bulk Verify up to 20K EINs, plus a shareable Report API"]),
   t1_li=li(["Search by cause, place, size, financials, or funder, or Ask", "Profiles from every 990, 990-EZ, and 990-PF filing", "Grants made and received, funder-to-recipient mapping", "Data Pro API: 450+ fields on any single organization"]),
-  t2_li=li(["A complete, citation-backed diligence brief in one call", "Financials, governance, risk flags, and peer benchmarks", "AI agents research the web, grounded against 990 filings", "Every attribute cited to its source, grounded, ethical AI"]),
+  t2_li=li(["A complete diligence brief for any EIN, in one call", "Financials, governance, risk flags, and peer benchmarks", "AI reads the organization's website and checks it against its 990s", "Every section labeled: IRS and state records, the website, or AI"]),
   t3_li=li(["Status verification for over 90% of American churches", "IRS group exemption mapping and hierarchy", "Affiliation confirmed against denominational registers", "Built for DAFs, community foundations, workplace giving"]),
 )
 
@@ -372,7 +372,7 @@ PRICING='''<main id="main">
   free=tier("FREE","$0","","For occasional lookups.",["10 searches a day","3 plain-English Asks a day","5 judged Ask answers a month","Organization profile snapshot","Current-year financials","IRS status indicator"],"Get started","https://discover.givalgo.ai/?signup=1",False,""),
   pro=tier("PRO","$20","/ mo","For grantmakers and researchers.",["Unlimited searches","Unlimited plain-English Asks","50 judged Ask answers a month (up to 10 a day)","5-year financial explorer and peer benchmarking","Full grants table","Unlimited Verify Now","Givalgo Radar: daily monitoring of 3 organizations","Radar Bulk Verify (lists up to 100 EINs)","AI due-diligence briefs (5 a month) and AI summaries"],"Start Pro","https://discover.givalgo.ai/?signup=1",True,"Billed annually · 14-day free trial, no card",popular=True,price_id="proPrice",note_id="proNote"),
   adv=tier("ADVANCED","Custom","","For compliance and diligence teams.",["Everything in Pro","200 judged Ask answers a month, no daily cap","Organization accounts: multi-seat, shared workspace","AI due-diligence briefs at the volume you need","Givalgo Radar: daily monitoring of 25 organizations (more on request)","Radar Bulk Verify (lists up to 1,000 EINs)","Unlimited data export","Downloadable Verify reports","Priority support"],"Book a demo","#",False,""),
-  api_li=li(["Verify API: IRS status, Pub 78, auto-revocation, state registries, OFAC on the org and its leaders","Data API: search, prospecting, and organization profiles from every 990","Data Pro API: 450+ extracted and computed fields on any single organization","Research API: a complete, citation-backed due-diligence brief in one call","FaithVerify API: denomination and religious-organization verification","Custom configurations and volume, with dedicated support and founder access"]))
+  api_li=li(["Verify API: IRS status, Pub 78, auto-revocation, state registries, OFAC on the org and its leaders","Data API: search, prospecting, and organization profiles from every 990","Data Pro API: 450+ extracted and computed fields on any single organization","Research API: a complete, sourced due-diligence brief for any EIN in one call","FaithVerify API: denomination and religious-organization verification","Custom configurations and volume, with dedicated support and founder access"]))
 PRICING=PRICING.replace('<a class="btn btn-outline" href="#">Book a demo</a>','<a class="btn btn-outline" href="#" onclick="openModal(); return false;">Book a demo</a>')
 
 SITE_JS='''
@@ -538,10 +538,10 @@ USECASES={
      SALES_CTA, uc_code_card(), "grant management and giving platforms", "Built for grant management software, workplace and payroll giving, and donation rails",
      [('Verify at onboarding and payout','Gate nonprofit sign-ups, matching, and disbursements on a live eligibility and sanctions check that covers every officer and director.'),
       ('Enrich your UI with org data','Search and profiles from the Data API power lookups, autocomplete, and grantee pages. Data Pro adds 450+ fields per organization when you need depth.'),
-      ('Generate briefs on demand','The Research API returns a citation-backed brief for any organization inside your workflow, so reviewers never have to leave your product.'),
+      ('Generate briefs on demand','The Research API returns a sourced diligence brief, as JSON and PDF, for any organization inside your workflow, so reviewers never have to leave your product.'),
       ('Stay current','Nightly refresh from IRS and sanctions sources, webhooks for status changes, and bulk endpoints for backfills.')],
      "Everything behind Discover, as APIs.","Pick the endpoints you need. Usage-based pricing, scoped to your volume.",
-     [("verify","Verify API","Eligibility, revocation, state registries, and OFAC in one call."),("research","Data API","Search, prospecting, and profiles from every 990, 990-EZ, and 990-PF."),("research","Data Pro API","450+ extracted and computed fields on any single organization."),("monitor","Research API","A complete, citation-backed due-diligence brief on demand."),("verify","FaithVerify API","Verification for churches and religious organizations."),("monitor","Webhooks &amp; bulk","Status-change events and batch endpoints up to 20K EINs.")],
+     [("verify","Verify API","Eligibility, revocation, state registries, and OFAC in one call."),("research","Data API","Search, prospecting, and profiles from every 990, 990-EZ, and 990-PF."),("research","Data Pro API","450+ extracted and computed fields on any single organization."),("monitor","Research API","A complete due-diligence brief on demand, every section sourced."),("verify","FaithVerify API","Verification for churches and religious organizations."),("monitor","Webhooks &amp; bulk","Status-change events and batch endpoints up to 20K EINs.")],
      "Get a trial API key today.", two_btn("Talk to Sales","Book a demo"), "30-minute call with a co-founder · API provisioned in less than 24 hours")),
  'for/foundations': dict(title='For Private and Corporate Foundations | Givalgo',
    desc='Research, verification, and monitoring for 1.9M nonprofits in one workspace, with AI diligence briefs that turn a shortlist into a board-ready memo.',
@@ -553,7 +553,7 @@ USECASES={
       ('Board-ready briefs in minutes','Diligence Briefs write the memo with every claim sourced to filings and the open web, in the same format for every grantee you review.'),
       ('Keep the portfolio monitored',"Watch alerts you when a grantee's IRS status, sanctions exposure, or news coverage changes, so renewals always start from current facts.")],
      "Your workflow, your choice.","Run the whole process in Discover, or keep your own grants system and feed it the same checks, profiles, and briefs through the APIs.",
-     [("research","Search &amp; Ask","1.9M nonprofits and 151K funders, filters or plain English."),("research","Organization profiles","Financials, leadership, programs, grants, and governance from every 990."),("monitor","Diligence Briefs","AI-written, citation-backed memos, 5 a month on Pro and more on Advanced."),("research","Peer benchmarking","Compare any organization against its sector and size peers."),("monitor","Givalgo Watch","Portfolio monitoring across IRS, sanctions, and adverse media."),("verify","Research &amp; Data Pro APIs","Feed briefs and 450+ fields straight into your grants system.")],
+     [("research","Search &amp; Ask","1.9M nonprofits and 151K funders, filters or plain English."),("research","Organization profiles","Financials, leadership, programs, grants, and governance from every 990."),("monitor","Diligence Briefs","AI-written memos with every section sourced, 5 a month on Pro and more on Advanced."),("research","Peer benchmarking","Compare any organization against its sector and size peers."),("monitor","Givalgo Watch","Portfolio monitoring across IRS, sanctions, and adverse media."),("verify","Research &amp; Data Pro APIs","Feed briefs and 450+ fields straight into your grants system.")],
      "Start with a conversation.", two_btn("Book a demo","Talk to Sales"), "30-minute call with a co-founder · No commitment")),
 }
 for path, uc in USECASES.items():

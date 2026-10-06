@@ -218,7 +218,7 @@ def research_api_demo():
     sl=''.join('<div class="tl step %s"><span class="tick">%s</span>%s</div>'%(c,I['check'],t) for t,c in steps)
     brief=[("Summary","Small, volunteer-run pantry; consistent filings; no governance flags."),("Financial health","8.7 months of cash; 97.8% of spending on programs. <span class=\"cite\">IRS 990</span>"),("Questions to ask","How is the new warehouse lease funded? <span class=\"cite\">AI-written</span>")]
     bl=''.join('<div class="brief-row b%d"><b>%s</b><span>%s</span></div>'%(i+1,h,t) for i,(h,t) in enumerate(brief))
-    inner=('<div class="tl"><span class="m">POST</span> /v1/research/brief <span class="dim">·</span> {"ein": <span class="val">"12-3456789"</span>}</div>'
+    inner=('<div class="tl"><span class="m">POST</span> /v1/research <span class="dim">·</span> {"ein": <span class="val">"12-3456789"</span>}</div>'
            '<div class="steps">%s</div>'
            '<div class="brief">%s</div>'
            '<div class="term-foot"><span class="dim">Every section sourced · written with AI</span><span class="badge-ok badge-in2">BRIEF READY</span></div>') % (sl, bl)

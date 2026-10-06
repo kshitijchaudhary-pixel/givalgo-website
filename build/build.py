@@ -542,7 +542,7 @@ USECASES={
       ('Stay current','Nightly refresh from IRS and sanctions sources, webhooks for status changes, and bulk endpoints for backfills.')],
      "Everything behind Discover, as APIs.","Pick the endpoints you need. Usage-based pricing, scoped to your volume.",
      [("verify","Verify API","Eligibility, revocation, state registries, and OFAC in one call."),("research","Data API","Search, prospecting, and profiles from every 990, 990-EZ, and 990-PF."),("research","Data Pro API","450+ extracted and computed fields on any single organization."),("monitor","Research API","A complete, citation-backed due-diligence brief on demand."),("verify","FaithVerify API","Verification for churches and religious organizations."),("monitor","Webhooks &amp; bulk","Status-change events and batch endpoints up to 20K EINs.")],
-     "Get a sandbox key today.", two_btn("Talk to Sales","Book a demo"), "30-minute call with a co-founder · API provisioned in less than 24 hours")),
+     "Get a trial API key today.", two_btn("Talk to Sales","Book a demo"), "30-minute call with a co-founder · API provisioned in less than 24 hours")),
  'for/foundations': dict(title='For Private and Corporate Foundations | Givalgo',
    desc='Research, verification, and monitoring for 1.9M nonprofits in one workspace, with AI diligence briefs that turn a shortlist into a board-ready memo.',
    page=uc_page("FOR PRIVATE &amp; CORPORATE FOUNDATIONS","From prospect list to board-ready diligence, in one workspace.",

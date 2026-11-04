@@ -632,16 +632,30 @@ import shutil
 for d in os.listdir(os.path.join(R,'insights')):
     if os.path.isdir(os.path.join(R,'insights',d)) and d not in {m['slug'] for m in INSIGHTS}:
         shutil.rmtree(os.path.join(R,'insights',d))
-open(os.path.join(R,'insights','index.html'),'w').write(ins_page('Insights | Givalgo',
+# Share images: one per page, rendered by insights_og (see that file for caching).
+import insights_og
+def with_share_image(page, img_url, alt):
+    if not img_url: return page
+    return (page.replace('https://givalgo.ai/givalgo-og.png', img_url)
+                .replace('<meta property="og:image:width" content="2203" />','<meta property="og:image:width" content="1200" />')
+                .replace('<meta property="og:image:height" content="847" />','<meta property="og:image:height" content="627" />')
+                .replace('content="Givalgo — Research, verify, and monitor the nonprofits you fund"','content="%s"' % _html.escape(alt, quote=True)))
+idx_img=insights_og.render(os.path.join(R,'insights'), LOGO)
+open(os.path.join(R,'insights','index.html'),'w').write(with_share_image(ins_page('Insights | Givalgo',
     'Data-driven research for grantmakers and nonprofits on compliance, due diligence, foundation giving and the philanthropy landscape.',
-    'https://givalgo.ai/insights/', insights_index()))
+    'https://givalgo.ai/insights/', insights_index()), idx_img and 'https://givalgo.ai/insights/'+idx_img, 'Givalgo Insights: data and analysis for better grantmaking'))
 for m in INSIGHTS:
     url='https://givalgo.ai/insights/%s/'%m['slug']
+    m.setdefault('og_title', m['title'])
+    m.setdefault('og_tag', next((t for t in m['tags'] if not t.startswith('For ')), ''))
+    img=insights_og.render(os.path.join(R,'insights',m['slug']), LOGO, m)
+    img_url=url+img if img else 'https://givalgo.ai/givalgo-og.png'
     ld={"@context":"https://schema.org","@type":"Article","headline":m['title'],"description":m['dek'],"datePublished":m['date'],"dateModified":m.get('updated',m['date']),
-        "author":{"@type":"Organization","name":m.get('byline','Givalgo Research'),"url":"https://givalgo.ai/"},"publisher":{"@id":"https://givalgo.ai/#org"},"mainEntityOfPage":url,"image":"https://givalgo.ai/givalgo-og.png"}
+        "author":{"@type":"Organization","name":m.get('byline','Givalgo Research'),"url":"https://givalgo.ai/"},"publisher":{"@id":"https://givalgo.ai/#org"},"mainEntityOfPage":url,"image":img_url}
     extra=('  <meta property="article:published_time" content="%s" />\n  <script type="application/ld+json">%s</script>\n'%(m['date'], json.dumps(ld, ensure_ascii=False)))
     page=ins_page(_html.unescape(m['title'])+' | Givalgo Insights', m['dek'], url, insights_article(m), extra)
     page=page.replace('<meta property="og:type" content="website" />','<meta property="og:type" content="article" />',1)
+    page=with_share_image(page, img and img_url, _html.unescape(m['og_title']))
     os.makedirs(os.path.join(R,'insights',m['slug']),exist_ok=True)
     open(os.path.join(R,'insights',m['slug'],'index.html'),'w').write(page)
     print('insights/'+m['slug'], len(page))

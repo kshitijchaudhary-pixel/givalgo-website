@@ -24,7 +24,9 @@ python3 build/build.py
 <p>Body…</p>
 ```
 
-To publish a new piece, add a source file and run the build. It appears on the index (newest first, `featured` gets the large card), gets its own page with Article metadata, and is added to `sitemap.xml`. Body building blocks: `.ins-stats` / `.ins-stat` (number tiles), `.ins-callout`, `<table>` + `<figcaption>`, `ol.ins-check`, `.ins-cta` (gets an Open Discover button) and `.ins-sources`.
+To publish a new piece, add a source file and run the build. It appears on the index (newest first, `featured` gets the large card), gets its own page with Article metadata, and is added to `sitemap.xml`. Each page also gets its own share image for LinkedIn and other previews (`og-<hash>.png`, 1200×627: the stat, the title and the first topic tag), rendered by `build/insights_og.py` with headless Chrome. Set `og_title` to use a shorter title on the image. Images are only re-rendered when their content changes, and the new file name makes LinkedIn fetch a fresh preview.
+
+Body building blocks: `.ins-stats` / `.ins-stat` (number tiles), `.ins-callout`, `<table>` + `<figcaption>`, `ol.ins-check`, `.ins-cta` (gets an Open Discover button) and `.ins-sources`.
 
 The Discover flow GIFs in `assets/` are rendered mock-ups of the Discover UI (not screen recordings).
 

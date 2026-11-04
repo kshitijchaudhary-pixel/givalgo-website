@@ -437,20 +437,6 @@ SITE_JS='''
     }, { rootMargin: '-72px 0px 0px 0px', threshold: 0 }).observe(hero);
   })();
 
-  /* Insights index: filter the cards by audience. */
-  (function () {
-    var tabs = document.querySelectorAll('.ins-filter .tab'); if (!tabs.length) return;
-    tabs.forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        var f = tab.getAttribute('data-filter');
-        tabs.forEach(function (t) { t.classList.toggle('on', t === tab); t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
-        document.querySelectorAll('.ins-card').forEach(function (c) {
-          c.hidden = !(f === 'all' || (' ' + c.getAttribute('data-aud') + ' ').indexOf(' ' + f + ' ') >= 0);
-        });
-      });
-    });
-  })();
-
   /* Insights article: copy the page link. */
   function copyLink(btn) {
     var done = function () { btn.textContent = 'Link copied'; setTimeout(function () { btn.textContent = 'Copy link'; }, 2000); };
@@ -599,14 +585,13 @@ def _load_insights():
     # newest first, featured first among equals
     return sorted(out, key=lambda m: (m['date'], m.get('featured', False)), reverse=True)
 INSIGHTS=_load_insights()
-AUD_TAGS={'grantmakers':'grantmakers','nonprofits':'nonprofits','both':'grantmakers nonprofits'}
 def ins_tags(m): return ''.join('<span class="ins-tag">%s</span>'%t for t in m['tags'])
 def ins_card(m, big=False):
-    return ('<a class="ins-card%s" href="/insights/%s/" data-aud="%s">'
+    return ('<a class="ins-card%s" href="/insights/%s/">'
             '<div class="ins-card-stat dark"><b>%s</b><span>%s</span></div>'
             '<div class="ins-card-body"><div class="ins-tags">%s</div><h3>%s</h3><p>%s</p>'
             '<div class="ins-card-meta"><span>%s · %d min read</span><span class="ins-read">Read %s</span></div></div></a>'
-            % (' big' if big else '', m['slug'], AUD_TAGS[m['audience']], m['stat'], m['stat_label'], ins_tags(m), m['title'], m['dek'], m['date_h'], m['mins'], I['arrow']))
+            % (' big' if big else '', m['slug'], m['stat'], m['stat_label'], ins_tags(m), m['title'], m['dek'], m['date_h'], m['mins'], I['arrow']))
 INS_CLOSE=('<section class="sec close" id="get-started"><div class="container">'
            '<h2>See what the data says about<br>the organizations you fund.</h2>'
            '<div class="cta-row center"><a class="btn btn-primary" href="https://discover.givalgo.ai">Open Discover %s</a>'
@@ -620,11 +605,7 @@ def insights_index():
             '<h1>Data and analysis for<br><span>better grantmaking.</span></h1>'
             '<p class="lead">Research for grantmakers and nonprofits, built on IRS filings, grants data and compliance records covering nearly two million organizations.</p></div></section>'
             '<section class="sec ins-list"><div class="container">'
-            '<div class="ins-filter"><div class="tabs" role="tablist" aria-label="Filter by audience">'
-            '<button type="button" class="tab on" role="tab" aria-selected="true" data-filter="all">All</button>'
-            '<button type="button" class="tab" role="tab" aria-selected="false" data-filter="grantmakers">For grantmakers</button>'
-            '<button type="button" class="tab" role="tab" aria-selected="false" data-filter="nonprofits">For nonprofits</button></div></div>'
-            '<div class="ins-grid">%s%s</div></div></section>%s</main>\n') % (ins_card(feat, big=True), ''.join(ins_card(m) for m in rest), INS_CLOSE)
+            '<div class="ins-grid%s">%s%s</div></div></section>%s</main>\n') % (' n2' if len(rest) == 2 else '', ins_card(feat, big=True), ''.join(ins_card(m) for m in rest), INS_CLOSE)
 def ins_body(body):
     return re.sub(r'<div class="ins-cta">(.*?)</div>',
                   lambda mo: '<div class="ins-cta dark"><p>%s</p><a class="btn btn-primary btn-sm" href="https://discover.givalgo.ai">Open Discover %s</a></div>' % (mo.group(1), I['arrow']),
@@ -640,12 +621,17 @@ def insights_article(m):
             '<section class="sec ins-article"><div class="container ins-narrow"><article class="ins-body">%s</article>'
             '<div class="ins-share"><span>Share this piece</span><a class="btn btn-outline btn-sm" href="%s" target="_blank" rel="noopener">Share on LinkedIn</a>'
             '<button type="button" class="btn btn-outline btn-sm" onclick="copyLink(this)">Copy link</button></div></div></section>'
-            '<section class="sec sec-alt ins-more"><div class="container"><div class="eyebrow">MORE INSIGHTS</div><div class="ins-grid three">%s</div></div></section>'
-            '%s</main>\n') % (ins_tags(m), m['title'], m['dek'], m.get('byline','Givalgo Research'), m['date_h'], m['mins'], ins_body(m['body']), share, ''.join(ins_card(x) for x in more), INS_CLOSE)
+            '<section class="sec sec-alt ins-more"><div class="container"><div class="eyebrow">MORE INSIGHTS</div><div class="ins-grid%s">%s</div></div></section>'
+            '%s</main>\n') % (ins_tags(m), m['title'], m['dek'], m.get('byline','Givalgo Research'), m['date_h'], m['mins'], ins_body(m['body']), share, ' n2' if len(more) == 2 else '', ''.join(ins_card(x) for x in more), INS_CLOSE)
 def ins_page(title, desc, canonical, main, extra=''):
     h=(head(title, desc, canonical, extra)+'<body>\n\n'+MODAL+'\n<div id="main-site">\n'+nav(current='/insights/')+main+footer(True)+'</div>\n'+scripts(False)+'</body>\n</html>\n')
     return h.replace('@@LOGO@@',LOGO)
 os.makedirs(os.path.join(R,'insights'),exist_ok=True)
+# Drop pages for articles whose source was removed, so an unpublished piece never stays live.
+import shutil
+for d in os.listdir(os.path.join(R,'insights')):
+    if os.path.isdir(os.path.join(R,'insights',d)) and d not in {m['slug'] for m in INSIGHTS}:
+        shutil.rmtree(os.path.join(R,'insights',d))
 open(os.path.join(R,'insights','index.html'),'w').write(ins_page('Insights | Givalgo',
     'Data-driven research for grantmakers and nonprofits on compliance, due diligence, foundation giving and the philanthropy landscape.',
     'https://givalgo.ai/insights/', insights_index()))

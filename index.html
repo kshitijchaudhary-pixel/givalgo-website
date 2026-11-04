@@ -96,7 +96,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/site.css?v=db797480" />
+  <link rel="stylesheet" href="/assets/site.css?v=61bac6a4" />
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://givalgo.ai/#org","name":"Givalgo","url":"https://givalgo.ai/","logo":"https://givalgo.ai/apple-touch-icon.png","sameAs":["https://www.linkedin.com/company/givalgo"]},{"@type":"WebSite","@id":"https://givalgo.ai/#site","url":"https://givalgo.ai/","name":"Givalgo","description":"Research, verify, and monitor grantees.","publisher":{"@id":"https://givalgo.ai/#org"}}]}</script>
 </head>
 <body>
@@ -648,20 +648,6 @@
     new IntersectionObserver(function (entries) {
       nav.classList.toggle('light', !entries[0].isIntersecting);
     }, { rootMargin: '-72px 0px 0px 0px', threshold: 0 }).observe(hero);
-  })();
-
-  /* Insights index: filter the cards by audience. */
-  (function () {
-    var tabs = document.querySelectorAll('.ins-filter .tab'); if (!tabs.length) return;
-    tabs.forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        var f = tab.getAttribute('data-filter');
-        tabs.forEach(function (t) { t.classList.toggle('on', t === tab); t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
-        document.querySelectorAll('.ins-card').forEach(function (c) {
-          c.hidden = !(f === 'all' || (' ' + c.getAttribute('data-aud') + ' ').indexOf(' ' + f + ' ') >= 0);
-        });
-      });
-    });
   })();
 
   /* Insights article: copy the page link. */

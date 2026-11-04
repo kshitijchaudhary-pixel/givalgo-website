@@ -651,8 +651,9 @@ for m in INSIGHTS:
     img=insights_og.render(os.path.join(R,'insights',m['slug']), LOGO, m)
     img_url=url+img if img else 'https://givalgo.ai/givalgo-og.png'
     ld={"@context":"https://schema.org","@type":"Article","headline":m['title'],"description":m['dek'],"datePublished":m['date'],"dateModified":m.get('updated',m['date']),
-        "author":{"@type":"Organization","name":m.get('byline','Givalgo Research'),"url":"https://givalgo.ai/"},"publisher":{"@id":"https://givalgo.ai/#org"},"mainEntityOfPage":url,"image":img_url}
-    extra=('  <meta property="article:published_time" content="%s" />\n  <script type="application/ld+json">%s</script>\n'%(m['date'], json.dumps(ld, ensure_ascii=False)))
+        "author":{"@type":"Organization","@id":"https://givalgo.ai/#org","name":"Givalgo","url":"https://givalgo.ai/"},"publisher":{"@id":"https://givalgo.ai/#org"},"mainEntityOfPage":url,"image":img_url}
+    extra=('  <meta name="author" content="Givalgo" />\n  <meta property="article:author" content="Givalgo" />\n'
+           '  <meta property="article:published_time" content="%s" />\n  <script type="application/ld+json">%s</script>\n'%(m['date'], json.dumps(ld, ensure_ascii=False)))
     page=ins_page(_html.unescape(m['title'])+' | Givalgo Insights', m['dek'], url, insights_article(m), extra)
     page=page.replace('<meta property="og:type" content="website" />','<meta property="og:type" content="article" />',1)
     page=with_share_image(page, img and img_url, _html.unescape(m['og_title']))

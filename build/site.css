@@ -451,7 +451,6 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
 .ins-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-teal); background: rgba(0,180,179,0.10); border-radius: 6px; padding: 4px 8px; }
 
 .ins-article-hero { padding: 56px 0 56px; background: radial-gradient(ellipse 50% 70% at 15% 0%, rgba(0,180,179,0.18), rgba(0,0,0,0) 70%), #0C1830; }
-.container.ins-narrow { max-width: 780px; }
 .ins-back { display: inline-block; font-size: 14px; font-weight: 600; color: var(--c-muted); text-decoration: none; margin-bottom: 22px; }
 .ins-back:hover { color: var(--c-text); }
 .ins-article-hero .ins-tags { margin-bottom: 16px; }

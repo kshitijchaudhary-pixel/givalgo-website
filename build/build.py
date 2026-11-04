@@ -637,8 +637,8 @@ import insights_og
 def with_share_image(page, img_url, alt):
     if not img_url: return page
     return (page.replace('https://givalgo.ai/givalgo-og.png', img_url)
-                .replace('<meta property="og:image:width" content="2203" />','<meta property="og:image:width" content="1200" />')
-                .replace('<meta property="og:image:height" content="847" />','<meta property="og:image:height" content="627" />')
+                .replace('<meta property="og:image:width" content="2203" />','<meta property="og:image:width" content="2400" />')
+                .replace('<meta property="og:image:height" content="847" />','<meta property="og:image:height" content="1254" />')
                 .replace('content="Givalgo — Research, verify, and monitor the nonprofits you fund"','content="%s"' % _html.escape(alt, quote=True)))
 idx_img=insights_og.render(os.path.join(R,'insights'), LOGO)
 open(os.path.join(R,'insights','index.html'),'w').write(with_share_image(ins_page('Insights | Givalgo',

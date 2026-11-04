@@ -1,4 +1,4 @@
-"""Social share images (1200x627) for Insights pages, rendered with headless Chrome.
+"""Social share images (1200x627 layout, rendered at 2x = 2400x1254) for Insights pages, rendered with headless Chrome.
 
 Each image is named og-<hash>.png from its content, so editing a title or stat
 produces a new URL and LinkedIn fetches a fresh preview instead of its cached one.
@@ -7,7 +7,7 @@ builds on a machine without Chrome still work as long as nothing changed.
 """
 import glob, hashlib, json, os, shutil, subprocess, tempfile
 
-VERSION = 1  # bump when the templates below change, to force new images
+VERSION = 2  # bump when the templates below change, to force new images
 CHROME_PATHS = [os.environ.get('CHROME', ''), '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
                 'google-chrome', 'chromium', 'chromium-browser']
 
@@ -85,7 +85,7 @@ def render(out_dir, logo, article=None):
         with tempfile.TemporaryDirectory() as tmp:
             src = os.path.join(tmp, 'og.html')
             open(src, 'w').write(html)
-            subprocess.run([chrome, '--headless=new', '--disable-gpu', '--hide-scrollbars', '--window-size=1200,627',
+            subprocess.run([chrome, '--headless=new', '--disable-gpu', '--hide-scrollbars', '--window-size=1200,627', '--force-device-scale-factor=2',
                             '--virtual-time-budget=5000', '--screenshot=' + path, 'file://' + src],
                            check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         print('  rendered', os.path.relpath(path))

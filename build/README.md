@@ -11,6 +11,21 @@ python3 build/build.py
 - `ga.html` — the GA4 block, carried over verbatim from the previous site
 - `modal.html`, `privacy.html`, `scripts.js`, `legacy.css`, `root.css` — the demo modal and the privacy policy page, carried over unchanged
 
+## Insights
+
+`insights/index.html` and `insights/<slug>/index.html` are generated from `build/insights/*.html`. Each source file is a JSON front-matter block between `---` lines, then the article body as HTML:
+
+```
+---
+{"title": "...", "dek": "...", "slug": "url-slug", "date": "2026-11-04", "audience": "grantmakers | nonprofits | both",
+ "tags": ["For grantmakers", "Compliance"], "featured": false, "byline": "Givalgo Research",
+ "stat": "~4,000", "stat_label": "the headline number shown on the card"}
+---
+<p>Body…</p>
+```
+
+To publish a new piece, add a source file and run the build. It appears on the index (newest first, `featured` gets the large card), gets its own page with Article metadata, and is added to `sitemap.xml`. Body building blocks: `.ins-stats` / `.ins-stat` (number tiles), `.ins-callout`, `<table>` + `<figcaption>`, `ol.ins-check`, `.ins-cta` (gets an Open Discover button) and `.ins-sources`.
+
 The Discover flow GIFs in `assets/` are rendered mock-ups of the Discover UI (not screen recordings).
 
 `bbcon/` (the bbcon lucky-draw form and booth page) is hand-written, not generated — see `build/bbcon/README.md`.

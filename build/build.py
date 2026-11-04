@@ -90,13 +90,13 @@ def nav(on_pricing=False, current=None):
               '<div class="menu-panel" id="usecasesPanel" role="menu">'
               + ''.join('<a role="menuitem" href="%s"%s><b>%s</b><span>%s</span></a>'%(h, ' aria-current="page"' if h==current else '', t, d) for h,t,d in USECASE_LINKS) +
               '</div></div>')
-    links=[('Docs','https://docs.givalgo.ai/'),('Pricing','/pricing/')]
-    a=''.join('<a href="%s"%s>%s</a>'%(h,' aria-current="page"' if (t=='Pricing' and on_pricing) else '',t) for t,h in links)
+    links=[('Insights','/insights/'),('Docs','https://docs.givalgo.ai/'),('Pricing','/pricing/')]
+    a=''.join('<a href="%s"%s>%s</a>'%(h,' aria-current="page"' if ((t=='Pricing' and on_pricing) or (current or '').startswith(h)) else '',t) for t,h in links)
     def m_link(t,h): return '<a onclick="closeMobileNav()" href="%s">%s</a>'%(h,t)
     def m_group(label, links): return '<details class="m-group"><summary>%s %s</summary><div class="m-sub">%s</div></details>'%(label, CHEV, ''.join(m_link(t,h) for t,h in links))
     mobile=(m_group('Products',[('Discover',p+'#discover'),('APIs',p+'#apis')])
             +m_group('Use Cases',[(t,h) for h,t,d in USECASE_LINKS])
-            +m_link('Docs','https://docs.givalgo.ai/')+m_link('Pricing','/pricing/'))
+            +m_link('Insights','/insights/')+m_link('Docs','https://docs.givalgo.ai/')+m_link('Pricing','/pricing/'))
     return '''<a class="skip" href="#main">Skip to content</a>
 <header class="nav" id="siteNav">
   <div class="container nav-inner">
@@ -120,7 +120,7 @@ FOOTER='''<footer class="footer" id="footer">
     </div>
     <div><h4>Products</h4><a href="https://discover.givalgo.ai">Discover</a><a href="/#apis">APIs</a><a href="/pricing/">Pricing</a></div>
     <div><h4>Developers</h4><a href="https://docs.givalgo.ai/">API documentation</a><a href="https://docs.givalgo.ai/">Getting started</a><a href="#" onclick="openModal(); return false;">Book a demo</a></div>
-    <div><h4>Company</h4><a href="#" onclick="openModal(); return false;">Contact us</a>%s<a href="https://www.linkedin.com/company/givalgo" target="_blank" rel="noopener">LinkedIn</a></div>
+    <div><h4>Company</h4><a href="/insights/">Insights</a><a href="#" onclick="openModal(); return false;">Contact us</a>%s<a href="https://www.linkedin.com/company/givalgo" target="_blank" rel="noopener">LinkedIn</a></div>
   </div>
   <div class="container footer-bottom">© 2026 Givalgo, Inc. All rights reserved. Data sourced from IRS public records.</div>
 </footer>
@@ -430,12 +430,18 @@ SITE_JS='''
 
   /* Nav: navy over the hero, light once the hero has scrolled out. */
   (function () {
-    var nav = document.getElementById('siteNav'), hero = document.querySelector('.hero, .uc-hero'); if (!nav || !hero) return;
+    var nav = document.getElementById('siteNav'), hero = document.querySelector('.hero, .uc-hero, .ins-hero'); if (!nav || !hero) return;
     if (!('IntersectionObserver' in window)) return;
     new IntersectionObserver(function (entries) {
       nav.classList.toggle('light', !entries[0].isIntersecting);
     }, { rootMargin: '-72px 0px 0px 0px', threshold: 0 }).observe(hero);
   })();
+
+  /* Insights article: copy the page link. */
+  function copyLink(btn) {
+    var done = function () { btn.textContent = 'Link copied'; setTimeout(function () { btn.textContent = 'Copy link'; }, 2000); };
+    if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(done, function () {}); else done();
+  }
 
   /* Close the demo modal on Escape or on a backdrop click. */
   (function () {
@@ -563,3 +569,87 @@ for path, uc in USECASES.items():
     html=html.replace('@@LOGO@@',LOGO)
     open(os.path.join(R, path, 'index.html'),'w').write(html)
     print(path, len(html))
+
+# ---------------- Insights (articles in build/insights/*.html: JSON front matter + body) ----------------
+import json, datetime, html as _html
+def _load_insights():
+    out=[]
+    for f in sorted(os.listdir(os.path.join(B,'insights'))):
+        if not f.endswith('.html'): continue
+        _, meta, body = open(os.path.join(B,'insights',f)).read().split('---\n', 2)
+        m=json.loads(meta); m['body']=body
+        m['words']=len(re.sub(r'<[^>]+>',' ',body).split())
+        m['mins']=max(3, round(m['words']/230))
+        d=datetime.date.fromisoformat(m['date']); m['date_h']=d.strftime('%B ')+str(d.day)+d.strftime(', %Y')
+        out.append(m)
+    # newest first, featured first among equals
+    return sorted(out, key=lambda m: (m['date'], m.get('featured', False)), reverse=True)
+INSIGHTS=_load_insights()
+def ins_tags(m): return ''.join('<span class="ins-tag">%s</span>'%t for t in m['tags'])
+def ins_card(m, big=False):
+    return ('<a class="ins-card%s" href="/insights/%s/">'
+            '<div class="ins-card-stat dark"><b>%s</b><span>%s</span></div>'
+            '<div class="ins-card-body"><div class="ins-tags">%s</div><h3>%s</h3><p>%s</p>'
+            '<div class="ins-card-meta"><span>%s · %d min read</span><span class="ins-read">Read %s</span></div></div></a>'
+            % (' big' if big else '', m['slug'], m['stat'], m['stat_label'], ins_tags(m), m['title'], m['dek'], m['date_h'], m['mins'], I['arrow']))
+INS_CLOSE=('<section class="sec close" id="get-started"><div class="container">'
+           '<h2>See what the data says about<br>the organizations you fund.</h2>'
+           '<div class="cta-row center"><a class="btn btn-primary" href="https://discover.givalgo.ai">Open Discover %s</a>'
+           '<a class="btn btn-outline" href="https://www.linkedin.com/company/givalgo" target="_blank" rel="noopener">Follow us on LinkedIn</a></div>'
+           '<p class="hint">New pieces every month · Free to start, no card required</p></div></section>') % I['arrow']
+def insights_index():
+    feat=next((m for m in INSIGHTS if m.get('featured')), INSIGHTS[0])
+    rest=[m for m in INSIGHTS if m is not feat]
+    return ('<main id="main">'
+            '<section class="hero hero-sm ins-hero"><div class="container hero-inner"><div class="eyebrow">INSIGHTS</div>'
+            '<h1>Data and analysis for<br><span>better grantmaking.</span></h1>'
+            '<p class="lead">Research for grantmakers and nonprofits, built on IRS filings, grants data and compliance records covering nearly two million organizations.</p></div></section>'
+            '<section class="sec ins-list"><div class="container">'
+            '<div class="ins-grid%s">%s%s</div></div></section>%s</main>\n') % (' n2' if len(rest) == 2 else '', ins_card(feat, big=True), ''.join(ins_card(m) for m in rest), INS_CLOSE)
+def ins_body(body):
+    return re.sub(r'<div class="ins-cta">(.*?)</div>',
+                  lambda mo: '<div class="ins-cta dark"><p>%s</p><a class="btn btn-primary btn-sm" href="https://discover.givalgo.ai">Open Discover %s</a></div>' % (mo.group(1), I['arrow']),
+                  body, flags=re.S)
+def insights_article(m):
+    url='https://givalgo.ai/insights/%s/'%m['slug']
+    share='https://www.linkedin.com/sharing/share-offsite/?url='+url
+    more=[x for x in INSIGHTS if x is not m][:3]
+    return ('<main id="main">'
+            '<section class="ins-hero ins-article-hero dark"><div class="container ins-narrow">'
+            '<a class="ins-back" href="/insights/">&larr; All insights</a><div class="ins-tags">%s</div>'
+            '<h1>%s</h1><p class="lead">%s</p><div class="ins-meta">%s · %s · %d min read</div></div></section>'
+            '<section class="sec ins-article"><div class="container ins-narrow"><article class="ins-body">%s</article>'
+            '<div class="ins-share"><span>Share this piece</span><a class="btn btn-outline btn-sm" href="%s" target="_blank" rel="noopener">Share on LinkedIn</a>'
+            '<button type="button" class="btn btn-outline btn-sm" onclick="copyLink(this)">Copy link</button></div></div></section>'
+            '<section class="sec sec-alt ins-more"><div class="container"><div class="eyebrow">MORE INSIGHTS</div><div class="ins-grid%s">%s</div></div></section>'
+            '%s</main>\n') % (ins_tags(m), m['title'], m['dek'], m.get('byline','Givalgo Research'), m['date_h'], m['mins'], ins_body(m['body']), share, ' n2' if len(more) == 2 else '', ''.join(ins_card(x) for x in more), INS_CLOSE)
+def ins_page(title, desc, canonical, main, extra=''):
+    h=(head(title, desc, canonical, extra)+'<body>\n\n'+MODAL+'\n<div id="main-site">\n'+nav(current='/insights/')+main+footer(True)+'</div>\n'+scripts(False)+'</body>\n</html>\n')
+    return h.replace('@@LOGO@@',LOGO)
+os.makedirs(os.path.join(R,'insights'),exist_ok=True)
+# Drop pages for articles whose source was removed, so an unpublished piece never stays live.
+import shutil
+for d in os.listdir(os.path.join(R,'insights')):
+    if os.path.isdir(os.path.join(R,'insights',d)) and d not in {m['slug'] for m in INSIGHTS}:
+        shutil.rmtree(os.path.join(R,'insights',d))
+open(os.path.join(R,'insights','index.html'),'w').write(ins_page('Insights | Givalgo',
+    'Data-driven research for grantmakers and nonprofits on compliance, due diligence, foundation giving and the philanthropy landscape.',
+    'https://givalgo.ai/insights/', insights_index()))
+for m in INSIGHTS:
+    url='https://givalgo.ai/insights/%s/'%m['slug']
+    ld={"@context":"https://schema.org","@type":"Article","headline":m['title'],"description":m['dek'],"datePublished":m['date'],"dateModified":m.get('updated',m['date']),
+        "author":{"@type":"Organization","name":m.get('byline','Givalgo Research'),"url":"https://givalgo.ai/"},"publisher":{"@id":"https://givalgo.ai/#org"},"mainEntityOfPage":url,"image":"https://givalgo.ai/givalgo-og.png"}
+    extra=('  <meta property="article:published_time" content="%s" />\n  <script type="application/ld+json">%s</script>\n'%(m['date'], json.dumps(ld, ensure_ascii=False)))
+    page=ins_page(_html.unescape(m['title'])+' | Givalgo Insights', m['dek'], url, insights_article(m), extra)
+    page=page.replace('<meta property="og:type" content="website" />','<meta property="og:type" content="article" />',1)
+    os.makedirs(os.path.join(R,'insights',m['slug']),exist_ok=True)
+    open(os.path.join(R,'insights',m['slug'],'index.html'),'w').write(page)
+    print('insights/'+m['slug'], len(page))
+
+# ---------------- sitemap.xml ----------------
+SITEMAP_BASE=[('https://givalgo.ai/','2026-09-18','1.0'),('https://givalgo.ai/pricing/','2026-09-18','0.8'),
+              ('https://givalgo.ai/for/daf-sponsors/','2026-09-18','0.8'),('https://givalgo.ai/for/platforms/','2026-09-18','0.8'),
+              ('https://givalgo.ai/for/foundations/','2026-09-18','0.8')]
+sm=SITEMAP_BASE+[('https://givalgo.ai/insights/',INSIGHTS[0]['date'],'0.8')]+[('https://givalgo.ai/insights/%s/'%m['slug'],m.get('updated',m['date']),'0.7') for m in INSIGHTS]
+open(os.path.join(R,'sitemap.xml'),'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    + ''.join('  <url><loc>%s</loc><lastmod>%s</lastmod><priority>%s</priority></url>\n'%u for u in sm) + '</urlset>\n')

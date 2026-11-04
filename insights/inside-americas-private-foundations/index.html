@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inside America’s 130,000 private foundations | Givalgo Insights</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="description" content="Philanthropy’s headlines are about billion-dollar foundations. Its daily reality is a long tail of small, lean ones. A data look at who they are, what they give and why the middle matters more than it seems." />
+  <meta name="theme-color" content="#0C1830" />
+  <link rel="canonical" href="https://givalgo.ai/insights/inside-americas-private-foundations/" />
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:site_name" content="Givalgo" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://givalgo.ai/insights/inside-americas-private-foundations/" />
+  <meta property="og:title" content="Inside America’s 130,000 private foundations | Givalgo Insights" />
+  <meta property="og:description" content="Philanthropy’s headlines are about billion-dollar foundations. Its daily reality is a long tail of small, lean ones. A data look at who they are, what they give and why the middle matters more than it seems." />
+  <meta property="og:image" content="https://givalgo.ai/givalgo-og.png" />
+  <meta property="og:image:width" content="2203" />
+  <meta property="og:image:height" content="847" />
+  <meta property="og:image:alt" content="Givalgo — Research, verify, and monitor the nonprofits you fund" />
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Inside America’s 130,000 private foundations | Givalgo Insights" />
+  <meta name="twitter:description" content="Philanthropy’s headlines are about billion-dollar foundations. Its daily reality is a long tail of small, lean ones. A data look at who they are, what they give and why the middle matters more than it seems." />
+  <meta name="twitter:image" content="https://givalgo.ai/givalgo-og.png" />
+
+  <!-- ──────────────────────────────────────────────────────────────────────
+       Google Analytics 4 — THIS MARKETING SITE ONLY.
+       The Discover app and the APIs deliberately do not carry it: they run
+       first-party analytics (user_events), which is what the Privacy Policy
+       section 6 below promises and what we tell buyers during diligence.
+       Keep that split — it is a positioning decision, not an oversight.
+  ─────────────────────────────────────────────────────────────────────── -->
+  <script>
+    /* Paste the Measurement ID from GA4 Admin → Data Streams → Web. Until it
+       is a real ID nothing loads and nothing is sent, so this is safe to ship
+       before the property exists — the same pattern Discover uses for
+       GOOGLE_SITE_VERIFICATION in layout.tsx. */
+    var GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
+
+    /* A real ID can legitimately contain an "X", so this tests the shape and
+       excludes the exact placeholder rather than sniffing for a letter. */
+    var GA_ENABLED = /^G-[A-Z0-9]{6,}$/.test(GA_MEASUREMENT_ID)
+                     && GA_MEASUREMENT_ID !== 'G-XXXXXXXXXX';
+
+    if (GA_ENABLED) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+
+      /* Consent Mode v2. These defaults are only read at the moment 'config'
+         runs, so they must be set first. Advertising storage stays denied
+         permanently: we run no ads and hold no remarketing audiences, so
+         granting it would collect data we would never use while widening the
+         disclosure we owe visitors for nothing in return.
+         GA4 truncates IP addresses on collection and offers no toggle for it,
+         so there is deliberately no anonymize_ip here — that parameter is
+         Universal Analytics and is ignored by GA4. */
+      gtag('consent', 'default', {
+        ad_storage:          'denied',
+        ad_user_data:        'denied',
+        ad_personalization:  'denied',
+        analytics_storage:   'granted'
+      });
+
+      gtag('js', new Date());
+      gtag('config', GA_MEASUREMENT_ID, {
+        /* 13 months rather than the 2-year default, to match the retention
+           posture the Privacy Policy describes. */
+        cookie_expires: 34128000
+      });
+
+      /* Marketing → app handoff. GA4's built-in outbound-click measurement
+         does NOT fire for discover.givalgo.ai, because a subdomain of this
+         site is not "outbound" — so without this the one conversion that
+         matters on this page would be invisible. */
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+        if (!a) return;
+        var href = a.getAttribute('href') || '';
+        if (href.indexOf('discover.givalgo.ai') === -1) return;
+        gtag('event', 'to_discover', {
+          link_url:  href.slice(0, 200),
+          link_text: (a.textContent || '').trim().slice(0, 80)
+        });
+      });
+
+      var gaEl = document.createElement('script');
+      gaEl.async = true;
+      gaEl.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+      document.head.appendChild(gaEl);
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=61bac6a4" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://givalgo.ai/#org","name":"Givalgo","url":"https://givalgo.ai/","logo":"https://givalgo.ai/apple-touch-icon.png","sameAs":["https://www.linkedin.com/company/givalgo"]},{"@type":"WebSite","@id":"https://givalgo.ai/#site","url":"https://givalgo.ai/","name":"Givalgo","description":"Research, verify, and monitor grantees.","publisher":{"@id":"https://givalgo.ai/#org"}}]}</script>
+  <meta property="article:published_time" content="2026-11-04" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Inside America’s 130,000 private foundations", "description": "Philanthropy’s headlines are about billion-dollar foundations. Its daily reality is a long tail of small, lean ones. A data look at who they are, what they give and why the middle matters more than it seems.", "datePublished": "2026-11-04", "dateModified": "2026-11-04", "author": {"@type": "Organization", "name": "Givalgo Research", "url": "https://givalgo.ai/"}, "publisher": {"@id": "https://givalgo.ai/#org"}, "mainEntityOfPage": "https://givalgo.ai/insights/inside-americas-private-foundations/", "image": "https://givalgo.ai/givalgo-og.png"}</script>
+</head>
+<body>
+
+<div class="modal-overlay" id="demoModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3>Book a Demo</h3>
+    <p>Schedule a 30-minute call with one of our co-founders. We'll walk you through the platform and discuss your use case.</p>
+    <div class="modal-founders">
+      <a class="founder-card" href="https://calendly.com/kshitij-givalgo/30min" target="_blank">
+        <div class="founder-avatar avatar-k">K</div>
+        <strong>Kshitij</strong>
+        <span>Co-founder</span>
+      </a>
+      <a class="founder-card" href="https://calendly.com/nishant-givalgo/30min" target="_blank">
+        <div class="founder-avatar avatar-n">N</div>
+        <strong>Nishant</strong>
+        <span>Co-founder</span>
+      </a>
+    </div>
+    <p class="modal-note">30 minutes · No commitment · We'll send a calendar invite</p>
+  </div>
+</div>
+
+<div id="main-site">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav" id="siteNav">
+  <div class="container nav-inner">
+    <a class="logo" href="/" aria-label="Givalgo home"><svg viewBox="0 0 528.56 203.29" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Givalgo" focusable="false">
+<path fill="#ffffff" d="M227.9,102.11c.51,11.11-.72,21.55-8.91,29.69-9.89,9.84-21.94,12.55-35.21,8.98-12.96-3.48-21.38-12.19-24.79-25.01-3.41-12.84-2.2-25.34,6.11-36.37,5.01-6.65,11.76-10.69,19.93-12.31,12.12-2.4,23.2-.34,32.69,7.94,4.89,4.26,7.8,9.48,8.68,15.13-4.56,0-9.07.06-13.57-.07-.63-.02-1.47-.78-1.83-1.42-6.63-11.65-25.59-12.81-35.01-.98-7.32,9.2-6.98,28.64,3.89,37.13,11.57,9.04,27.68,4.72,32.74-9.03.29-.79.5-1.61.85-2.74h-18v-10.94h32.41Z"/>
+<path fill="#ffffff" d="M434.86,131.74c-6.19,7.61-13.99,9.39-22.59,7.01-8.78-2.43-14.65-8.36-16.49-17.43-1.92-9.5-1.38-18.75,5.15-26.71,5.54-6.76,16.54-10.13,24.65-6.91,3.53,1.4,6.47,4.27,9.6,6.42v-6.29h12.8c.09.67.27,1.38.27,2.1.03,15.06.19,30.13.02,45.19-.12,10.8-2.99,20.54-13.59,25.72-12.43,6.07-28.94,4.42-38.74-8.68,3.31-2.38,6.61-4.75,9.98-7.16,5.91,5.79,12.59,9.45,20.77,5.81,7.99-3.56,8.41-11.04,8.18-19.05ZM408.59,112.85c-.53,13.29,10.09,17.26,17.74,14.97,6.82-2.04,10.08-9.17,8.6-18.07-1.77-10.64-12.5-13.77-19.99-9.36-4.91,2.9-6.4,7.6-6.34,12.45Z"/>
+<path fill="#ffffff" d="M349.88,108.66c.74-5.88-1.54-9.54-6.55-10.8-7.26-1.83-11.91.53-14.58,7.49-2-.09-4.03-.1-6.06-.29-2.03-.19-4.05-.56-6.07-.85,1.23-10.44,8.18-16.78,20.25-17.78,7.42-.62,14.75.03,20.66,5.52,4.1,3.81,5.41,8.89,5.55,14.08.29,11.47.09,22.95.09,34.67h-12.54c-.19-1.91-.39-3.89-.59-5.94-7.03,7.73-20.44,9.39-29.16,3.52-5.44-3.66-6.4-9.24-5.8-15.22.48-4.78,3.11-8.13,7.52-10.12,6.75-3.05,14.02-3.22,21.2-3.88,2.03-.19,4.08-.26,6.07-.39ZM350.13,118.81c-2.54,0-4.61-.15-6.64.03-3.54.33-7.16.53-10.56,1.47-1.64.45-3.46,2.24-4.09,3.85-.84,2.16-.12,4.69,2.31,5.8,5.01,2.29,9.95,1.35,14.6-1.12,4.06-2.16,3.97-6.25,4.38-10.04Z"/>
+<path fill="#ffffff" d="M509.68,114.79c.77,15.19-12,27.72-27.96,27.46-14.76-.24-27.22-12-26.82-28.46.37-15.45,12.3-27.59,27.77-27.37,17.52.25,27.69,13.7,27.02,28.38ZM468.62,114.15c0,1.08-.06,2.17,0,3.25.35,5.58,4.01,10.27,9.35,12.03,5.16,1.71,11.46.1,14.8-3.93,3.59-4.33,3.84-9.43,3.24-14.74-.98-8.75-9.3-14.25-17.71-11.64-6.48,2.01-9.71,7-9.68,15.01Z"/>
+<path fill="#ffffff" d="M293.19,140.92c-4.64,0-9.19.07-13.72-.07-.73-.02-1.82-.78-2.08-1.46-6.67-17.03-13.24-34.1-20.06-51.73,4.72,0,8.98-.12,13.21.12.71.04,1.61,1.5,1.97,2.47,4.41,11.79,8.73,23.62,13.09,35.48,4.4-12.61,8.83-25.32,13.25-38.01h14.9c-6.88,17.81-13.69,35.44-20.56,53.21Z"/>
+<path fill="#ffffff" d="M387.04,140.77h-13.26v-74.53h13.26v74.53Z"/>
+<path fill="#ffffff" d="M250.38,140.77h-13.27v-52.93h13.27v52.93Z"/>
+<path fill="#ffffff" d="M243.8,81.74c-5.66.61-8.57-4.27-8.62-7.93-.06-4.59,4.06-8.39,8.88-8.34,4.4.04,8.21,3.84,8.3,8.27.1,4.61-3.55,8.02-8.56,8.01Z"/>
+<path fill="#00848b" d="M70.01,130.83c-3.61,0-6.95-.74-10-2.23-3.06-1.49-5.7-3.47-7.94-5.96-2.24-2.48-4-5.37-5.29-8.66-1.29-3.29-1.94-6.79-1.94-10.49s.65-7.06,1.94-10.35c1.29-3.29,3.05-6.2,5.29-8.73,2.24-2.53,4.91-4.51,8-5.96,3.1-1.44,6.45-2.17,10.07-2.17.89,0,31.32-.03,32.2.07v-28.5c-.92-.05-31.4,0-32.33,0-7.4,0-14.31,1.47-20.72,4.4-6.41,2.93-12.01,6.95-16.78,12.05-4.78,5.1-8.54,11.01-11.3,17.73-2.76,6.72-4.13,13.87-4.13,21.45s1.38,14.73,4.13,21.45c2.75,6.72,6.52,12.63,11.3,17.73,4.78,5.1,10.37,9.12,16.78,12.05,6.41,2.93,13.32,4.4,20.72,4.4,2.06,0,4.09-.12,6.09-.35v-28.71c-1.96.51-3.98.77-6.09.77Z"/>
+<path fill="#00b4b3" d="M106.34,103.47h-33.05l12.54,21.15c-1.86,1.7-3.9,3.07-6.12,4.1-1.17.55-2.38.99-3.62,1.35v-.02c-1.96.51-3.98.77-6.09.77-3.61,0-6.95-.74-10-2.23-.05-.02-.1-.05-.14-.07v29.61c3.27.65,6.66.98,10.15.98,2.06,0,4.09-.12,6.09-.35v-.03c5.21-.77,9.67-2.52,14.43-4.86,3.27-1.61,6.32-3.57,9.19-5.86l6.63,11.18v-55.72Z"/>
+</svg></a>
+    <nav class="nav-links" aria-label="Primary"><div class="menu" id="productsMenu"><button type="button" class="menu-btn" aria-haspopup="true" aria-expanded="false" aria-controls="productsPanel" onclick="toggleMenu(event, this)">Products <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button><div class="menu-panel" id="productsPanel" role="menu"><a role="menuitem" href="/#discover"><b>Discover</b><span>The workspace for grantmaking teams</span></a><a role="menuitem" href="/#apis"><b>APIs</b><span>Verify, Data, Research, and FaithVerify</span></a></div></div><div class="menu" id="usecasesMenu"><button type="button" class="menu-btn" aria-haspopup="true" aria-expanded="false" aria-controls="usecasesPanel" onclick="toggleMenu(event, this)">Use Cases <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button><div class="menu-panel" id="usecasesPanel" role="menu"><a role="menuitem" href="/for/daf-sponsors/"><b>DAF sponsors &amp; community foundations</b><span>Verify every recommendation before it moves</span></a><a role="menuitem" href="/for/platforms/"><b>Grant management &amp; giving platforms</b><span>Embed verification and data in your product</span></a><a role="menuitem" href="/for/foundations/"><b>Private &amp; corporate foundations</b><span>Prospect, vet, and brief in one workspace</span></a></div></div><a href="/insights/" aria-current="page">Insights</a><a href="https://docs.givalgo.ai/">Docs</a><a href="/pricing/">Pricing</a></nav>
+    <div class="nav-actions">
+      <a class="nav-signin" href="https://discover.givalgo.ai/?signin=1">Sign in</a>
+      <button type="button" class="btn btn-primary btn-sm" onclick="openModal()">Book a demo</button>
+      <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" aria-controls="mobileNav" aria-expanded="false" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile"><details class="m-group"><summary>Products <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary><div class="m-sub"><a onclick="closeMobileNav()" href="/#discover">Discover</a><a onclick="closeMobileNav()" href="/#apis">APIs</a></div></details><details class="m-group"><summary>Use Cases <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary><div class="m-sub"><a onclick="closeMobileNav()" href="/for/daf-sponsors/">DAF sponsors &amp; community foundations</a><a onclick="closeMobileNav()" href="/for/platforms/">Grant management &amp; giving platforms</a><a onclick="closeMobileNav()" href="/for/foundations/">Private &amp; corporate foundations</a></div></details><a onclick="closeMobileNav()" href="/insights/">Insights</a><a onclick="closeMobileNav()" href="https://docs.givalgo.ai/">Docs</a><a onclick="closeMobileNav()" href="/pricing/">Pricing</a><a href="https://discover.givalgo.ai/?signin=1">Sign in</a><button type="button" class="btn btn-primary" onclick="closeMobileNav(); openModal()">Book a demo</button></nav>
+</header>
+<main id="main"><section class="ins-hero ins-article-hero dark"><div class="container ins-narrow"><a class="ins-back" href="/insights/">&larr; All insights</a><div class="ins-tags"><span class="ins-tag">For grantmakers</span><span class="ins-tag">For nonprofits</span><span class="ins-tag">Data</span></div><h1>Inside America’s 130,000 private foundations</h1><p class="lead">Philanthropy’s headlines are about billion-dollar foundations. Its daily reality is a long tail of small, lean ones. A data look at who they are, what they give and why the middle matters more than it seems.</p><div class="ins-meta">Givalgo Research · November 4, 2026 · 4 min read</div></div></section><section class="sec ins-article"><div class="container ins-narrow"><article class="ins-body"><p>When people picture a private foundation, they tend to think of Gates, Ford or MacArthur: big endowments, large program staffs, published strategies. Those foundations exist, and they move a lot of money. But they are a tiny fraction of the field.</p>
+<p>We looked at all <b>130,804</b> private foundations in the IRS Business Master File (as of October 2026) and the most recent Form 990-PF filed by each of them since 2022. The picture that emerges is a long tail of small foundations, a concentrated top and a large middle that rarely gets attention.</p>
+
+<div class="ins-stats">
+  <div class="ins-stat"><div class="n">65%</div><div class="l">of private foundations hold under $1 million in assets</div></div>
+  <div class="ins-stat"><div class="n">71%</div><div class="l">of all foundation assets are held by the largest 1% of foundations</div></div>
+  <div class="ins-stat"><div class="n">42,799</div><div class="l">foundations sit in the $1M–$50M “middle,” about one in three</div></div>
+</div>
+
+<h2>Most foundations are small</h2>
+<p>The vast majority (121,231) are <b>non-operating</b> foundations, the classic grantmakers that fund other organizations. Another 9,573 are <b>operating</b> foundations that mainly run their own programs.</p>
+
+<table>
+<tr><th>Assets (IRS master file)</th><th class="r">Foundations</th><th class="r">Share</th></tr>
+<tr><td>None reported</td><td class="r">10,543</td><td class="r">8.1%</td></tr>
+<tr><td>Under $100K</td><td class="r">37,733</td><td class="r">28.8%</td></tr>
+<tr><td>$100K – $1M</td><td class="r">36,450</td><td class="r">27.9%</td></tr>
+<tr><td>$1M – $10M</td><td class="r">34,143</td><td class="r">26.1%</td></tr>
+<tr><td>$10M – $50M</td><td class="r">8,656</td><td class="r">6.6%</td></tr>
+<tr><td>$50M – $100M</td><td class="r">1,552</td><td class="r">1.2%</td></tr>
+<tr><td>$100M – $1B</td><td class="r">1,577</td><td class="r">1.2%</td></tr>
+<tr><td>$1B and over</td><td class="r">150</td><td class="r">0.1%</td></tr>
+</table>
+<figcaption>Source: IRS Exempt Organizations Business Master File, October 2026; foundation codes 02, 03 and 04. Total reported assets: about $1.6 trillion.</figcaption>
+
+<p>Only about 3,300 foundations, 2.5% of the total, hold $50 million or more. Yet the largest 1% hold <b>71%</b> of all foundation assets, and the largest 10% hold <b>93%</b>. Wealth is concentrated at the top; the foundations themselves are mostly small.</p>
+
+<div class="ins-callout"><b>Measure foundations by assets, not revenue.</b> An endowed foundation’s “revenue” is mostly investment income and new gifts, and it swings from year to year. Assets, and the grants they support, are the better measure of size. Search tools and prospect lists that rank foundations by revenue understate many of them.</div>
+
+<h2>The 5% floor has become the target</h2>
+<p>Non-operating private foundations must generally make “qualifying distributions” of about 5% of their investment assets each year. The rule is a minimum. In practice, it works like a target.</p>
+
+<table>
+<tr><th>Non-operating foundations, by assets (fair market value)</th><th class="r">Foundations</th><th class="r">Median grants paid</th><th class="r">Median distributions ÷ assets</th></tr>
+<tr><td>Under $1M</td><td class="r">49,375</td><td class="r">$11,100</td><td class="r">6.7%</td></tr>
+<tr><td>$1M – $10M</td><td class="r">34,094</td><td class="r">$126,000</td><td class="r">4.7%</td></tr>
+<tr><td>$10M – $50M</td><td class="r">9,899</td><td class="r">$836,000</td><td class="r">4.7%</td></tr>
+<tr><td>$50M – $1B</td><td class="r">3,477</td><td class="r">$4.5M</td><td class="r">4.7%</td></tr>
+<tr><td>$1B and over</td><td class="r">157</td><td class="r">$89M</td><td class="r">4.7%</td></tr>
+</table>
+<figcaption>Source: Givalgo analysis of each foundation’s most recent Form 990-PF (tax years 2022 onward). The ratio uses year-end fair market value, a simplification of the legal test, which uses average prior-year assets and allows carryovers. A ratio under 5% doesn’t by itself mean a foundation has missed its requirement.</figcaption>
+
+<p>Above $1 million in assets, the median foundation distributes <b>about 4.7%</b> of its year-end assets, and that figure barely moves from a $2 million family foundation to a $2 billion institution. Foundations of every size cluster around the legal minimum.</p>
+<p>And <b>about one in four non-operating foundations paid no grants at all</b> in its most recent filed year. Some are new, winding down or saving for a large commitment. But it’s a reminder that a foundation existing isn’t the same as a foundation giving.</p>
+
+<h2>Don’t overlook the middle</h2>
+<p>Foundations with $1 million to $50 million in assets get far less attention than the giants. Our data suggests they deserve more:</p>
+<ul>
+  <li>Together they hold about <b>19%</b> of non-operating foundation assets, but pay about <b>23%</b> of grants, roughly <b>$24 billion</b> a year in their most recent filings.</li>
+  <li>Collectively, their grants equal about <b>7%</b> of their assets, compared with about <b>5%</b> for billion-dollar foundations.</li>
+  <li>Their median grants budget, $126,000 a year for a $1–10M foundation, is too small to support much paid staff. Many are run by family members, a trustee or a part-time administrator.</li>
+</ul>
+<p>That combination (meaningful money, little staff) explains a lot about how the middle behaves. These foundations often fund the same organizations year after year, accept few or no unsolicited proposals, and rely on personal networks and trusted signals to find new grantees. They don’t lack generosity. What they lack is capacity for research and diligence.</p>
+
+<h2>What it means</h2>
+<h3>For grantmakers</h3>
+<p>Most of your peers are small and lean. Tools, standards and benchmarks built for staffed institutions don’t fit them. The opportunity is giving mid-sized foundations the kind of research, diligence and monitoring a large foundation’s staff provides, without the staff.</p>
+<h3>For nonprofits</h3>
+<p>The middle is where much of the realistic opportunity sits. These foundations are numerous, spread across the country (California, New York, Texas, Florida, Pennsylvania and Illinois each have more than 5,900), and less crowded with applicants than the household names. But they’re reached through relationships and credibility, not cold applications. Your public record, starting with your Form 990, does a lot of the introducing.</p>
+
+<div class="ins-cta dark"><p><b>Explore the data:</b> Givalgo Discover profiles every U.S. private foundation, including assets, grants paid, who it funds and its peer funders. Search by cause, place and size.</p><a class="btn btn-primary btn-sm" href="https://discover.givalgo.ai">Open Discover <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div>
+
+<div class="ins-sources"><h4>Methodology</h4>
+<p>Counts and asset bands come from the IRS Exempt Organizations Business Master File (October 2026), foundation codes 02 and 03 (operating) and 04 (non-operating), using the asset amount reported to the IRS. Grant and distribution figures use each foundation’s most recent Form 990-PF filed for tax year 2022 or later (119,496 foundations): grants are “contributions, gifts, grants paid” and distributions are “qualifying distributions,” divided by year-end fair market value of assets. Medians exclude foundations reporting zero assets. Figures are rounded.</p></div>
+</article><div class="ins-share"><span>Share this piece</span><a class="btn btn-outline btn-sm" href="https://www.linkedin.com/sharing/share-offsite/?url=https://givalgo.ai/insights/inside-americas-private-foundations/" target="_blank" rel="noopener">Share on LinkedIn</a><button type="button" class="btn btn-outline btn-sm" onclick="copyLink(this)">Copy link</button></div></div></section><section class="sec sec-alt ins-more"><div class="container"><div class="eyebrow">MORE INSIGHTS</div><div class="ins-grid n2"><a class="ins-card" href="/insights/fincen-charity-abuse-notice-pre-payment-check/"><div class="ins-card-stat dark"><b>~4,000</b><span>grants in 2023 went to organizations already revoked</span></div><div class="ins-card-body"><div class="ins-tags"><span class="ins-tag">For grantmakers</span><span class="ins-tag">Compliance</span></div><h3>FinCEN just told banks how charities get abused. Here’s the check every grantmaker should run before the next payment.</h3><p>Treasury’s new notice is written for banks, but its red flags apply just as well to grantmakers. Our data shows how easy the simplest checks are to miss: thousands of grants a year go to organizations the IRS has already revoked.</p><div class="ins-card-meta"><span>November 4, 2026 · 5 min read</span><span class="ins-read">Read <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></div></div></a><a class="ins-card" href="/insights/your-990-is-your-first-impression/"><div class="ins-card-stat dark"><b>1 in 3</b><span>Form 990s leave the website field blank</span></div><div class="ins-card-body"><div class="ins-tags"><span class="ins-tag">For nonprofits</span><span class="ins-tag">Fundraising</span></div><h3>Your 990 is your first impression: what funders (and their software) read before they call you</h3><p>Long before a program officer replies to your email, someone, or something, has read your Form 990. Here’s what they look at, what raises questions and how to make sure your filing tells the same story you do.</p><div class="ins-card-meta"><span>November 4, 2026 · 5 min read</span><span class="ins-read">Read <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></div></div></a></div></div></section><section class="sec close" id="get-started"><div class="container"><h2>See what the data says about<br>the organizations you fund.</h2><div class="cta-row center"><a class="btn btn-primary" href="https://discover.givalgo.ai">Open Discover <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a class="btn btn-outline" href="https://www.linkedin.com/company/givalgo" target="_blank" rel="noopener">Follow us on LinkedIn</a></div><p class="hint">New pieces every month · Free to start, no card required</p></div></section></main>
+<footer class="footer" id="footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="logo" href="/" aria-label="Givalgo home"><svg viewBox="0 0 528.56 203.29" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Givalgo" focusable="false">
+<path fill="#ffffff" d="M227.9,102.11c.51,11.11-.72,21.55-8.91,29.69-9.89,9.84-21.94,12.55-35.21,8.98-12.96-3.48-21.38-12.19-24.79-25.01-3.41-12.84-2.2-25.34,6.11-36.37,5.01-6.65,11.76-10.69,19.93-12.31,12.12-2.4,23.2-.34,32.69,7.94,4.89,4.26,7.8,9.48,8.68,15.13-4.56,0-9.07.06-13.57-.07-.63-.02-1.47-.78-1.83-1.42-6.63-11.65-25.59-12.81-35.01-.98-7.32,9.2-6.98,28.64,3.89,37.13,11.57,9.04,27.68,4.72,32.74-9.03.29-.79.5-1.61.85-2.74h-18v-10.94h32.41Z"/>
+<path fill="#ffffff" d="M434.86,131.74c-6.19,7.61-13.99,9.39-22.59,7.01-8.78-2.43-14.65-8.36-16.49-17.43-1.92-9.5-1.38-18.75,5.15-26.71,5.54-6.76,16.54-10.13,24.65-6.91,3.53,1.4,6.47,4.27,9.6,6.42v-6.29h12.8c.09.67.27,1.38.27,2.1.03,15.06.19,30.13.02,45.19-.12,10.8-2.99,20.54-13.59,25.72-12.43,6.07-28.94,4.42-38.74-8.68,3.31-2.38,6.61-4.75,9.98-7.16,5.91,5.79,12.59,9.45,20.77,5.81,7.99-3.56,8.41-11.04,8.18-19.05ZM408.59,112.85c-.53,13.29,10.09,17.26,17.74,14.97,6.82-2.04,10.08-9.17,8.6-18.07-1.77-10.64-12.5-13.77-19.99-9.36-4.91,2.9-6.4,7.6-6.34,12.45Z"/>
+<path fill="#ffffff" d="M349.88,108.66c.74-5.88-1.54-9.54-6.55-10.8-7.26-1.83-11.91.53-14.58,7.49-2-.09-4.03-.1-6.06-.29-2.03-.19-4.05-.56-6.07-.85,1.23-10.44,8.18-16.78,20.25-17.78,7.42-.62,14.75.03,20.66,5.52,4.1,3.81,5.41,8.89,5.55,14.08.29,11.47.09,22.95.09,34.67h-12.54c-.19-1.91-.39-3.89-.59-5.94-7.03,7.73-20.44,9.39-29.16,3.52-5.44-3.66-6.4-9.24-5.8-15.22.48-4.78,3.11-8.13,7.52-10.12,6.75-3.05,14.02-3.22,21.2-3.88,2.03-.19,4.08-.26,6.07-.39ZM350.13,118.81c-2.54,0-4.61-.15-6.64.03-3.54.33-7.16.53-10.56,1.47-1.64.45-3.46,2.24-4.09,3.85-.84,2.16-.12,4.69,2.31,5.8,5.01,2.29,9.95,1.35,14.6-1.12,4.06-2.16,3.97-6.25,4.38-10.04Z"/>
+<path fill="#ffffff" d="M509.68,114.79c.77,15.19-12,27.72-27.96,27.46-14.76-.24-27.22-12-26.82-28.46.37-15.45,12.3-27.59,27.77-27.37,17.52.25,27.69,13.7,27.02,28.38ZM468.62,114.15c0,1.08-.06,2.17,0,3.25.35,5.58,4.01,10.27,9.35,12.03,5.16,1.71,11.46.1,14.8-3.93,3.59-4.33,3.84-9.43,3.24-14.74-.98-8.75-9.3-14.25-17.71-11.64-6.48,2.01-9.71,7-9.68,15.01Z"/>
+<path fill="#ffffff" d="M293.19,140.92c-4.64,0-9.19.07-13.72-.07-.73-.02-1.82-.78-2.08-1.46-6.67-17.03-13.24-34.1-20.06-51.73,4.72,0,8.98-.12,13.21.12.71.04,1.61,1.5,1.97,2.47,4.41,11.79,8.73,23.62,13.09,35.48,4.4-12.61,8.83-25.32,13.25-38.01h14.9c-6.88,17.81-13.69,35.44-20.56,53.21Z"/>
+<path fill="#ffffff" d="M387.04,140.77h-13.26v-74.53h13.26v74.53Z"/>
+<path fill="#ffffff" d="M250.38,140.77h-13.27v-52.93h13.27v52.93Z"/>
+<path fill="#ffffff" d="M243.8,81.74c-5.66.61-8.57-4.27-8.62-7.93-.06-4.59,4.06-8.39,8.88-8.34,4.4.04,8.21,3.84,8.3,8.27.1,4.61-3.55,8.02-8.56,8.01Z"/>
+<path fill="#00848b" d="M70.01,130.83c-3.61,0-6.95-.74-10-2.23-3.06-1.49-5.7-3.47-7.94-5.96-2.24-2.48-4-5.37-5.29-8.66-1.29-3.29-1.94-6.79-1.94-10.49s.65-7.06,1.94-10.35c1.29-3.29,3.05-6.2,5.29-8.73,2.24-2.53,4.91-4.51,8-5.96,3.1-1.44,6.45-2.17,10.07-2.17.89,0,31.32-.03,32.2.07v-28.5c-.92-.05-31.4,0-32.33,0-7.4,0-14.31,1.47-20.72,4.4-6.41,2.93-12.01,6.95-16.78,12.05-4.78,5.1-8.54,11.01-11.3,17.73-2.76,6.72-4.13,13.87-4.13,21.45s1.38,14.73,4.13,21.45c2.75,6.72,6.52,12.63,11.3,17.73,4.78,5.1,10.37,9.12,16.78,12.05,6.41,2.93,13.32,4.4,20.72,4.4,2.06,0,4.09-.12,6.09-.35v-28.71c-1.96.51-3.98.77-6.09.77Z"/>
+<path fill="#00b4b3" d="M106.34,103.47h-33.05l12.54,21.15c-1.86,1.7-3.9,3.07-6.12,4.1-1.17.55-2.38.99-3.62,1.35v-.02c-1.96.51-3.98.77-6.09.77-3.61,0-6.95-.74-10-2.23-.05-.02-.1-.05-.14-.07v29.61c3.27.65,6.66.98,10.15.98,2.06,0,4.09-.12,6.09-.35v-.03c5.21-.77,9.67-2.52,14.43-4.86,3.27-1.61,6.32-3.57,9.19-5.86l6.63,11.18v-55.72Z"/>
+</svg></a>
+      <p>Nonprofit intelligence for grantmakers. Available as the Discover app or as APIs.</p>
+    </div>
+    <div><h4>Products</h4><a href="https://discover.givalgo.ai">Discover</a><a href="/#apis">APIs</a><a href="/pricing/">Pricing</a></div>
+    <div><h4>Developers</h4><a href="https://docs.givalgo.ai/">API documentation</a><a href="https://docs.givalgo.ai/">Getting started</a><a href="#" onclick="openModal(); return false;">Book a demo</a></div>
+    <div><h4>Company</h4><a href="/insights/">Insights</a><a href="#" onclick="openModal(); return false;">Contact us</a><a href="/?page=privacy">Privacy policy</a><a href="https://www.linkedin.com/company/givalgo" target="_blank" rel="noopener">LinkedIn</a></div>
+  </div>
+  <div class="container footer-bottom">© 2026 Givalgo, Inc. All rights reserved. Data sourced from IRS public records.</div>
+</footer>
+</div>
+<script>
+  function openModal() {
+    document.getElementById('demoModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('demoModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('demoModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  function toggleMobileNav() {
+    var nav = document.getElementById('mobileNav');
+    var btn = document.getElementById('hamburger');
+    nav.classList.toggle('open');
+    btn.classList.toggle('open');
+  }
+  function closeMobileNav() {
+    document.getElementById('mobileNav').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
+
+  /* Hero search: Search vs Ask hands off to the matching Discover route. */
+  (function () {
+    var form = document.getElementById('heroSearch'); if (!form) return;
+    var input = document.getElementById('q'), hint = document.getElementById('searchHint');
+    var modes = {
+      search: { action: 'https://discover.givalgo.ai/search', ph: 'EIN, org name, keywords, or cause and location', hint: 'No account needed. 2 free searches, then sign up free. Opens in Discover.' },
+      ask:    { action: 'https://discover.givalgo.ai/ask',    ph: 'Ask in plain English: food banks in Chicago that got over $1M in grants', hint: 'Three free Asks a day, no account needed. Opens Discover, where a free account or Pro trial adds more.' }
+    };
+    form.querySelectorAll('.tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var m = modes[tab.getAttribute('data-mode')];
+        form.querySelectorAll('.tab').forEach(function (t) { t.classList.toggle('on', t === tab); t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
+        form.action = m.action; input.placeholder = m.ph; hint.textContent = m.hint; input.focus();
+      });
+    });
+    form.addEventListener('submit', function () {
+      if (window.GA_ENABLED && typeof gtag === 'function') {
+        gtag('event', 'to_discover', { link_url: form.action, link_text: 'hero search: ' + (input.value || '').trim().slice(0, 80) });
+      }
+    });
+  })();
+
+  /* Pricing: Monthly / Annual toggle for Discover Pro. */
+  (function () {
+    var tabs = document.querySelectorAll('.billing .tab'); if (!tabs.length) return;
+    var price = document.getElementById('proPrice'), note = document.getElementById('proNote');
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var annual = tab.getAttribute('data-billing') === 'annual';
+        tabs.forEach(function (t) { t.classList.toggle('on', t === tab); t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
+        price.textContent = annual ? '$20' : '$25';
+        note.textContent = annual ? 'Billed annually · 14-day free trial, no card' : 'Billed monthly · 14-day free trial, no card';
+      });
+    });
+  })();
+
+  /* Products menu: hover opens on desktop (CSS); click toggles for touch and keyboard. */
+  function closeMenus(except) {
+    document.querySelectorAll('.menu').forEach(function (m) { if (m !== except) { m.classList.remove('open'); m.querySelector('.menu-btn').setAttribute('aria-expanded', 'false'); } });
+  }
+  function toggleMenu(e, btn) {
+    var m = (btn || e.target).closest('.menu'); closeMenus(m);
+    var open = m.classList.toggle('open'); m.querySelector('.menu-btn').setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (e) e.stopPropagation();
+  }
+  (function () {
+    if (!document.querySelector('.menu')) return;
+    document.addEventListener('click', function (e) { if (!e.target.closest('.menu')) closeMenus(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenus(); });
+    document.querySelectorAll('.menu-panel a').forEach(function (a) { a.addEventListener('click', function () { closeMenus(); }); });
+  })();
+
+  /* Nav: navy over the hero, light once the hero has scrolled out. */
+  (function () {
+    var nav = document.getElementById('siteNav'), hero = document.querySelector('.hero, .uc-hero, .ins-hero'); if (!nav || !hero) return;
+    if (!('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (entries) {
+      nav.classList.toggle('light', !entries[0].isIntersecting);
+    }, { rootMargin: '-72px 0px 0px 0px', threshold: 0 }).observe(hero);
+  })();
+
+  /* Insights article: copy the page link. */
+  function copyLink(btn) {
+    var done = function () { btn.textContent = 'Link copied'; setTimeout(function () { btn.textContent = 'Copy link'; }, 2000); };
+    if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(done, function () {}); else done();
+  }
+
+  /* Close the demo modal on Escape or on a backdrop click. */
+  (function () {
+    var overlay = document.getElementById('demoModal'); if (!overlay) return;
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+  })();
+</script>
+</body>
+</html>

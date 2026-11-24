@@ -445,9 +445,6 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
 .ins-card.big .ins-card-meta { margin-top: 12px; }
 .ins-card.big .ins-card-stat { align-items: center; justify-content: center; text-align: center; }
 .ins-card.big .ins-card-stat span { max-width: none; }
-.ins-card.big .ins-card-body { align-items: center; text-align: center; }
-.ins-card.big .ins-tags { justify-content: center; }
-.ins-card.big .ins-card-meta { justify-content: center; }
 .ins-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .ins-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-teal); background: rgba(0,180,179,0.10); border-radius: 6px; padding: 4px 8px; }
 
